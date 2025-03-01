@@ -1,0 +1,158 @@
+/* Reset & General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Figtree', sans-serif;
+
+}
+
+body {
+    background-color: white;
+    color: #000;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    /*border-bottom: 1px solid #ddd;*/
+
+    width: 100%; /* Ensures full width */
+}
+
+.logo {
+    display: flex;
+    flex-shrink: 0;
+    width: 161.304px;
+    height: 94px;
+    flex-direction: column;
+    justify-content: center;
+    color: #000;
+    text-align: center;
+    font-family: Figtree;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 82.5px */
+    letter-spacing: 5.5px;
+    margin-right: 25px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    flex-grow: 1;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #555;
+}
+
+@media (max-width: 980px) {
+    .nav-links {
+        display: none; /* Hide navigation links */
+    }
+
+    .logo {
+        margin: 0px auto; /* Center horizontally */
+        text-align: center; /* Ensure text is centered */
+    }
+}
+
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    width: 150px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    display: block;
+    padding: 5px;
+}
+
+.dropdown-menu li:hover {
+    background: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+/* Hero Section */
+.hero {
+    align-self: stretch;
+    text-align: center;
+    padding: 48px 20px;
+    background: white;
+}
+
+.hero h1 {
+    font-size: 45px;
+    font-weight: 700;
+    font-family: Inter;
+    margin-bottom: 15px;
+    letter-spacing: 1.2px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.icon {
+    width: 20px; /* Adjust size */
+    height: 20px;
+    cursor: pointer;
+    object-fit: contain; /* Ensures the image scales properly */
+    color:#333
+}
+
+/* Icons */
+.icons {
+    display: flex;
+    gap: 20px;
+}
+
+.icons i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    color:#333
+}
+
+.icons i:hover {
+    color: #555;
+}
