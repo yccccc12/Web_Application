@@ -1,15 +1,13 @@
-<header class="header">
-    <nav class="navbar">
+<header>
+    <nav class="nav-bar">
         <!-- Hamburger Menu Icon -->
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
 
         <!-- Logo -->
-        <div class="logo">TUB</div>
+        <div class="logo"><a href="/Web_Application">TUB</a></div>
 
         <!-- Navigation Links -->
         <ul class="nav-menu">
-            <li><a href="index.php">Home</a></li>
-
             <li class="dropdown">
                 <a href="#">Mens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
@@ -43,9 +41,10 @@
         </ul>
 
         <div class="nav-icons">
-            <i class="ri-search-line"></i>
+            <a href="/Web_Application/user/login.php"><i class="ri-search-line"></i></a>
             <i class="ri-user-line"></i>
             <i class="ri-shopping-bag-line"></i>
         </div>
     </nav>
+    <hr class="divider">
 </header>
