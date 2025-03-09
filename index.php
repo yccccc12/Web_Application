@@ -34,7 +34,7 @@
 
     <section class="new-arrivals">
         <h2>New Arrivals</h2>
-        <div class="products-grid">
+        <section class="products-section">
             <div class="product">
                 <img src="img/item1.jpg" alt="Men Lightweight Hoodies Jacket">
                 <h3>Men Lightweight Hoodies Jacket</h3>
@@ -75,8 +75,8 @@
                 <h3>Women Polo Tee</h3>
                 <p>RM89.90</p>
             </div>
-        </div>
-        <button class="view-all">View all</button>
+        </section>
+        <button class="view-all-button">View all</button>
     </section>
 
     <div name="landing-image-container">
@@ -84,7 +84,7 @@
     </div>
 
     <section class="why-choose-section">
-        <div class="why-choose-text">
+        <div class="reason-description">
             <h2>Why Choose Us?</h2>
 
             <h3>Shop with Confidence</h3>

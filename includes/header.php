@@ -1,5 +1,5 @@
-<header class="header">
-    <nav class="navbar">
+<header>
+    <nav class="nav-bar">
         <!-- Hamburger Menu Icon -->
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
 
