@@ -4,7 +4,7 @@
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
 
         <!-- Logo -->
-        <div class="logo"><a href="index.php">TUB</a></div>
+        <div class="logo"><a href="/Web_Application">TUB</a></div>
 
         <!-- Navigation Links -->
         <ul class="nav-menu">
@@ -41,9 +41,10 @@
         </ul>
 
         <div class="nav-icons">
-            <i class="ri-search-line"></i>
+            <a href="/Web_Application/user/login.php"><i class="ri-search-line"></i></a>
             <i class="ri-user-line"></i>
             <i class="ri-shopping-bag-line"></i>
         </div>
     </nav>
+    <hr class="divider">
 </header>

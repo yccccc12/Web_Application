@@ -18,8 +18,6 @@
 <body>
     <?php include 'includes/header.php';?>
 
-    <hr class="divider">
-
     <section class="landing-section">
         <h1>Style Without Limits</h1>
         <p>
