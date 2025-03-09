@@ -4,12 +4,10 @@
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
 
         <!-- Logo -->
-        <div class="logo">TUB</div>
+        <div class="logo"><a href="index.php">TUB</a></div>
 
         <!-- Navigation Links -->
         <ul class="nav-menu">
-            <li><a href="index.php">Home</a></li>
-
             <li class="dropdown">
                 <a href="#">Mens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">

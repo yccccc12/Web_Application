@@ -11,10 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- REMIXICONS -->
+    <link rel="stylesheet" href="style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style/styles.css">
 </head>
 <body>
     <?php include 'includes/header.php';?>
@@ -107,5 +106,7 @@
             <img name="why-choose-image" src="img/landing3.jpg" alt="Fashion Banner">
         </div>
     </section>
+
+    <?php include 'includes/footer.php';?>
 </body>
 </html>
