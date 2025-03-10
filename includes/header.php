@@ -41,8 +41,8 @@
         </ul>
 
         <div class="nav-icons">
-            <a href="/Web_Application/user/login.php"><i class="ri-search-line"></i></a>
-            <i class="ri-user-line"></i>
+            <i class="ri-search-line"></i>
+            <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
             <i class="ri-shopping-bag-line"></i>
         </div>
     </nav>

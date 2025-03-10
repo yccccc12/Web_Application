@@ -15,21 +15,21 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../style/styles.css">
-    <link rel="stylesheet" href="../style/loginStyle.css">
+    <link rel="stylesheet" href="../style/login-signUpStyle.css">
 </head>
 <body>
     <?php include '../includes/header.php';?>
 
     <section class="login-section">
-        <h1 id=login>Login</h1>
-        <div class="BigContainer">
+        <h1 class="authentication-heading">Login</h1>
+        <div class="form-container">
 
-            <div class="container">
+            <div class="form-field">
                 <p>Email Address</p>
                 <input type="email" placeholder="Enter your email">
             </div>
 
-            <div class="container">
+            <div class="form-field">
                 <p>Password</p>
                 <input type="password" placeholder="Enter your password">
             </div>

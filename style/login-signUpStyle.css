@@ -4,63 +4,79 @@
     box-sizing: border-box;
     font-family: 'Figtree', sans-serif;
 }
-#signUp{
+
+/*============== Login Page and Sign Up Page ================ */
+.authentication-heading{
+    margin: 40px 0 40px;
     color: #000;
     text-align: center;
-    font-family: 'Figtree', sans-serif;
     font-size: 40px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%; 
-    margin-bottom: 20px;
 }
-.BigContainer {
-    width: 400px; /* Adjust width as needed */
-    margin: 0 auto; /* Centers horizontally */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centers vertically */
+
+.form-container {
+    width: auto; /* Adjust width as needed */
+    max-width: 445px;
+    margin: 35px auto 40px;
     display: flex;
     flex-direction: column;
     align-items: center; /* Aligns content to center */
     text-align: center; /* Ensures text alignment */
     gap: 15px; /* Adds space between elements */
-    margin-top: 40px; 
+    height: auto;
 }
 
-.FNameContainer, .LNameContainer,.EmailContainer,.PasswordContainer{
+.form-field {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start; /* Keeps labels aligned left */
 }
-.FNameContainer h2, .LNameContainer h2,.EmailContainer h2, .PasswordContainer h2 {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
+
+.form-field p {
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #333;
 }
+
 input {
-    font-family: 'Figtree', sans-serif;
     width: 100%;
     height: 40px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     font-size: 14px;
 }
+
 button {
-    font-family: 'Figtree', sans-serif;
-    width: 50%;
+    margin-top: 10px;
+    width: 30%;
     height: 45px;
     background-color: black;
     color: white;
     border: none;
-    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: 0.3s ease;
 }
 
 button:hover {
     background-color: #333;
+}
+
+.create-account {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.create-account a {
+    color: blue;
+    font-weight: bold;
+}
+
+.create-account a:hover {
+    text-decoration: underline;
 }
