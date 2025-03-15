@@ -25,13 +25,13 @@
 
         <div class="form-container">
             <div class="form-field">
-                <p>First Name</p>
-                <input type="FName" placeholder="Enter your first name">
+                <p>Name</p>
+                <input type="text" placeholder="Enter your full name">
             </div>
 
             <div class="form-field">
-                <p>Last Name</p>
-                <input type="LName" placeholder="Enter your last name">
+                <p>Phone Number</p>
+                <input type="tel" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" required>
             </div>
 
             <div class="form-field">
