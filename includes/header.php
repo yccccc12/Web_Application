@@ -1,4 +1,4 @@
-<header>
+<header id="default-header">
     <nav class="nav-bar">
         <!-- Hamburger Menu Icon -->
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
@@ -41,10 +41,11 @@
         </ul>
 
         <div class="nav-icons">
-            <i class="ri-search-line"></i>
             <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
             <i class="ri-shopping-bag-line"></i>
         </div>
+
+        <!-- Search Bar -->
     </nav>
     <hr class="divider">
 </header>

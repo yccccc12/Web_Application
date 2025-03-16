@@ -173,6 +173,8 @@ body {
     color: #555;
 }
 
+
+/* Main page section */
 [name="landing-image-container"] {
     display: flex;
     justify-content: center;

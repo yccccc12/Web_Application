@@ -1,3 +1,65 @@
+<?php
+    session_start();
+    
+    require_once '../classes/user.php';
+
+    // Initialize error messages and form values
+    $nameError = $phoneError = $emailError = $passwordError = $errorMessage = "";
+    $name = $phone = $email = $password = "";
+
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $user = new User();
+
+        $name = isset($_POST['name']) ? trim($_POST['name']) : "";
+        $phone = isset($_POST['phone']) ? trim($_POST['phone']) : "";
+        $email = isset($_POST['email']) ? trim($_POST['email']) : "";
+        $password = isset($_POST['password']) ? trim($_POST['password']) : "";
+
+        $valid = true;
+
+        // Backend Validation
+
+        // Jeason part - validatio for name
+        // example
+        if (empty($name)) {
+            $nameError = '<i class="ri-error-warning-fill"></i> Name is required.';
+            $valid = false;
+        }
+
+        // Jeason part - validation for phone 
+
+
+
+        if (empty($email)) {
+            $emailError = '<i class="ri-error-warning-fill"></i> Email is required.';
+            $valid = false;
+        } elseif ($user->isEmailExists($email)) {
+            $emailError = '<i class="ri-error-warning-fill"></i> Email is already registered.';
+            $valid = false;
+        }
+
+        if (empty($password)) {
+            $passwordError = '<i class="ri-error-warning-fill"></i> Password is required.';
+            $valid = false;
+        }
+
+         // If all validations pass, register the user
+        if ($valid) {
+            if ($user->register($name, $phone, $email, $password)) {
+                $_SESSION['user_email'] = $email; // Auto-login after sign-up
+                echo "<script>
+                        alert('Registered successfully! Redirecting to dashboard...');
+                        window.location.href = '/Web_Application';
+                      </script>";
+                exit();
+            } else {
+                $errorMessage = '<i class="ri-error-warning-fill"></i> Registration failed. Please try again.';
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -16,6 +78,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="../style/login-signUpStyle.css">
+
+    <!-- JavaScript -->
+    <script src="../user/validation.js"></script>
 </head>
 <body>
     <?php include '../includes/header.php';?>
@@ -23,28 +88,39 @@
     <section class="signUp-section">
         <h1 class="authentication-heading">Create Account</h1>
 
-        <div class="form-container">
+        <form id="signUp-form" class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <!-- Jea son part -->
             <div class="form-field">
                 <p>Name</p>
-                <input type="text" placeholder="Enter your full name">
+                <input type="text" id="name" name="name" placeholder="Enter your full name">
             </div>
 
+            <!-- Jea son part -->
             <div class="form-field">
                 <p>Phone Number</p>
-                <input type="tel" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" required>
+                <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}">
             </div>
 
             <div class="form-field">
                 <p>Email Address</p>
-                <input type="email" placeholder="Enter your email">
+                <input type="text" id="email" name="email" placeholder="Enter your email" oninput="validateEmail()" 
+                    value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+                <div id="emailError" class="error"><?php echo $emailError; ?></div>
             </div>
 
             <div class="form-field">
                 <p>Password</p>
-                <input type="password" placeholder="Enter your password">
+                <div class="password-input-container">
+                    <input type="password" id="password" name="password" placeholder="Enter your password"  oninput="validatePassword()">
+                    <button type="button" id="togglePassword">
+                        <i class="ri-eye-off-line"></i>
+                    </button>
+                </div>
+                <div id="passwordError" class="error"><?php echo $passwordError; ?></div>
             </div>
-            <button>Sign Up</button>
-        </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
     </section>
 
     <?php include '../includes/footer.php';?>
