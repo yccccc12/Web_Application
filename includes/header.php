@@ -9,7 +9,7 @@
         <!-- Navigation Links -->
         <ul class="nav-menu">
             <li class="dropdown">
-                <a href="#">Mens <i class="ri-arrow-down-s-line"></i></a>
+                <a href="/Web_Application/products/menProduct.php">Mens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Shirts</a></li>
                     <li><a href="#">Pants</a></li>
@@ -17,7 +17,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#">Womens <i class="ri-arrow-down-s-line"></i></a>
+                <a href="/Web_Application/products/womenProduct.php">Womens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Dresses</a></li>
                     <li><a href="#">Bags</a></li>
@@ -41,6 +41,7 @@
         </ul>
 
         <div class="nav-icons">
+            <a href="/Web_Application"><i class="ri-home-2-line"></i></a>
             <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
             <i class="ri-shopping-bag-line"></i>
         </div>

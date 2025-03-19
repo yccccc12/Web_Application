@@ -52,21 +52,28 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Define validation rules
-        const rules = [
-            { regex: /[A-Z]/, message: "At least one uppercase letter (A-Z)" },
-            { regex: /[a-z]/, message: "At least one lowercase letter (a-z)" },
-            { regex: /\d/, message: "At least one number (0-9)" },
-            { regex: /[\W_]/, message: "At least one special character (!, @, #, etc.)" },
-            { test: password.length >= 8, message: "At least 8 characters long" }
-        ];
+        // Check if this is a signup form
+        let isSignUp = document.getElementById("signUp-form") !== null;
 
-        // Check each rule and generate messages
-        passwordError.innerHTML = rules.map(rule => 
-            (rule.regex?.test(password) || rule.test) 
-                ? `<span class="valid">✅ ${rule.message}</span>` 
-                : `<span class="invalid">❌ ${rule.message}</span>`
-        ).join("<br>");
+        // If this is for signup
+        if(isSignUp)
+        {
+            // Define validation rules
+            const rules = [
+                { regex: /[A-Z]/, message: "At least one uppercase letter (A-Z)" },
+                { regex: /[a-z]/, message: "At least one lowercase letter (a-z)" },
+                { regex: /\d/, message: "At least one number (0-9)" },
+                { regex: /[\W_]/, message: "At least one special character (!, @, #, etc.)" },
+                { test: password.length >= 8, message: "At least 8 characters long" }
+            ];
+
+            // Check each rule and generate messages
+            passwordError.innerHTML = rules.map(rule => 
+                (rule.regex?.test(password) || rule.test) 
+                    ? `<span class="valid">✅ ${rule.message}</span>` 
+                    : `<span class="invalid">❌ ${rule.message}</span>`
+            ).join("<br>");
+        }
     }
 
     // Attach event listeners for real-time validation
@@ -110,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if(loginForm){
        loginForm.addEventListener("submit", function (event) {
             validateEmail();
-            validatePassword();
+            validatePassword(); // Enforce regex validation for signup
 
             // Prevent form submission if there are validation errors
             if (emailError.innerHTML.includes("❌") || passwordError.innerHTML.includes("❌") || emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
@@ -125,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // validateName();  -- To be done by Jea Sen --
             // validatePhone(); -- To be done by Jea Sen --
             validateEmail();
-            validatePassword();
+            validatePassword();  // No regex validation for login
 
             if (nameError.innerHTML.includes("❌") || phoneError.innerHTML.includes("❌") || emailError.innerHTML.includes("❌") || passwordError.innerHTML.includes("❌") ||
                 nameInput.value.trim() === "" || phoneInput.value.trim() === "" || emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
@@ -133,5 +140,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
 });
