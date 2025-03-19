@@ -1,0 +1,64 @@
+/*filter */
+.products-container {
+    max-width: 1450px; /* Match product section width */
+    margin: 0 auto; /* Center align */
+    padding: 20px; /* Ensure spacing */
+    box-sizing: border-box;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns filter to the left */
+    width: 100%; /* Ensures it matches product width */
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.filter-btn {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    color: #5A5A5A; /* Match breadcrumb color */
+    font-size: 16px; /* Match breadcrumb font size */
+    font-weight: 500; /* Keep consistency */
+    margin-right: 5px;
+}
+
+#color-filter, #size-filter {
+    font-size: 16px;
+    border: none;
+    background: none; /* Removes the default background */
+    color: #5A5A5A; /* Text color */
+    cursor: pointer;
+    outline: none; /* Removes the outline when clicked */
+}
+
+/* Add hover effect */
+#color-filter:hover, #size-filter:hover {
+    border-color: #888;
+    color: #000;
+}
+
+/* Add focus effect */
+#color-filter:focus, #size-filter:focus {
+    color: #000;
+}
+
+/*breadcrumb*/
+.breadcrumb {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #5A5A5A;
+}
+
+.breadcrumb a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color from .breadcrumb */
+    font-weight: 500;
+    display: inline; /* Ensure only the text is clickable */
+    padding-left: 55px;
+}
+
+.breadcrumb a:hover {
+    color: #000; /* Optional: Change color on hover */
+}
