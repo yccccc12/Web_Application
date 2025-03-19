@@ -20,14 +20,17 @@
 
         // Backend Validation
 
-        // Jeason part - validatio for name
-        // example
+
         if (empty($name)) {
             $nameError = '<i class="ri-error-warning-fill"></i> Name is required.';
             $valid = false;
         }
 
         // Jeason part - validation for phone 
+        if (empty($phone)) {
+            $phoneError = '<i class="ri-error-warning-fill"></i> Phone is required.';
+            $valid = false;
+        }
 
 
 
@@ -92,13 +95,15 @@
             <!-- Jea son part -->
             <div class="form-field">
                 <p>Name</p>
-                <input type="text" id="name" name="name" placeholder="Enter your full name">
+                <input type="text" id="name" name="name" placeholder="Enter your full name" oninput="validateName()">
+                <div id="nameError" class="error"><?php echo $nameError; ?></div>
             </div>
 
             <!-- Jea son part -->
             <div class="form-field">
                 <p>Phone Number</p>
-                <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}">
+                <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" oninput="validatePhone()">
+                <div id="phoneError" class="error"><?php echo $phoneError; ?></div>
             </div>
 
             <div class="form-field">

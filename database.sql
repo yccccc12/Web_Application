@@ -25,6 +25,7 @@ CREATE TABLE Products (
     image_url VARCHAR(255) NOT NULL,
     stock INT NOT NULL,
     category VARCHAR(20) NOT NULL,
+    colour VARCHAR (20) NOT NULL,
     CONSTRAINT Products_productID_pk PRIMARY KEY(productID)
 );
 

@@ -97,15 +97,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Jea Sen's part
     // ============ Name Validation =================
+    let nameInput = document.getElementById("name");
+    let nameError = document.getElementById("nameError");
+    
+    function validateName() {
+        let name = nameInput.value.trim();
+        nameError.innerHTML = ""; // Clear previous error
+        
+        // Define patterns for each requirement
+        let namePattern = /^[A-Za-z\s]{2,}$/;
 
+        if (name === "") {
+            nameError.innerHTML = '<i class="ri-error-warning-fill"></i> Name is required.';
+            return;
+        }
+        if (!namePattern.test(name)) {
+            nameError.innerHTML = '<span class="invalid">❌ Invalid name. Only letters and spaces allowed.</span>';
+            return;
+        }
+    
+        nameError.innerHTML = '<span class="valid">✅ Valid name</span>';
+    }
 
+    nameInput.addEventListener("input", validateName);
 
 
     // Jea Sen's part
     // ============ Phone Validation =================
+    let phoneInput = document.getElementById("phone");
+    let phoneError = document.getElementById("phoneError");
+    function validatePhone() {
+        let phone = phoneInput.value.trim();
+        phoneError.innerHTML = ""; // Clear previous error
 
+    // Phone format: 012-3456789 (3 digits - 7 digits)
+        let phonePattern = /^0\d{2}-\d{7}$/;
 
+        if (phone === "") {
+            phoneError.innerHTML = '<i class="ri-error-warning-fill"></i> Phone number is required.';
+            return;
+        }
 
+        if (!phonePattern.test(phone)) {
+            phoneError.innerHTML = '<span class="invalid">❌ Invalid phone format (e.g., 012-3456789)</span>';
+            return;
+        }
+
+        phoneError.innerHTML = '<span class="valid">✅ Valid phone number</span>';
+
+    }
+
+    phoneInput.addEventListener("input", validatePhone);
 
 
 
@@ -129,8 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============ Sign Up Form submission validation =================
     if(signUpForm){
         signUpForm.addEventListener("submit", function(event){
-            // validateName();  -- To be done by Jea Sen --
-            // validatePhone(); -- To be done by Jea Sen --
+            validateName();  
+            validatePhone(); 
             validateEmail();
             validatePassword();  // No regex validation for login
 
