@@ -1,4 +1,4 @@
-<header id="default-header">
+<header>
     <nav class="nav-bar">
         <!-- Hamburger Menu Icon -->
         <i class="ri-menu-line hamburger-icon" aria-label="Menu"></i>
@@ -9,7 +9,7 @@
         <!-- Navigation Links -->
         <ul class="nav-menu">
             <li class="dropdown">
-                <a href="/Web_Application/products/menProduct.php">Mens <i class="ri-arrow-down-s-line"></i></a>
+                <a href="/Web_Application/products.php?gender=men">Mens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Shirts</a></li>
                     <li><a href="#">Pants</a></li>
@@ -17,7 +17,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="/Web_Application/products/womenProduct.php">Womens <i class="ri-arrow-down-s-line"></i></a>
+                <a href="/Web_Application/products.php?gender=women">Womens <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
                     <li><a href="#">Dresses</a></li>
                     <li><a href="#">Bags</a></li>
@@ -34,7 +34,7 @@
             <li class="dropdown">
                 <a href="#">About <i class="ri-arrow-down-s-line"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Our Story</a></li>
+                    <li><a href="/Web_Application/about-us/our_story.php">Our Story</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
             </li>

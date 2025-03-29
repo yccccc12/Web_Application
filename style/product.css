@@ -2,7 +2,7 @@
 .products-container {
     max-width: 1450px; /* Match product section width */
     margin: 0 auto; /* Center align */
-    padding: 20px; /* Ensure spacing */
+    padding: 20px 0; /* Ensure spacing */
     box-sizing: border-box;
 }
 
@@ -11,10 +11,11 @@
     justify-content: flex-start; /* Aligns filter to the left */
     width: 100%; /* Ensures it matches product width */
     margin-bottom: 20px;
+    padding: 0 15px;
     gap: 5px;
 }
 
-.filter-btn {
+.filter-btn, .sort-btn {
     background: none; /* Remove background */
     border: none; /* Remove border */
     color: #5A5A5A; /* Match breadcrumb color */
@@ -23,7 +24,7 @@
     margin-right: 5px;
 }
 
-#color-filter, #size-filter {
+#color-filter, #size-filter, #sort-filter {
     font-size: 16px;
     border: none;
     background: none; /* Removes the default background */
@@ -33,13 +34,13 @@
 }
 
 /* Add hover effect */
-#color-filter:hover, #size-filter:hover {
+#color-filter:hover, #size-filter:hover, #sort-filter:hover {
     border-color: #888;
     color: #000;
 }
 
 /* Add focus effect */
-#color-filter:focus, #size-filter:focus {
+#color-filter:focus, #size-filter:focus, #sort-filter:focus {
     color: #000;
 }
 
@@ -61,4 +62,17 @@
 
 .breadcrumb a:hover {
     color: #000; /* Optional: Change color on hover */
+}
+
+.sort-container {
+    margin-left: auto; /* Push to the right */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.product-count {
+    margin-left: 5px;
+    color: #5A5A5A;
+    font-size: 16px;
 }
