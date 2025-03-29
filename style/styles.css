@@ -147,7 +147,7 @@ body {
 /* Landing Section */
 .landing-section {
     text-align: center;
-    padding: 48px 20px;
+    margin: 48px 0px;
 }
 
 .landing-section h1 {
@@ -161,7 +161,7 @@ body {
 .landing-section p {
     font-size: 18px;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 30px;
     line-height: 1.6;
 }
 
@@ -189,7 +189,7 @@ body {
 
 
 /* Main page section */
-[name="landing-image-container"] {
+.landing-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -211,7 +211,7 @@ body {
     font-family: Figtree;
     font-weight: 400;
     font-size: 28px;
-    margin-top: 135px;
+    margin-top: 68px;
     margin-bottom: 58px;
     padding: 40px auto;
     text-align: center;
@@ -225,6 +225,7 @@ body {
     row-gap: 58px;
     max-width: 1450px;
     margin: 0 auto;
+    padding: 0 15px;
 }
 
 /* Individual Product */
@@ -336,7 +337,7 @@ body {
     height: 635px;
 }
 
-[name="why-choose-image-container"] {
+.why-choose-image-container {
     display: flex;
     justify-content: center;
     align-items: center;

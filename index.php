@@ -24,11 +24,11 @@
             Welcome to TUB – where fashion meets confidence, and style has no limits. We create bold, trendsetting pieces designed for those who dare to stand out. 
             Explore the latest drops, discover timeless essentials, and redefine your wardrobe with us. Because fashion isn’t just what you wear – it’s how you own it.
         </p>
+        <div class="landing-image-container">
+            <img name="landing-image" src="img/landing.webp" alt="This is an image of models">
+        </div>
     </section>
 
-    <div name="landing-image-container">
-        <img name="landing-image" src="img/landing.webp" alt="This is an image of models">
-    </div>
 
     <section class="new-arrivals">
         <h2>New Arrivals</h2>
@@ -77,7 +77,7 @@
         <button class="view-all-button">View all</button>
     </section>
 
-    <div name="landing-image-container">
+    <div class="landing-image-container">
         <img name="landing-image" src="img/landing2.jpg" alt="This is an image of models">
     </div>
 
@@ -100,7 +100,7 @@
                 Discover our latest collection of trendy and comfortable clothing. Perfect for any occasion.
             </p>
         </div>
-        <div name="why-choose-image-container">
+        <div class="why-choose-image-container">
             <img name="why-choose-image" src="img/landing3.jpg" alt="Fashion Banner">
         </div>
     </section>
