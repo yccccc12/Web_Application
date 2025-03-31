@@ -18,10 +18,10 @@ CREATE TABLE Users (
 -- Product Table
 CREATE TABLE Products (
     productID INT AUTO_INCREMENT,
-    name VARCHAR(100) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     price DECIMAL(13,2) NOT NULL,
-    size CHAR(1) NOT NULL,
+    size CHAR(2) NOT NULL,
     image_url VARCHAR(255) NOT NULL,
     stock INT NOT NULL,
     category VARCHAR(20) NOT NULL,
@@ -69,3 +69,15 @@ CREATE TABLE OrderItems (
     CONSTRAINT OrderItems_orderID_fk FOREIGN KEY (orderID) REFERENCES Orders(orderID),
     CONSTRAINT OrderItems_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID)
 );
+
+-- Insert sample product
+INSERT INTO Products (name, description, price, size, image_url, stock, category, colour) 
+VALUES
+('Men Lightweight Hoodies Jacket', 'A comfortable and stylish lightweight hoodie.', 199.90, 'M', '../img/item1.jpg', 50, 'Men', 'Green'),
+('Men Oversized T-Shirt Short', 'Soft cotton oversized t-shirt for casual wear.', 159.90, 'XL', '../img/item2.jpg', 60, 'Men', 'Black'),
+('Men Bomber Jacket', 'Trendy bomber jacket perfect for all seasons.', 219.90, 'L', '../img/item3.jpg', 40, 'Men', 'Black'),
+('Men Oversized T-Shirt Short', 'A relaxed fit t-shirt in grey.', 159.90, 'M', '../img/item4.jpg', 55, 'Men', 'Grey'),
+('Women Long-Sleeve Sweatshirt', 'Comfortable and stylish long-sleeve sweatshirt.', 119.90, 'M', '../img/item5.jpg', 45, 'Women', 'Black'),
+('Women Oversized Denim Jacket', 'Trendy oversized denim jacket.', 169.90, 'S', '../img/item6.jpg', 30, 'Women', 'Blue'),
+('Women Crop Polo Tee', 'Casual crop polo tee for daily wear.', 109.90, 'L', '../img/item7.jpg', 40, 'Women', 'Black'),
+('Women Polo Tee', 'Classic polo tee with a relaxed fit.', 89.90, 'XL', '../img/item8.jpg', 50, 'Women', 'Black');

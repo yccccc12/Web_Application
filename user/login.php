@@ -62,9 +62,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="../style/login-signUpStyle.css">
-    
-    <!-- JavaScript -->
-    <script src="../user/validation.js"></script>
 </head>
 <body>
     <?php include '../includes/header.php';?>
@@ -99,5 +96,8 @@
     </section> 
     
     <?php include '../includes/footer.php';?>
+        
+    <!-- JavaScript -->
+    <script src="../user/validation.js"></script>
 </body>
 </html>

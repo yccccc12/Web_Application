@@ -20,18 +20,18 @@
 
         // Backend Validation
 
-
+        // validatio for name
+        // example
         if (empty($name)) {
             $nameError = '<i class="ri-error-warning-fill"></i> Name is required.';
             $valid = false;
         }
 
-        // Jeason part - validation for phone 
+        // validation for phone 
         if (empty($phone)) {
             $phoneError = '<i class="ri-error-warning-fill"></i> Phone is required.';
             $valid = false;
         }
-
 
 
         if (empty($email)) {
@@ -81,9 +81,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="../style/login-signUpStyle.css">
-
-    <!-- JavaScript -->
-    <script src="../user/validation.js"></script>
 </head>
 <body>
     <?php include '../includes/header.php';?>
@@ -92,14 +89,12 @@
         <h1 class="authentication-heading">Create Account</h1>
 
         <form id="signUp-form" class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-            <!-- Jea son part -->
             <div class="form-field">
                 <p>Name</p>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" oninput="validateName()">
                 <div id="nameError" class="error"><?php echo $nameError; ?></div>
             </div>
 
-            <!-- Jea son part -->
             <div class="form-field">
                 <p>Phone Number</p>
                 <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" oninput="validatePhone()">
@@ -129,5 +124,8 @@
     </section>
 
     <?php include '../includes/footer.php';?>
+    
+    <!-- JavaScript -->
+    <script src="../user/validation.js"></script>
 </body>
 </html>
