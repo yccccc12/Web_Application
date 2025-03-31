@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,25 +17,26 @@
 </head>
 <body>
     <?php include 'includes/header.php';?>
+
     <section class="landing-section">
         <h1>Style Without Limits</h1>
         <p>
             Welcome to TUB – where fashion meets confidence, and style has no limits. We create bold, trendsetting pieces designed for those who dare to stand out. 
             Explore the latest drops, discover timeless essentials, and redefine your wardrobe with us. Because fashion isn’t just what you wear – it’s how you own it.
         </p>
+        <div class="landing-image-container">
+            <img name="landing-image" src="img/landing.webp" alt="This is an image of models">
+        </div>
     </section>
 
-    <div name="landing-image-container">
-        <img name="landing" src="img/landing.jpg" alt="This is an image of models">
-    </div>
 
     <section class="new-arrivals">
         <h2>New Arrivals</h2>
         <section class="products-section">
-                <div class="product" data-color="Green" data-size="M">
+            <div class="product">
                 <img src="img/item1.jpg" alt="Men Lightweight Hoodies Jacket">
                 <h3>Men Lightweight Hoodies Jacket</h3>
-                <p>RM19.90</p>
+                <p>RM199.90</p>
             </div>
             <div class="product">
                 <img src="img/item2.jpg" alt="Men Oversized T-Shirt Short">
@@ -75,10 +77,9 @@
         <button class="view-all-button">View all</button>
     </section>
 
-    <div name="landing-image-container">
-        <img name="landing2" src="img/landing2.jpg" alt="This is an image of models">
+    <div class="landing-image-container">
+        <img name="landing-image" src="img/landing2.jpg" alt="This is an image of models">
     </div>
-
 
     <section class="why-choose-section">
         <div class="reason-description">
@@ -99,11 +100,11 @@
                 Discover our latest collection of trendy and comfortable clothing. Perfect for any occasion.
             </p>
         </div>
-        <div name="why-choose-image-container">
+        <div class="why-choose-image-container">
             <img name="why-choose-image" src="img/landing3.jpg" alt="Fashion Banner">
         </div>
     </section>
+
     <?php include 'includes/footer.php';?>
 </body>
-
 </html>
