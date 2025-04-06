@@ -33,29 +33,33 @@ class User {
 
     public function login($email, $password) {
         // Prepare statement
-        $stmt = $this->conn->prepare("SELECT password FROM users WHERE BINARY email = ?"); // BINARY means case sensitive
+        $stmt = $this->conn->prepare("SELECT userID, name, email, phone, birthday, gender, password FROM users WHERE BINARY email = ?"); // Fetch additional fields
         $stmt->bind_param("s", $email);
         
         // Execute the statement and fetch the result
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($storedPassword);
+        $stmt->bind_result($id, $name, $email, $phone, $birthday, $gender, $storedPassword);
         
         // Check if a result was returned (email exists)
         if ($stmt->num_rows > 0) {
-            $stmt->fetch(); // Fetch the password hash
-            
+            $stmt->fetch(); // Fetch the user details
+
             // Verify the password
             if (password_verify($password, $storedPassword)) {
-                return true; // Correct password
-            } else {
-                $stmt->close();
-                return false; // Incorrect password
+                // Return user details including birthday and gender
+                return [
+                    'id' => $id,
+                    'name' => $name,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'birthday' => $birthday,
+                    'gender' => $gender
+                ];
             }
-        } else {
-            $stmt->close();
-            return false; // No user found
-        }   
+        }
+        $stmt->close();
+        return false; // No user found or incorrect password
     }
 
     public function isEmailExists($email){
@@ -66,6 +70,27 @@ class User {
         $stmt->fetch();
 
         return $count > 0; // Return true if email exists, false otherwise
+    }
+
+    // New method to get user details by ID
+    public function getUserById($userID) {
+        $stmt = $this->conn->prepare("SELECT userID, name, email, phone, birthday, gender FROM users WHERE userID = ?");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+
+        return $user; // Returns an associative array of user details
+    }
+
+    // New method to update user info
+    public function updateUserInfo($userID, $name, $phone, $email, $birthday, $gender) {
+        $stmt = $this->conn->prepare("UPDATE users SET name = ?, phone = ?, email = ?, birthday = ?, gender = ? WHERE userID = ?");
+        $stmt->bind_param("sssssi", $name, $phone, $email, $birthday, $gender, $userID);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
 
     public function __destruct() {
