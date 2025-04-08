@@ -1,5 +1,7 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     require_once '../classes/user.php';
 
@@ -30,12 +32,19 @@
 
         // If valid, try to log the user in
         if ($valid) {
-            if ($user->login($email, $password)) {
-                $_SESSION['user_email'] = $email;
-                echo "<script>
-                        alert('Login successfully! Redirecting to dashboard...');
+            $loggedInUser = $user->login($email, $password); // Fetch user details from login function
+
+            if ($loggedInUser) {
+                // Store user details in session
+                $_SESSION['user_id'] = $loggedInUser['id'];
+                $_SESSION['user_name'] = $loggedInUser['name'];
+                $_SESSION['user_email'] = $loggedInUser['email'];
+
+                /*echo "<script>
+                        alert('Login successful! Redirecting to home page...');
                         window.location.href = '/Web_Application';
-                      </script>";
+                    </script>";*/
+                header("Location: /Web_Application");
                 exit();
             } else {
                 $passwordError = '<i class="ri-error-warning-fill"></i> Invalid password.';
@@ -46,7 +55,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

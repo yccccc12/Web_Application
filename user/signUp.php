@@ -53,7 +53,7 @@
                 $_SESSION['user_email'] = $email; // Auto-login after sign-up
                 echo "<script>
                         alert('Registered successfully! Redirecting to dashboard...');
-                        window.location.href = '/Web_Application';
+                        window.location.href = '/Web_Application/user/login';
                       </script>";
                 exit();
             } else {
@@ -65,7 +65,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

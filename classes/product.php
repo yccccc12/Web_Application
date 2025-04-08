@@ -8,19 +8,86 @@ class Product {
         $this->conn = Database::connect();
     }
 
-    // Fetch all products
     public function getAllProducts() {
-        $sql = "SELECT productID, name, description, price, size, image_url, stock, category, colour FROM products";
+        $sql = "
+            SELECT 
+                p.productID,
+                p.name,
+                p.description,
+                p.price,
+                p.category,
+                p.colour,
+                pi.imageID,
+                pi.image_url,
+                pi.image_type,
+                pv.variantID,
+                pv.size,
+                pv.stock
+            FROM Products p
+            LEFT JOIN ProductImages pi ON p.productID = pi.productID
+            LEFT JOIN ProductVariants pv ON p.productID = pv.productID
+        ";
+    
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         $products = [];
         while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
+            $productID = $row['productID'];
+    
+            // Initialize product if not already added
+            if (!isset($products[$productID])) {
+                $products[$productID] = [
+                    'productID' => $row['productID'],
+                    'name' => $row['name'],
+                    'description' => $row['description'],
+                    'price' => $row['price'],
+                    'category' => $row['category'],
+                    'colour' => $row['colour'],
+                    'images' => [],
+                    'variants' => []
+                ];
+            }
+    
+            if ($row['imageID']) {
+                $imageExists = false;
+                foreach ($products[$productID]['images'] as $image) {
+                    if ($image['imageID'] === $row['imageID']) {
+                        $imageExists = true;
+                        break;
+                    }
+                }
+                if (!$imageExists) {
+                    $products[$productID]['images'][] = [
+                        'imageID' => $row['imageID'],
+                        'image_url' => $row['image_url'],
+                        'image_type' => $row['image_type']
+                    ];
+                }
+            }
+            
+            // Add variant if it exists and is not already added
+            if ($row['variantID']) {
+                $variantExists = false;
+                foreach ($products[$productID]['variants'] as $variant) {
+                    if ($variant['variantID'] === $row['variantID']) {
+                        $variantExists = true;
+                        break;
+                    }
+                }
+                if (!$variantExists) {
+                    $products[$productID]['variants'][] = [
+                        'variantID' => $row['variantID'],
+                        'size' => $row['size'],
+                        'stock' => $row['stock']
+                    ];
+                }
+            }
         }
-
-        return $products;
+    
+        // Re-index the array to return a sequential array of products
+        return array_values($products);
     }
 
     // Fetch a single product by ID

@@ -1,3 +1,9 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <header>
     <nav class="nav-bar">
         <!-- Hamburger Menu Icon -->
@@ -42,7 +48,16 @@
 
         <div class="nav-icons">
             <a href="/Web_Application"><i class="ri-home-2-line"></i></a>
-            <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
+            
+            <?php if (isset($_SESSION['user_email'])): ?>
+                <!-- Show Personal Info if logged in -->
+                <a href="/Web_Application/profile/personalInfo.php"><i class="ri-user-line"></i> </a>
+            <?php else: ?>
+            
+                <!-- Show Login if not logged in -->
+                <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
+            <?php endif; ?>
+
             <i class="ri-shopping-bag-line"></i>
         </div>
 
