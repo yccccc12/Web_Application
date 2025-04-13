@@ -1,0 +1,645 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Figtree, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: #000;
+}
+
+/* =================== Header ===============*/
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    max-width: 1200px; /* Limit width for larger screens */
+    margin: 0 auto; /* Center the navigation */
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    width: 161px;
+    height: 94px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 55px;
+    font-weight: 400;
+    line-height: 150%; /* 82.5px */
+    letter-spacing: 5.5px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+
+.logo a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    flex-grow: 1;
+}
+
+.nav-menu li {
+    position: relative;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: #555;
+    text-decoration: underline;
+}
+
+/* ================ For Smaller Dimension Viewport =============== */
+/* Hamburger Menu Icon */
+.hamburger-icon {
+    display: none; 
+    font-size: 24px; 
+    color: #333; 
+    cursor: pointer; 
+    transition: color 0.3s ease;
+}
+
+.hamburger-icon:hover {
+    color: #000; 
+}
+@media (max-width: 980px) {
+    
+    .nav-menu {
+        display: none; /* Hide navigation links */
+    }
+
+    .logo {
+        margin: 0 auto;
+    }
+
+    /* Add a hamburger menu icon */
+    .hamburger-icon {
+        display: block;
+    }
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    width: 300px;
+    height: auto;
+    flex-shrink: 0;
+    opacity: 0;
+    text-align: left;
+    visibility: hidden;
+    transform: translateY(10px); /* Slightly move up */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+}
+
+.dropdown-menu li {
+    list-style: none;
+    padding: 8px;
+    border-bottom : none
+}
+
+.dropdown-menu li a {
+    color: #5A5A5A;
+    font-family: Inter, sans-serif; /* Add fallback font */
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 30px */
+    text-decoration: none; 
+    display: block;
+    padding: 28px 10px 15px 28px;
+}
+
+
+.dropdown-menu li:hover {
+    background: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.divider {
+    border: 1px solid #ccc; /* Light gray solid line */
+}
+
+
+/* Landing Section */
+.landing-section {
+    text-align: center;
+    margin: 48px 0px;
+}
+
+.landing-section h1 {
+    font-size: 45px;
+    font-weight: 700;
+    font-family: Inter;
+    margin-bottom: 15px;
+    letter-spacing: 1.2px;
+}
+
+.landing-section p {
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+/* Icons */
+.nav-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-icons a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-icons i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    color:#333
+}
+
+.nav-icons i:hover {
+    color: #555;
+}
+
+
+/* Main page section */
+.landing-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 838px; /* Keeps the height fixed */
+    overflow: hidden; /* Prevents unwanted scrolling inside */
+    position: relative; /* Relative positioning to stick to the element above */
+    z-index: 1; /* Ensures it stays above other content */
+}
+
+[name="landing-image"] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures full coverage without distortion */
+}
+
+/* New arrivals items*/
+.new-arrivals h2 {
+    font-family: Figtree;
+    font-weight: 400;
+    font-size: 28px;
+    margin-top: 68px;
+    margin-bottom: 58px;
+    padding: 40px auto;
+    text-align: center;
+}
+
+/* Product Grid */
+.products-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+    gap: 20px;
+    row-gap: 58px;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Individual Product */
+
+.product {
+    text-align: center;
+}
+
+.product img {
+    width: 100%;
+    max-width: 340px; /* Restrict image width */
+    height: auto;
+    border-radius: 5px;
+}
+.product h3 {
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.product p {
+    font-size: 15px;
+    font-weight: 500;
+    color: gray;
+    text-align: left;
+}
+
+/* =====================PRODUCT DETAILS AND IMAGE DESIGN==================== */
+.product-details-container{ 
+    display:flex;
+}
+
+.product-details {
+    display: flex; /* Arrange image and details side by side */
+    align-items: center; /* Align items vertically */
+    gap: 20px; /* Space between image and details */
+    margin: 20px 0; /* Center the section */
+    padding: 20px;
+}
+
+.product-details img {
+    max-width: 300px; /* Set max width for image */
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    margin: 0; /* Ensure no extra margin on the bottom */
+}
+
+.product-info {
+    margin-left:auto;
+}
+
+.product-title{
+    font-size: 20px; /* Larger font for title */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-price{
+    font-size:30px;
+    text-align: left;
+    padding-top:10px;
+}
+
+.product-colour{
+    text-align:left;
+}
+
+/* =================== BUTTON FOR PRODUCT DETAILS ====================*/
+.size-label {
+    font-weight:bold;
+    padding:15px 0;
+    text-align:left;
+}
+
+.size-btn {
+    padding: 10px 15px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 20px;
+    width:70px;
+}
+
+.size-btn.active {
+    background-color: black;
+    color: white;
+}
+
+.colour-label{
+
+    font-weight:bold;
+    padding:15px 0;
+    text-align:left;
+}
+
+.colour-btn{
+    color: white;
+    padding: 12px 15px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: black;
+    border-radius: 20px;
+    width:70px;
+}
+
+/* =================== SHORT DESCRIPTION ====================*/
+.description-label{
+    font-weight:bold;
+    padding:20px 0;
+    text-align:left;
+}
+
+.product-description{
+    text-align:left;
+}
+
+/* =========================== Quantity Button ================ */
+.quantity-section-container {
+    padding: 20px 0px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center; /* Align the number inside the quantity box to the left */
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.quantity-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-box {
+    display: flex;
+    
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    user-select: none;
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 16px;
+}
+
+.quantity-btn:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center; /* This aligns the number */
+    border: none;
+    font-size: 16px;
+    outline: none;
+    appearance: textfield;
+}
+
+/* Hide number input arrows */
+.quantity-input::-webkit-inner-spin-button, 
+.quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/*==================== Add to cart/ buy now button ==========*/
+
+.add-to-cart-btn, .checkout-btn {
+    display: inline-block;
+    padding: 10px 50px;
+    margin: 10px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;   
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center; 
+    width: 200px; 
+}
+.add-to-cart-btn:hover, .checkout-btn:hover {
+    transform: scale(1.05);
+}
+
+.add-to-cart-btn:active, .checkout-btn:active {
+    transform: scale(0.95);
+}
+
+/*=====================Cart==================*/
+.cart-item {
+    padding: 30px;
+}
+.product-display {
+    display: flex;
+    gap: 10px;
+}
+
+.product-img {
+    width: 25%;
+    border-radius: 6px;
+}
+
+.product-info{
+    flex:1;
+}
+.product-info p{
+    text-align: left;
+}
+
+/* View All Button */
+.view-all-button {
+    display: block;
+    margin: 20px auto;
+    margin-bottom: 60px;
+    margin-top: 60px;
+    text-align: center;
+    background: black;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.view-all-button:hover {
+    background: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .products-section {
+        grid-template-columns: repeat(2, 1fr); /* 2 items per row on tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .products-section {
+        grid-template-columns: repeat(3, 1fr); /* 1 item per row on mobile */
+    }
+}
+
+/* Why Choose Section */
+.why-choose-section {
+    margin: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+    padding: 20px;
+}
+
+.reason-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.reason-description h2, h3, p {
+    text-align: center;
+}
+.reason-description h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.reason-description h3 {
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.reason-description p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: auto;
+}
+
+.why-choose-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.why-choose-image-container img {
+    max-width: 100%;
+    height: 635px;
+}
+
+.why-choose-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 635px; /* Keeps the height fixed */
+    overflow: hidden; /* Prevents unwanted scrolling inside */
+    position: relative; /* Relative positioning to stick to the element above */
+    z-index: 1; /* Ensures it stays above other content */
+}
+
+[name="why-choose-image"] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures full coverage without distortion */
+}
+
+@media (max-width: 768px) {
+    .why-choose-section {
+        grid-template-columns: 1fr; /* Switch to a single column */
+    }
+
+    .reason-description {
+        padding-right: 0; /* Remove padding on smaller screens */
+        text-align: center; /* Center text for better readability */
+    }
+
+    .why-choose-image-container {
+        order: -1; /* Move the image above the text */
+    }
+}
+
+/*==================== Footer ==================*/
+.footer-content{
+    display: flex;
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    justify-content: center;
+    background-color: #f0f0f0; 
+}
+
+.footer-section{
+    width: 100%;
+    max-width: 608px;
+    justify-content: space-between;
+    display: flex;
+    padding: 30px 0;
+
+}
+
+.section{
+    display: flex;
+    justify-content: space-between; /* Spaces the sections evenly */
+    align-items: start; /* Aligns items at the top */
+    width: auto;
+    margin: 0 auto;
+    gap: 20px;
+    color: #454545;
+}
+
+.section ul{
+    list-style: none;
+}
+
+.section li{
+    margin-bottom: 14px;
+    font-size: 14px;
+}
+
+.section i{
+    font-size: 24px;
+    margin-right: 6px;
+}
+
+.section-heading{
+    color: black;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.copyright{
+    font-size: small;
+    text-align: center;
+    color:#555;
+    margin: 32px 0px 32px;
+}
+
+.footer-icons{
+    width: auto;
+    justify-content: space-between;
+    display: flex;
+}
