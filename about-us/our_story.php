@@ -9,11 +9,12 @@
     <!-- Google Font: Figtree -->
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- REMIXICONS -->
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         .video-container {
             position: relative;
@@ -117,7 +118,6 @@
             font-size: 16px;
             line-height: 1.5;
         }
-
     </style>
 </head>
 <body>
@@ -134,7 +134,7 @@
         </div>
     </div>
 
-    <section class="why-choose-section">
+    <section class="why-choose-section" id="why-choose-section" data-aos="fade-up" data-aos-duration="2500">
         <div class="why-choose-image-container">
             <img name="why-choose-image" src="../img/story.jpg" alt="Our Story Banner">
         </div>
@@ -152,6 +152,10 @@
         </div>
     </section>
 
+    <script>
+        AOS.init()
+    </script>
+    
     <?php include '../includes/footer.php';?>
 </body>
 </html>

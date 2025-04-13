@@ -17,28 +17,6 @@ $gender = $_POST['gender'];
 // $conn = Database::connect();
 $user = new User();
 
-/*
-// Check if email already exists (excluding the current user's email)
-$stmt = $conn->prepare("SELECT userID FROM users WHERE email = ? AND userID != ?");
-$stmt->bind_param("si", $email, $user_id);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows > 0) {
-    header("Location: EditProfile.php?status=email_exists");
-    exit;
-}
-$stmt->close();
-
-
-// Update user details including email
-
-$stmt = $conn->prepare("UPDATE users SET name = ?, phone = ?, email = ?, birthday = ?, gender = ? WHERE userID = ?");
-$stmt->bind_param("sssssi", $name, $phone, $email, $birthday, $gender, $user_id);
-$success = $stmt->execute();
-$stmt->close();
-*/
-
 $success = $user->updateUserInfo($user_id, $name, $phone, $email, $birthday, $gender);
 // Database::close();
 

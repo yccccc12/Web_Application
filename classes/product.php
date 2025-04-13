@@ -89,6 +89,85 @@ class Product {
         // Re-index the array to return a sequential array of products
         return array_values($products);
     }
+    
+    public function getAProduct($id) {
+        $sql = "
+            SELECT 
+                p.productID,
+                p.name,
+                p.description,
+                p.price,
+                p.category,
+                p.colour,
+                pi.imageID,
+                pi.image_url,
+                pi.image_type,
+                pv.variantID,
+                pv.size,
+                pv.stock
+            FROM Products p
+            LEFT JOIN ProductImages pi ON p.productID = pi.productID
+            LEFT JOIN ProductVariants pv ON p.productID = pv.productID
+            WHERE p.productID = ?
+        ";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $product = null;
+        while ($row = $result->fetch_assoc()) {
+            if (!$product) {
+                $product = [
+                    'productID' => $row['productID'],
+                    'name' => $row['name'],
+                    'description' => $row['description'],
+                    'price' => $row['price'],
+                    'category' => $row['category'],
+                    'colour' => $row['colour'],
+                    'images' => [],
+                    'variants' => []
+                ];
+            }
+    
+            if ($row['imageID']) {
+                $imageExists = false;
+                foreach ($product['images'] as $image) {
+                    if ($image['imageID'] === $row['imageID']) {
+                        $imageExists = true;
+                        break;
+                    }
+                }
+                if (!$imageExists) {
+                    $product['images'][] = [
+                        'imageID' => $row['imageID'],
+                        'image_url' => $row['image_url'],
+                        'image_type' => $row['image_type']
+                    ];
+                }
+            }
+            
+            if ($row['variantID']) {
+                $variantExists = false;
+                foreach ($product['variants'] as $variant) {
+                    if ($variant['variantID'] === $row['variantID']) {
+                        $variantExists = true;
+                        break;
+                    }
+                }
+                if (!$variantExists) {
+                    $product['variants'][] = [
+                        'variantID' => $row['variantID'],
+                        'size' => $row['size'],
+                        'stock' => $row['stock']
+                    ];
+                }
+            }
+        }
+    
+        return $product;
+    }
 
     // Fetch a single product by ID
     public function getProductById($id) {

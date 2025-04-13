@@ -93,7 +93,7 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
             <div class="card">
                 <h2>Edit Profile</h2>
                 <br>
-                <form id="editProfileForm" action="updateProfile.php" method="POST">
+                <form id="editProfile-form" action="updateProfile.php" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" oninput="validateName()">
@@ -109,7 +109,6 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" readonly>
-                        <div id="emailError" class="error"></div>
                     </div>
 
                     <div class="form-group">
@@ -141,6 +140,6 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
 
     <?php include '../includes/footer.php';?>
     <!-- JavaScript -->
-    <script src="editProfileValidation.js"></script>
+    <script src="../user/validation.js"></script>
 </body>
 </html>
