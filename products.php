@@ -3,7 +3,6 @@
 $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,15 +70,16 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
             let container = document.querySelector(".products-section");
             container.innerHTML = "";
 
+            // Filter products dynamically based on category
             const filteredProducts = category === "all" 
                 ? products 
-                : products.filter(product => product.category.toLowerCase() === category.toLowerCase());
-
+                : products.filter(product => product.category.toLowerCase()[0] === category.toLowerCase()[0]);
+            
             filteredProducts.forEach(product => {
                 let productHTML = `
-                    <div class="product" data-color="${product.colour}" data-size="${product.size}">
+                    <div class="product" data-color="${product.colour}" data-size='${JSON.stringify(product.variants.map(variant => variant.size))}'>
                         <a href="product_details.php?id=${product.productID}">
-                            <img src="img/${product.image_url}" alt="${product.name}">
+                            <img src="img/${product.images[0]['image_url']}" alt="${product.name}">
                         </a>
                         <h3>${product.name}</h3>
                         <p>RM${product.price}</p>
@@ -103,7 +103,7 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
             sizeFilter.innerHTML = '<option value="All">All Sizes</option>';
             
             let colors = [...new Set(filteredProducts.map(p => p.colour))];
-            let sizes = [...new Set(filteredProducts.map(p => p.size))];
+            let sizes = [...new Set(filteredProducts.flatMap(p => p.variants.map(variant => variant.size)))];
             
             colors.forEach(color => {
                 colorFilter.innerHTML += `<option value="${color}">${color}</option>`;
@@ -119,16 +119,20 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
             let selectedSize = document.getElementById("size-filter").value;
             let selectedSort = document.getElementById("sort-filter").value;
             let products = document.querySelectorAll(".product");
+
             let count = 0;
 
             let sortedProducts = Array.from(products).map(product => {
                 let productColor = product.getAttribute("data-color") || "All";
-                let productSize = product.getAttribute("data-size") || "All";
+                let productSize = product.getAttribute("data-size") || "[]";
+
                 let productName = product.querySelector("h3").textContent.toLowerCase();
                 let productPrice = parseFloat(product.querySelector("p").textContent.replace("RM", "").trim());
 
+                // Parse sizes from JSON string
+                let sizes = JSON.parse(productSize);
                 let colorMatch = (selectedColor === "All" || productColor === selectedColor);
-                let sizeMatch = (selectedSize === "All" || productSize === selectedSize);
+                let sizeMatch = (selectedSize === "All" || sizes.includes(selectedSize));
 
                 let isVisible = colorMatch && sizeMatch;
                 product.style.display = isVisible ? "block" : "none";
@@ -137,6 +141,7 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
 
                 return { product, name: productName, price: productPrice, isVisible };
             });
+
 
             // Sort the visible products
             sortedProducts.sort((a, b) => {
