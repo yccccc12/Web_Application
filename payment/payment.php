@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../classes/product.php'; // Include your Product class
-require_once '../classes/Order.php';   // Include your Order class
+require_once '../classes/order.php';   // Include your Order class
 
 // Retrieve cart and total price from session
 $cart = $_SESSION['cart'] ?? [];
