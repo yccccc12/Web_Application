@@ -212,8 +212,18 @@ class Product {
         return $success;
     }
 
+    public function getProductVariant($productID, $size) {
+        $sql = "SELECT stock FROM ProductVariants WHERE productID = ? AND size = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("is", $productID, $size);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public function __destruct() {
-        Database::close();
+        // Remove the call to Database::close()
+        // Let the database connection remain open for the script lifecycle
     }
 }
 ?>

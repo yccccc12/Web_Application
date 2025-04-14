@@ -1,5 +1,4 @@
-
-/* =================== Personal Info ===============*/
+/* =================== General Layout =============== */
 .container {
     display: flex;
     height: auto;
@@ -24,6 +23,11 @@
     font-weight: bold;
 }
 
+.sidebar a[style*="font-weight: bold;"] {
+    font-weight: bold;
+    color: black;
+}
+
 .content {
     flex: 1;
     display: flex;
@@ -44,6 +48,7 @@
     margin-top: 0;
 }
 
+/* =================== Personal Info =============== */
 .info-table {
     width: 100%;
     border-collapse: collapse;
@@ -60,14 +65,60 @@
 }
 
 @media (max-width:768px) {
-    .content{
+    .content {
         padding: 25px;
     }
 
-    .sidebar{
+    .sidebar {
         padding: 10px;
     }
-    
+}
+
+/* =================== Order History =============== */
+.order-history-container {
+    background: white;
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+}
+
+.order-history-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-history-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-history-container th,
+.order-history-container td {
+    text-align: left; /* Align both headers and data to the left */
+    padding: 10px 5px; /* Match padding with personalInfo table */
+    border-bottom: 1px solid #ddd;
+}
+
+.order-history-container th {
+    font-weight: bold;
+    background-color: #f4f4f4;
+    color: #333;
+    width: 150px; /* Ensure consistent column width */
+    white-space: nowrap; /* Prevent text wrapping in headers */
+}
+
+.order-history-container td {
+    color: #555;
+    word-wrap: break-word; /* Prevent text overflow */
+}
+
+.order-history-container p {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
 }
 
 /* =================== Edit Profile ===============*/

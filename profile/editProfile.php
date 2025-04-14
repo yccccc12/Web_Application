@@ -85,7 +85,7 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
         <div class="sidebar">
             <a href="personalInfo.php">Personal Info</a>
             <a href="EditProfile.php" style="font-weight: bold;">| Edit Profile</a>
-            <a href="#">Order History</a>
+            <a href="orderHistory.php">Order History</a>
             <a href="logout.php">Log out</a>
         </div>
 

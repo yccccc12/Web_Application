@@ -35,7 +35,7 @@ $userData = $user->getUserById($_SESSION['user_id']);
         <div class="sidebar">
             <a href="#" id="personal" style="font-weight: bold;">| Personal Info</a>
             <a href="editProfile.php">Edit Profile</a>
-            <a href="#">Order History</a>
+            <a href="orderHistory.php">Order History</a>
             <a href="logout.php">Log out</a>
         </div>
 

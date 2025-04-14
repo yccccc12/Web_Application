@@ -2,11 +2,17 @@
 // Include database connection
 include 'classes/product.php';
 
+// Start session to check login status
+session_start();
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+
 // Get product ID from URL
 $productID = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $product = new Product();
-$productData = $product -> getAProduct($productID);
+$productData = $product->getAProduct($productID);
 
 if (!$productData) {
     header("Location: products.php");
@@ -94,6 +100,9 @@ if (!$productData) {
         const decreaseBtn = document.querySelector('.quantity-btn.decrease');
         const increaseBtn = document.querySelector('.quantity-btn.increase');            
         const stockDisplay = document.getElementById('stockDisplay');
+        const addToCartBtn = document.querySelector('.add-to-cart-btn');
+        const checkoutBtn = document.querySelector('.checkout-btn');
+        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>; // Pass login status to JavaScript
 
         let maxStock = 1;
 
@@ -104,6 +113,8 @@ if (!$productData) {
             quantityInput.max = maxStock;
             quantityInput.value = 1;
             stockDisplay.textContent = `In stock: ${maxStock}`;
+        } else {
+            stockDisplay.textContent = "No stock available.";
         }
 
         sizeButtons.forEach(btn => {
@@ -134,12 +145,23 @@ if (!$productData) {
         // Prevent typing manually
         quantityInput.addEventListener('keydown', (e) => e.preventDefault());
 
-        // Add to Cart & Checkout
-        const addToCartBtn = document.querySelector('.add-to-cart-btn');
-        const checkoutBtn = document.querySelector('.checkout-btn');
-        const colour = "<?php echo htmlspecialchars($productData['colour']); ?>";
+        quantityInput.addEventListener('input', () => {
+            let current = parseInt(quantityInput.value);
+            if (isNaN(current) || current < 1) {
+                quantityInput.value = 1; // Reset to minimum value
+            } else if (current > maxStock) {
+                quantityInput.value = maxStock; // Reset to maximum stock
+            }
+        });
 
+        // Add to Cart & Checkout
         addToCartBtn.addEventListener('click', () => {
+            if (!isLoggedIn) {
+                // Redirect to login page if not logged in
+                window.location.href = '/Web_Application/user/login.php';
+                return;
+            }
+
             const activeSizeBtn = document.querySelector('.size-btn.active');
             if (!activeSizeBtn) {
                 alert('Please select a size before adding to cart.');
@@ -149,6 +171,13 @@ if (!$productData) {
             const size = activeSizeBtn.dataset.size;
             const quantity = parseInt(quantityInput.value);
 
+            console.log('Sending to backend:', {
+                product_id: <?php echo $productID; ?>,
+                size: size,
+                quantity: quantity,
+                colour: "<?php echo htmlspecialchars($productData['colour']); ?>",
+            });
+
             fetch('add_to_cart.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -156,21 +185,30 @@ if (!$productData) {
                     product_id: <?php echo $productID; ?>,
                     size: size,
                     quantity: quantity,
-                    colour: colour,
+                    colour: "<?php echo htmlspecialchars($productData['colour']); ?>",
                 }),
             })
             .then(response => response.json())
             .then(data => {
-                alert(data.message);
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert(data.message); // Show the available stock if the requested quantity exceeds it
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while adding to cart.');
+                alert('The quantity is not available.');
             });
         });
 
         checkoutBtn.addEventListener('click', () => {
-            window.location.href = 'check_out.php';
+            if (!isLoggedIn) {
+                // Redirect to login page if not logged in
+                window.location.href = '/Web_Application/user/login.php';
+                return;
+            }
+            window.location.href = '/Web_Application/payment/payment.php';
         });
     });
     </script>

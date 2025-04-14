@@ -76,6 +76,22 @@ $product = new Product();
             </tbody>
         </table>
         <p style="padding-right:80px;padding-bottom:80px;text-align:right;"><strong>Total: RM<?php echo number_format($total, 2); ?></strong></p>
+
+        <!-- Add Checkout Button -->
+        <div style="text-align: right; padding-right: 80px; padding-bottom: 40px;">
+            <?php if (!empty($cart)): ?>
+                <button class="checkout-btn" onclick="proceedToCheckout()">
+                    Checkout
+                </button>
+            <?php endif; ?>
+        </div>
+
+        <script>
+            function proceedToCheckout() {
+                window.location.href = '/Web_Application/payment/payment.php';
+            }
+        </script>
+        
         <?php endif; ?>
     </div>
 </body>

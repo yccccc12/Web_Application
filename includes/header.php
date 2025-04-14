@@ -79,14 +79,20 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <?php if (isset($_SESSION['user_email'])): ?>
                 <!-- Show Personal Info if logged in -->
-                <a href="/Web_Application/profile/personalInfo.php"><i class="ri-user-line"></i> </a>
+                <a href="/Web_Application/profile/personalInfo.php"><i class="ri-user-line"></i></a>
             <?php else: ?>
             
                 <!-- Show Login if not logged in -->
-                <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
+                <a href="/Web_Application/user/login.php" onclick="alert('Please log in to access your profile.');"><i class="ri-user-line"></i></a>
             <?php endif; ?>
 
-            <a href="/Web_Application/cart.php"><i class="ri-shopping-bag-line"></i></a>
+            <?php if (isset($_SESSION['user_email'])): ?>
+                <!-- Redirect to Cart if logged in -->
+                <a href="/Web_Application/cart.php"><i class="ri-shopping-bag-line"></i></a>
+            <?php else: ?>
+                <!-- Redirect to Login if not logged in -->
+                <a href="/Web_Application/user/login.php" onclick="alert('Please log in to access your cart.');"><i class="ri-shopping-bag-line"></i></a>
+            <?php endif; ?>
         </div>
 
         <!-- Search Bar -->

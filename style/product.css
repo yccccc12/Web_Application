@@ -394,6 +394,27 @@
     transform: scale(0.95);
 }
 
+.checkout-btn {
+    display: inline-block;
+    padding: 10px 50px;
+    margin: 10px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    width: 200px;
+}
+.checkout-btn:hover {
+    transform: scale(1.05);
+}
+.checkout-btn:active {
+    transform: scale(0.95);
+}
+
 /*=====================Cart==================*/
 .cart-item {
     padding: 30px;
