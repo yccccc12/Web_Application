@@ -17,16 +17,19 @@ foreach ($cart as $item) {
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userID = $_SESSION['user_id']; // Assuming user ID is stored in session
-    $state = $_POST['state'];
-    $city = $_POST['city'];
-    $postcode = $_POST['postcode'];
-    $unit = $_POST['unit'];
-    $paymentMethod = $_POST['payment_method'];
+    $state = htmlspecialchars($_POST['state']);
+    $city = htmlspecialchars($_POST['city']);
+    $postcode = htmlspecialchars($_POST['postcode']);
+    $unit = htmlspecialchars($_POST['unit']);
+    $paymentMethod = htmlspecialchars($_POST['payment_method']);
 
     // Use the Order class to handle database operations
     $order = new Order();
     $orderID = $order->createOrder($userID, $total, $paymentMethod, $unit, $state, $postcode, $city);
     $order->addOrderItems($orderID, $cart);
+
+    // Reduce stock levels
+    $order->reduceStock($cart);
 
     // Clear the cart
     unset($_SESSION['cart']);

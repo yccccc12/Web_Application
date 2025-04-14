@@ -39,5 +39,13 @@ class Order {
         }
         return $orders;
     }
+
+    public function reduceStock($cart) {
+        foreach ($cart as $item) {
+            $stmt = $this->conn->prepare("UPDATE ProductVariants SET stock = stock - ? WHERE productID = ? AND size = ?");
+            $stmt->bind_param("iis", $item['quantity'], $item['product_id'], $item['size']);
+            $stmt->execute();
+        }
+    }
 }
 ?>

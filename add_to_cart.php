@@ -1,49 +1,55 @@
 <?php
 session_start();
-header('Content-Type: application/json');
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'You must be logged in to add items to the cart.']);
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
 
-// Include necessary files
-require_once 'classes/cart.php';
-require_once 'classes/product.php';
+    if (!isset($data['product_id'], $data['size'], $data['quantity'])) {
+        echo json_encode(['success' => false, 'message' => 'Invalid data']);
+        exit;
+    }
 
-$userID = $_SESSION['user_id'];
-$data = json_decode(file_get_contents('php://input'), true);
+    $productID = intval($data['product_id']);
+    $size = htmlspecialchars($data['size']);
+    $quantity = intval($data['quantity']);
+    $colour = htmlspecialchars($data['colour']);
 
-$productID = $data['product_id'];
-$size = $data['size'];
-$quantity = $data['quantity'];
-$colour = $data['colour'];
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
 
-$product = new Product();
-$productVariant = $product->getProductVariant($productID, $size); // Fetch the specific variant
+    $found = false;
+    foreach ($_SESSION['cart'] as &$item) {
+        if ($item['product_id'] === $productID && $item['size'] === $size) {
+            $item['quantity'] += $quantity;
+            $item['colour'] = $colour;
+            $found = true;
+            break;
+        }
+    }
+        
+    if (!$found) {
+        $_SESSION['cart'][] = [
+            'product_id' => $productID,
+            'size' => $size,
+            'colour' => $colour,
+            'quantity' => $quantity,
+        ];
+    }
 
-if (!$productVariant) {
-    echo json_encode(['success' => false, 'message' => 'The selected product variant does not exist.']);
-    exit;
-}
-
-$availableStock = (int) $productVariant['stock'];
-
-// Debugging: Log the stock value
-error_log("Available stock: $availableStock, Requested quantity: $quantity");
-
-if ($quantity > $availableStock) {
     echo json_encode([
-        'success' => false,
-        'message' => "Only $availableStock items are available in stock for the selected size."
+        'success' => true,
+        'message' => 'Product added to cart',
+        'added_product' => [
+            'product_id' => $productID,
+            'size' => $size,
+            'quantity' => $quantity,
+            'colour' => $colour, 
+        ],
+        'cart' => $_SESSION['cart'],
     ]);
     exit;
 }
 
-// Add the product to the cart
-$cart = new Cart();
-$cart->addToCart($userID, $productID, $size, $quantity, $colour);
-
-echo json_encode(['success' => true, 'message' => 'Item added to cart successfully.']);
+echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 exit;
