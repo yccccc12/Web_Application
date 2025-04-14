@@ -22,8 +22,9 @@ function validateEmail() {
     emailError.innerHTML = '<span class="valid">✅ Valid email format.</span>';
 }
 
-emailInput.addEventListener("input", validateEmail);
-
+if(emailInput){
+    emailInput.addEventListener("input", validateEmail);
+}
 
 // ============ Password =================
 let passwordInput = document.getElementById("password");
@@ -73,23 +74,29 @@ function validatePassword() {
 }
 
 // Attach event listeners for real-time validation
-passwordInput.addEventListener("input", validatePassword);
+if(passwordInput){
+    passwordInput.addEventListener("input", validatePassword);
+}
 
 
 // ============ Toggle Password Visibility =================
-document.getElementById("togglePassword").addEventListener("click", function () {
-    let passwordInput = document.getElementById("password");
-    let icon = this.querySelector("i"); // Get the icon inside the button
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        icon.classList.remove("ri-eye-off-line");
-        icon.classList.add("ri-eye-line");
-    } else {
-        passwordInput.type = "password";
-        icon.classList.remove("ri-eye-line");
-        icon.classList.add("ri-eye-off-line"); // Change to closed eye icon
-    }
-});
+let togglePassword = document.getElementById("togglePassword");
+
+if(togglePassword){
+    togglePassword.addEventListener("click", function () {
+        let passwordInput = document.getElementById("password");
+        let icon = this.querySelector("i"); // Get the icon inside the button
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("ri-eye-off-line");
+            icon.classList.add("ri-eye-line");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("ri-eye-line");
+            icon.classList.add("ri-eye-off-line"); // Change to closed eye icon
+        }
+    });
+}
 
 // ============ Name Validation =================
 let nameInput = document.getElementById("name");
@@ -114,7 +121,10 @@ function validateName() {
     nameError.innerHTML = '<span class="valid">✅ Valid name.</span>';
 }
 
-nameInput.addEventListener("input", validateName);
+// This ensure it only work for sign Up section
+if (nameInput) {
+    nameInput.addEventListener("input", validateName);
+}
 
 // ============ Phone Validation =================
 let phoneInput = document.getElementById("phone");
@@ -123,7 +133,7 @@ function validatePhone() {
     let phone = phoneInput.value.trim();
     phoneError.innerHTML = ""; // Clear previous error
 
-// Phone format: 012-3456789 (3 digits - 7 digits)
+    // Phone format: 012-3456789 (3 digits - 7 digits)
     let phonePattern = /^0\d{2}-\d{7}$/;
 
     if (phone === "") {
@@ -140,12 +150,14 @@ function validatePhone() {
 
 }
 
-phoneInput.addEventListener("input", validatePhone);
-
+if (phoneInput) {
+    phoneInput.addEventListener("input", validatePhone);
+}
 
 // ============ Form submission validation =================
 const loginForm = document.querySelector("#login-form");  // Selects the login form
 const signUpForm = document.querySelector("#signUp-form"); // Selects the signup form
+const editProfileForm = document.querySelector('#editProfile-form'); // Selects the edit profile form
 
 // ============ Log In Form submission validation =================
 if(loginForm){
@@ -171,6 +183,18 @@ if(signUpForm){
         if (nameError.innerHTML.includes("❌") || phoneError.innerHTML.includes("❌") || emailError.innerHTML.includes("❌") || passwordError.innerHTML.includes("❌") ||
             nameInput.value.trim() === "" || phoneInput.value.trim() === "" || emailInput.value.trim() === "" || passwordInput.value.trim() === "") {
             event.preventDefault(); // Stop submission
+        }
+    });
+}
+
+// ============ Edit Profile Form Submission Validation =================
+if(editProfileForm){
+    editProfileForm.addEventListener("submit", function (event){
+        validateName();
+        validatePhone();
+
+        if (nameError.innerHTML.includes("❌") || phoneError.innerHTML.includes("❌") || nameInput.value.trim() === "" || phoneInput.value.trim() === "") {
+            event.preventDefault(); // Stop form submission
         }
     });
 }
