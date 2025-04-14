@@ -53,7 +53,10 @@ CREATE TABLE CartItems (
     cartItemID INT AUTO_INCREMENT,
     userID INT,
     productID INT,
+    size VARCHAR(3),
     quantity INT,
+    colour VARCHAR (20) NOT NULL,
+    addedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Optional
     CONSTRAINT CartItems_cartItemID_pk PRIMARY KEY(cartItemID),
     CONSTRAINT CartItems_userID_fk FOREIGN KEY (userID) REFERENCES Users(userID),
     CONSTRAINT CartItems_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID)

@@ -26,6 +26,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li><a href="#">Blog</a></li>
                 <li><a href="/Web_Application/about-us/our_story.php">Our Story</a></li>
                 <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>
+                <li><a href="/Web_Application/cart.php">Cart</a></li>
                 <li>
                     <?php if (isset($_SESSION['user_email'])): ?>
                         <!-- Show Personal Info if logged in -->
@@ -36,7 +37,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         <a href="/Web_Application/user/login.php">My Account</a>
                     <?php endif; ?>
                 </li>
-                <li><a href="#">Settings</a></li>
             </ul>
         </div>
 
@@ -86,7 +86,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="/Web_Application/user/login.php"><i class="ri-user-line"></i></a>
             <?php endif; ?>
 
-            <i class="ri-shopping-bag-line"></i>
+            <a href="/Web_Application/cart.php"><i class="ri-shopping-bag-line"></i></a>
         </div>
 
         <!-- Search Bar -->

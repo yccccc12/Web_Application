@@ -1,11 +1,4 @@
 /*filter */
-.products-container {
-    max-width: 1450px; /* Match product section width */
-    margin: 0 auto; /* Center align */
-    padding: 20px 0; /* Ensure spacing */
-    box-sizing: border-box;
-}
-
 .filter-container {
     display: flex;
     justify-content: flex-start; /* Aligns filter to the left */
@@ -178,6 +171,7 @@
 .label{
     font-size: 16px;
 }
+
 @media (max-width: 768px) {
     .filter-container{
         display: none;
@@ -188,8 +182,236 @@
         justify-content: space-between;
     }
 
-    #product-count{
+    .product-count{
         display: flex;
         align-items: flex-end;
     }
 }
+
+/* =====================PRODUCT DETAILS AND IMAGE DESIGN==================== */
+.products-container {
+    max-width: 1450px; /* Match product section width */
+    margin: 0 auto; /* Center align */
+    padding: 20px 0; /* Ensure spacing */
+    box-sizing: border-box;
+}
+
+.product-details-container {
+    display: flex;
+    align-items: flex-start; /* Top-align the image and text */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;    
+}
+
+.product-details {
+    display: flex; /* Arrange image and details side by side */
+    align-items: center; /* Align items vertically */
+    gap: 20px; /* Space between image and details */
+    margin: 20px 0; /* Center the section */
+    padding: 20px;
+}
+
+.product-details img {
+    max-width: 300px; /* Set max width for image */
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    margin: 0; /* Ensure no extra margin on the bottom */
+}
+
+.product-info {
+    margin-left:auto;
+}
+
+.product-title{
+    font-size: 20px; /* Larger font for title */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-price{
+    font-size:30px;
+    text-align: left;
+    padding-top:10px;
+}
+
+.product-colour{
+    text-align:left;
+}
+
+/* =================== BUTTON FOR PRODUCT DETAILS ====================*/
+.size-label {
+    font-weight:bold;
+    padding:15px 0;
+    text-align:left;
+}
+
+.size-btn {
+    padding: 10px 15px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 20px;
+    width:70px;
+}
+
+.size-btn.active {
+    background-color: black;
+    color: white;
+}
+
+.colour-label{
+
+    font-weight:bold;
+    padding:15px 0;
+    text-align:left;
+}
+
+.colour-btn{
+    color: white;
+    padding: 12px 15px;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: black;
+    border-radius: 20px;
+    width:70px;
+}
+
+/* =================== SHORT DESCRIPTION ====================*/
+.description-label{
+    font-weight:bold;
+    padding:20px 0;
+    text-align:left;
+}
+
+.product-description{
+    text-align:left;
+}
+
+/* =========================== Quantity Button ================ */
+.quantity-section-container {
+    padding: 20px 0px;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center; /* Align the number inside the quantity box to the left */
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.quantity-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-box {
+    display: flex;
+    
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    user-select: none;
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 16px;
+}
+
+.quantity-btn:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}
+
+.quantity-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border:none;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center; /* This aligns the number */
+    border: none;
+    font-size: 16px;
+    outline: none;
+    appearance: textfield;
+}
+
+/* Hide number input arrows */
+.quantity-input::-webkit-inner-spin-button, 
+.quantity-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/*==================== Add to cart/ buy now button ==========*/
+
+.add-to-cart-btn, .checkout-btn {
+    display: inline-block;
+    padding: 10px 50px;
+    margin: 10px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;   
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center; 
+    width: 200px; 
+}
+.add-to-cart-btn:hover, .checkout-btn:hover {
+    transform: scale(1.05);
+}
+
+.add-to-cart-btn:active, .checkout-btn:active {
+    transform: scale(0.95);
+}
+
+/*=====================Cart==================*/
+.cart-item {
+    padding: 30px;
+}
+.product-display {
+    display: flex;
+    gap: 10px;
+}
+
+.product-img {
+    width: 25%;
+    border-radius: 6px;
+}
+
+.product-info{
+    flex:1;
+}
+.product-info p{
+    text-align: left;
+}
+
