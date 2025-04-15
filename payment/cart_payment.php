@@ -2,24 +2,40 @@
 session_start();
 require_once '../classes/product.php'; // Include your Product class
 require_once '../classes/order.php';   // Include your Order class
-$product = new Product();
+
+// Retrieve cart and total price from session
+$cart = $_SESSION['cart'] ?? [];
 $total = 0;
-
-// Check if the user is coming from the product details page
-if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour'])) {
-    $productID = intval($_GET['product_id']);
-    $size = htmlspecialchars($_GET['size']);
-    $quantity = intval($_GET['quantity']);
-    $colour = htmlspecialchars($_GET['colour']);
-
-    // Fetch product details
-    $productData = $product->getAProduct($productID);
+foreach ($cart as $item) {
+    $product = new Product();
+    $productData = $product->getAProduct($item['product_id']);
     $price = $productData['price'] ?? 0;
-    $subtotal = $price * $quantity;
+    $subtotal = $price * $item['quantity'];
     $total += $subtotal;
-} else {
-    // Redirect to cart if no product is selected
-    header("Location: /Web_Application/cart.php");
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userID = $_SESSION['user_id']; // Assuming user ID is stored in session
+    $state = htmlspecialchars($_POST['state']);
+    $city = htmlspecialchars($_POST['city']);
+    $postcode = htmlspecialchars($_POST['postcode']);
+    $unit = htmlspecialchars($_POST['unit']);
+    $paymentMethod = htmlspecialchars($_POST['payment_method']);
+
+    // Use the Order class to handle database operations
+    $order = new Order();
+    $orderID = $order->createOrder($userID, $total, $paymentMethod, $unit, $state, $postcode, $city);
+    $order->addOrderItems($orderID, $cart);
+
+    // Reduce stock levels
+    $order->reduceStock($cart);
+
+    // Clear the cart
+    unset($_SESSION['cart']);
+
+    // Redirect to a success page
+    header("Location: /Web_Application/payment/success.php");
     exit;
 }
 ?>
@@ -27,7 +43,7 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
     
@@ -42,29 +58,22 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
     <?php include '../includes/header.php'; ?>
     <div class="checkout-container">
         <h1 style="font-size:30px;padding-left:40px; padding-top:20px;">Payment</h1>
-        <p class="total-price"><strong>Total Price:</strong> RM<?php echo number_format($total, 2); ?></p>
+        <p style="padding-left: 40px; padding-top: 10px;"><strong>Total Price:</strong> RM<?php echo number_format($total, 2); ?></p>
         <br>
-        <form id="paymentForm" action="processPayment.php" method="POST" style="padding-left: 40px; padding-right: 40px;">
-            <!-- Hidden inputs to pass product details -->
-            <input type="hidden" name="product_id" value="<?php echo $productID; ?>">
-            <input type="hidden" name="size" value="<?php echo $size; ?>">
-            <input type="hidden" name="quantity" value="<?php echo $quantity; ?>">
-            <input type="hidden" name="colour" value="<?php echo $colour; ?>">
-            <input type="hidden" name="total" value="<?php echo $subtotal; ?>">
-
+        <form id="paymentForm" action="cart_processPayment.php" method="POST" style="padding-left: 40px; padding-right: 40px;">
             <h2>Shipping Address</h2>
             <label for="unit">Unit/House Number:</label>
-            <input type="text" id="unit" name="unit" placeholder="Enter your House Number" required>
+            <input type="text" id="unit" name="unit"placeholder="Enter your House Number"  required>
 
             <label for="state">State:</label>
-            <input type="text" id="state" name="state" placeholder="Enter your State" required>
+            <input type="text" id="state" name="state" placeholder="Enter your State"  required>
 
             <label for="city">City:</label>
-            <input type="text" id="city" name="city" placeholder="Enter your City" required>
+            <input type="text" id="city" name="city" placeholder="Enter your city"  required>
 
             <div class="form-group">
-                <label for="postcode">Postcode:</label>
-                <input type="text" id="postcode" name="postcode" placeholder="Enter your Postcode" required>
+                <label for="postcode">Postcode</label>
+                <input type="text" id="postcode" name="postcode" placeholder="Enter your postcode" required>
             </div>
 
             <br>
@@ -77,9 +86,10 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
             </label>
 
             <br>
-            <button type="submit" class="btn">Pay Now</button>
+            <button type="submit" class="btn">Paid</button>
         </form>
     </div>
+
     <?php include '../includes/footer.php'; ?>
 
     <script>

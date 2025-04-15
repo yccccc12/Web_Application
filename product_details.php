@@ -208,7 +208,19 @@ if (!$productData) {
                 window.location.href = '/Web_Application/user/login.php';
                 return;
             }
-            window.location.href = '/Web_Application/payment/payment.php';
+
+            const activeSizeBtn = document.querySelector('.size-btn.active');
+            if (!activeSizeBtn) {
+                alert('Please select a size before proceeding.');
+                return;
+            }
+
+            const size = activeSizeBtn.dataset.size;
+            const quantity = parseInt(quantityInput.value);
+
+            // Redirect to payment.php with product details
+            const url = `/Web_Application/payment/payment.php?product_id=${<?php echo $productID; ?>}&size=${size}&quantity=${quantity}&colour=${"<?php echo htmlspecialchars($productData['colour']); ?>"}`;
+            window.location.href = url;
         });
     });
     </script>

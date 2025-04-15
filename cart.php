@@ -88,7 +88,7 @@ $product = new Product();
 
         <script>
             function proceedToCheckout() {
-                window.location.href = '/Web_Application/payment/payment.php';
+                window.location.href = '/Web_Application/payment/cart_payment.php';
             }
         </script>
         
