@@ -23,7 +23,6 @@ if (session_status() === PHP_SESSION_NONE) {
             <ul class="hamburger-menu-list">
                 <li><a href="/Web_Application/products_listing.php?gender=men">Mens</a></li>
                 <li><a href="/Web_Application/products_listing.php?gender=women">Womens</a></li>
-                <li><a href="#">Blog</a></li>
                 <li><a href="/Web_Application/about-us/our_story.php">Our Story</a></li>
                 <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>
                 <li><a href="/Web_Application/cart.php">Cart</a></li>
@@ -43,30 +42,13 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Main Nav Menu (visible on desktop) -->
         <ul class="nav-menu">
             <li class="dropdown">
-                <a href="/Web_Application/products_listing.php?gender=men">Mens <i class="ri-arrow-down-s-line"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Shirts</a></li>
-                    <li><a href="#">Pants</a></li>
-                    <li><a href="#">Shoes</a></li>
-                </ul>
+                <a href="/Web_Application/products_listing.php?gender=men">Mens </a>
             </li>
             <li class="dropdown">
-                <a href="/Web_Application/products_listing.php?gender=women">Womens <i class="ri-arrow-down-s-line"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Dresses</a></li>
-                    <li><a href="#">Bags</a></li>
-                    <li><a href="#">Accessories</a></li>
-                </ul>
+                <a href="/Web_Application/products_listing.php?gender=women">Womens </a>
             </li>
             <li class="dropdown">
-                <a href="#">Blog <i class="ri-arrow-down-s-line"></i></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Fashion Tips</a></li>
-                    <li><a href="#">Trends</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">About <i class="ri-arrow-down-s-line"></i></a>
+                <a href="#">About </a>
                 <ul class="dropdown-menu">
                     <li><a href="/Web_Application/about-us/our_story.php">Our Story</a></li>
                     <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>

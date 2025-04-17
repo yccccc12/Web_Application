@@ -10,9 +10,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 // Get product ID from URL
 $productID = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$size = isset($_GET['size']) ? $_GET['size'] : '';
 
 $product = new Product();
 $productData = $product->getAProduct($productID);
+$variantID = $product->getProductVariantsID($productID, $size);
 
 if (!$productData) {
     header("Location: products.php");
@@ -142,9 +144,6 @@ if (!$productData) {
             }
         });
 
-        // Prevent typing manually
-        quantityInput.addEventListener('keydown', (e) => e.preventDefault());
-
         quantityInput.addEventListener('input', () => {
             let current = parseInt(quantityInput.value);
             if (isNaN(current) || current < 1) {
@@ -170,14 +169,15 @@ if (!$productData) {
 
             const size = activeSizeBtn.dataset.size;
             const quantity = parseInt(quantityInput.value);
-
+           
             console.log('Sending to backend:', {
                 product_id: <?php echo $productID; ?>,
                 size: size,
                 quantity: quantity,
                 colour: "<?php echo htmlspecialchars($productData['colour']); ?>",
-            });
 
+            });
+           
             fetch('add_to_cart.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -186,6 +186,7 @@ if (!$productData) {
                     size: size,
                     quantity: quantity,
                     colour: "<?php echo htmlspecialchars($productData['colour']); ?>",
+
                 }),
             })
             .then(response => response.json())

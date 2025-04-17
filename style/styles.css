@@ -593,6 +593,15 @@ body {
     margin-right: 6px;
 }
 
+.section a{
+    text-decoration: none;
+    color: #454545;
+}
+
+.section a:hover{
+    text-decoration: underline;
+}
+
 .section-heading{
     color: black;
     text-decoration: underline;

@@ -14,6 +14,7 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
 
     // Fetch product details
     $productData = $product->getAProduct($productID);
+    $variantID = $product->getProductVariantsID($productID, $size);
     $price = $productData['price'] ?? 0;
     $subtotal = $price * $quantity;
     $total += $subtotal;

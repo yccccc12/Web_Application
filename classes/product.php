@@ -221,6 +221,15 @@ class Product {
         return $result->fetch_assoc();
     }
 
+    public function getProductVariantsID($productID, $size){
+        $stmt = $this->conn->prepare("SELECT variantID FROM ProductVariants WHERE productID = ? AND size = ?");
+        $stmt->bind_param("is", $productID, $size);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row ? $row['variantID'] : null; // return just the value or null if not found
+    }
+
     public function __destruct() {
         // Remove the call to Database::close()
         // Let the database connection remain open for the script lifecycle

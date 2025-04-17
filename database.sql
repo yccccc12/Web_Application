@@ -86,10 +86,12 @@ CREATE TABLE OrderItems (
     orderItemID INT AUTO_INCREMENT,
     orderID INT,
     productID INT,
+    variantID INT,
     quantity INT,
     CONSTRAINT OrderItems_orderItemID_pk PRIMARY KEY(orderItemID),
     CONSTRAINT OrderItems_orderID_fk FOREIGN KEY (orderID) REFERENCES Orders(orderID),
-    CONSTRAINT OrderItems_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID)
+    CONSTRAINT OrderItems_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID),
+    CONSTRAINT OrderItems_variantID_fk FOREIGN KEY (variantID) REFERENCES ProductVariants(variantID)
 );
 
 -- Insert sample product

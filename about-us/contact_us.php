@@ -121,7 +121,7 @@
                     <p><i class="ri-mail-line"></i> tub_apparel@gmail.com</p>
                     <p><i class="ri-phone-line"></i> +603-1234-5678</p>
                 </div>
-                <form id="contact-form">
+                <form id="contact-form" method="POST">
                     <div class="form-field">
                         <input type="text" id="name" name="name" placeholder="Name" required>
                     </div>
@@ -131,11 +131,18 @@
                     <div class="form-field">
                         <textarea id="message" name="message" placeholder="Message" required></textarea>
                     </div>
-                    <button id="contact-button" type="submit">Send</button>
+                    <button id="contact-button">Send</button>
                 </form>
             </div>
         </div>
 
         <?php include '../includes/footer.php'; ?>
+        <script>
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // prevent actual form submission
+                alert('Message sent! Thank you for the response'); // show alert
+                this.reset(); // clear form fields
+            });
+        </script>
     </body>
 </html>

@@ -72,9 +72,6 @@
         <section class="products-section">
           
         </section>
-        <!-- 
-        <button class="view-all-button">View all</button> 
-        -->
     </section>
 
     <section class="shop-category-header" data-aos="fade-up" data-aos-duration="800">

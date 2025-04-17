@@ -24,7 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = intval($_POST['quantity'] ?? 0);
     $colour = htmlspecialchars($_POST['colour'] ?? '');
     $total = floatval($_POST['total'] ?? 0);
-
+    
+    $product = new Product();
+    $variantID = $product->getProductVariantsID($productID, $size);
+    
     // Check if required fields are missing
     if (!$productID || !$size || !$quantity || !$total) {
         error_log("Missing required fields in POST data.");
@@ -34,12 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Use the Order class to handle database operations
     $order = new Order();
-
     // Create order and add the single product
     $orderID = $order->createOrder($userID, $total, $paymentMethod, $unit, $state, $postcode, $city);
     $order->addOrderItems($orderID, [
         [
             'product_id' => $productID,
+            'variant_id' => $variantID,
             'size' => $size,
             'quantity' => $quantity,
         ],

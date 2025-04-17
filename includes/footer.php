@@ -4,9 +4,9 @@
             <div class="section">
                 <ul>
                     <li class="section-heading">ABOUT US</li>
-                    <li>Our Brand</li>
+                    <li><a href="/Web_Application/about-us/our_story.php">Our Brand</a></li>
                     <li>FAQs</li>
-                    <li>Contact Us</li>
+                    <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>
                 </ul>
             </div>
             <div class="section">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'classes/product.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -14,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quantity = intval($data['quantity']);
     $colour = htmlspecialchars($data['colour']);
 
+    $product = new Product();
+    $variantID = $product->getProductVariantsID($productID, $size);
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
@@ -23,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($item['product_id'] === $productID && $item['size'] === $size) {
             $item['quantity'] += $quantity;
             $item['colour'] = $colour;
+            $item['variant_id'] = $variantID;
             $found = true;
             break;
         }
@@ -31,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$found) {
         $_SESSION['cart'][] = [
             'product_id' => $productID,
+            'variant_id' => $variantID,
             'size' => $size,
             'colour' => $colour,
             'quantity' => $quantity,
@@ -42,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'message' => 'Product added to cart',
         'added_product' => [
             'product_id' => $productID,
+            'variant_id' => $variantID,
             'size' => $size,
             'quantity' => $quantity,
             'colour' => $colour, 
