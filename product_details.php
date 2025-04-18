@@ -99,7 +99,7 @@ if (isset($_SESSION['cart'])) {
                     </div>
                 </div>
             </div>
-
+            <div id="stock-message" style="display: none; color: red;"></div>
             <button class="add-to-cart-btn">Add to Cart</button>
             <button class="checkout-btn">Checkout</button>
         </div>
@@ -183,12 +183,26 @@ if (isset($_SESSION['cart'])) {
             const maxStock = parseInt(activeSizeBtn.dataset.stock);
             const alreadyInCart = cartQuantity[size] || 0;
 
-            if (alreadyInCart + quantity > maxStock) {
-                const remaining = maxStock - alreadyInCart;
-                alert(`You already have ${alreadyInCart} of size ${size} in your cart. You can only add ${remaining > 0 ? remaining : 0} more.`);
+            if(alreadyInCart === maxStock){
+                // When the cart has exactly the remaining stock
+                const message = `<i class="ri-error-warning-fill"></i> You have reached the maximum stock.`;
+
+                const messageElement = document.getElementById('stock-message');
+                messageElement.innerHTML = message;  // Use innerHTML to render the icon
+                messageElement.style.display = 'block';
+
                 return;
-            }
-            
+            } else if (alreadyInCart + quantity > maxStock) {
+                const remaining = maxStock - alreadyInCart;
+                const message = `<i class="ri-error-warning-fill"></i> You already have ${alreadyInCart} of size ${size} in your cart. You can only add ${remaining > 0 ? remaining : 0} more.`;
+
+                const messageElement = document.getElementById('stock-message');
+                messageElement.innerHTML = message;  // Use innerHTML to render the icon
+                messageElement.style.display = 'block';
+
+                return;
+            } 
+                        
             console.log('Sending to backend:', {
                 product_id: <?php echo $productID; ?>,
                 size: size,

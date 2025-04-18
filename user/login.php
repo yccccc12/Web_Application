@@ -40,10 +40,6 @@
                 $_SESSION['user_name'] = $loggedInUser['name'];
                 $_SESSION['user_email'] = $loggedInUser['email'];
 
-                /*echo "<script>
-                        alert('Login successful! Redirecting to home page...');
-                        window.location.href = '/Web_Application';
-                    </script>";*/
                 header("Location: /Web_Application");
                 exit();
             } else {

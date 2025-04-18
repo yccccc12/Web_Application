@@ -117,7 +117,7 @@
             <div class="contact-form">
                 <div class="contact-info">
                     <h2>Contact Info</h2>
-                    <p><i class="ri-map-pin-line"></i> 123 Jalan Utama, Bandar Cityville, 43500 Semenyih</p>
+                    <p><i class="ri-map-pin-line"></i> Lot 1-50A, 1st Floor, Sunway Velocity Mall, 55100 Kuala Lumpur</p>
                     <p><i class="ri-mail-line"></i> tub_apparel@gmail.com</p>
                     <p><i class="ri-phone-line"></i> +603-1234-5678</p>
                 </div>
