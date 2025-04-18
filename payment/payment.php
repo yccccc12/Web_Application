@@ -46,7 +46,6 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
         <p class="total-price"><strong>Total Price:</strong> RM<?php echo number_format($total, 2); ?></p>
         <br>
         <form id="paymentForm" action="processPayment.php" method="POST" style="padding-left: 40px; padding-right: 40px;">
-            <!-- Hidden inputs to pass product details -->
             <input type="hidden" name="product_id" value="<?php echo $productID; ?>">
             <input type="hidden" name="size" value="<?php echo $size; ?>">
             <input type="hidden" name="quantity" value="<?php echo $quantity; ?>">

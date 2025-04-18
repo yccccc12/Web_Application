@@ -20,6 +20,17 @@ if (!$productData) {
     header("Location: products.php");
     exit;
 }
+
+$cartQuantities = [];
+
+if (isset($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item) {
+        if ($item['product_id'] == $productID) {
+            $cartQuantities[$item['size']] = $item['quantity'];
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -105,7 +116,7 @@ if (!$productData) {
         const addToCartBtn = document.querySelector('.add-to-cart-btn');
         const checkoutBtn = document.querySelector('.checkout-btn');
         const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>; // Pass login status to JavaScript
-
+        const cartQuantity = <?php echo json_encode($cartQuantities, JSON_HEX_TAG); ?>;
         let maxStock = 1;
 
         if (sizeButtons.length > 0) {
@@ -169,7 +180,15 @@ if (!$productData) {
 
             const size = activeSizeBtn.dataset.size;
             const quantity = parseInt(quantityInput.value);
-           
+            const maxStock = parseInt(activeSizeBtn.dataset.stock);
+            const alreadyInCart = cartQuantity[size] || 0;
+
+            if (alreadyInCart + quantity > maxStock) {
+                const remaining = maxStock - alreadyInCart;
+                alert(`You already have ${alreadyInCart} of size ${size} in your cart. You can only add ${remaining > 0 ? remaining : 0} more.`);
+                return;
+            }
+            
             console.log('Sending to backend:', {
                 product_id: <?php echo $productID; ?>,
                 size: size,
@@ -193,8 +212,10 @@ if (!$productData) {
             .then(data => {
                 if (data.success) {
                     alert(data.message);
+                    location.reload();
                 } else {
                     alert(data.message); // Show the available stock if the requested quantity exceeds it
+                    location.reload();
                 }
             })
             .catch(error => {

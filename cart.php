@@ -6,6 +6,7 @@ include 'classes/product.php'; // Include your Product class
 $cart = $_SESSION['cart'] ?? [];
 $total = 0;
 $product = new Product();
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +48,7 @@ $product = new Product();
                     $image = $productData['images'][0]['image_url'] ?? 'default.jpg';
                     $subtotal = $price * $item['quantity'];
                     $total += $subtotal;
+                    $maxStock = $product->getMaxStock($item['product_id'], $item['size']);
                 ?>
                 <tr>
                     <td class="cart-item">
@@ -64,8 +66,9 @@ $product = new Product();
                         <form method="POST" action="update_cart.php" style="display:inline-flex; align-items:center; justify-content:center;">
                             <input type="hidden" name="product_id" value="<?php echo $item['product_id']; ?>">
                             <input type="hidden" name="size" value="<?php echo $item['size']; ?>">
+                            <input type="hidden" id="max-stock-<?php echo $item['product_id']; ?>-<?php echo $item['size']; ?>" value="<?php echo $maxStock; ?>">
                             <button type="submit" name="action" value="decrease" class="quantity-btn">-</button>
-                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" readonly class="quantity-input" style="width:40px; text-align:center; margin: 0 5px;">
+                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" class="quantity-input" style="width:40px; text-align:center; margin: 0 5px;">
                             <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
                         </form>
                     </td>
@@ -87,6 +90,22 @@ $product = new Product();
         </div>
 
         <script>
+            document.querySelectorAll("form").forEach(form => {
+                const increaseBtn = form.querySelector("button[value='increase']");
+                const quantityInput = form.querySelector("input[name='quantity']");
+                const maxStockInput = form.querySelector("input[id^='max-stock']"); // ^='max-stock' means select all item start with 'max-stock'
+
+                increaseBtn.addEventListener("click", function(event) {
+                    const currentQty = parseInt(quantityInput.value);
+                    const maxStock = parseInt(maxStockInput.value);
+
+                    if (currentQty >= maxStock) {
+                        event.preventDefault();
+                        alert("Maximum stock reached!");
+                    }
+                });
+            });
+
             function proceedToCheckout() {
                 window.location.href = '/Web_Application/payment/cart_payment.php';
             }

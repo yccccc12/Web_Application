@@ -234,5 +234,15 @@ class Product {
         // Remove the call to Database::close()
         // Let the database connection remain open for the script lifecycle
     }
+    
+    public function getMaxStock($productId, $size) {
+        // Get maximum stock available for a given product and size
+        $stmt = $this->conn->prepare("SELECT stock FROM ProductVariants WHERE productID = ? AND size = ?");
+        $stmt->bind_param("is", $productId, $size);  // Use $productId instead of $productID
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row ? $row['stock'] : 0;  // Return stock value, or 0 if not found
+    }
 }
 ?>
