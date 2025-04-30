@@ -1,3 +1,43 @@
+<?php
+$name = $email = $message = "";
+$nameError = $emailError = $messageError = "";
+$successMessage = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = trim($_POST["name"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $message = trim($_POST["message"] ?? "");
+    $valid = true;
+
+    // Validate name
+    if (empty($name)) {
+        $nameError = '<i class="ri-error-warning-fill"></i> Name is required.';
+        $valid = false;
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $emailError = '<i class="ri-error-warning-fill"></i> Email is required.';
+        $valid = false;
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailError = '<i class="ri-error-warning-fill"></i> Invalid email format.';
+        $valid = false;
+    }
+
+    // Validate message
+    if (empty($message)) {
+        $messageError = '<i class="ri-error-warning-fill"></i> Message is required.';
+        $valid = false;
+    }
+
+    if ($valid) {
+        // You can replace this with sending email or database logic
+        $successMessage = "Thank you for contacting us. We'll get back to you soon.";
+        $name = $email = $message = ""; // Clear fields after success
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -115,34 +155,38 @@
 
             <!-- Contact Form -->
             <div class="contact-form">
-                <div class="contact-info">
-                    <h2>Contact Info</h2>
-                    <p><i class="ri-map-pin-line"></i> Lot 1-50A, 1st Floor, Sunway Velocity Mall, 55100 Kuala Lumpur</p>
-                    <p><i class="ri-mail-line"></i> tub_apparel@gmail.com</p>
-                    <p><i class="ri-phone-line"></i> +603-1234-5678</p>
-                </div>
-                <form id="contact-form" method="POST">
-                    <div class="form-field">
-                        <input type="text" id="name" name="name" placeholder="Name" required>
-                    </div>
-                    <div class="form-field">
-                        <input type="email" id="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-field">
-                        <textarea id="message" name="message" placeholder="Message" required></textarea>
-                    </div>
-                    <button id="contact-button">Send</button>
-                </form>
+            <div class="contact-info">
+                <h2>Contact Info</h2>
+                <p><i class="ri-map-pin-line"></i> Lot 1-50A, 1st Floor, Sunway Velocity Mall, 55100 Kuala Lumpur</p>
+                <p><i class="ri-mail-line"></i> tub_apparel@gmail.com</p>
+                <p><i class="ri-phone-line"></i> +603-1234-5678</p>
             </div>
-        </div>
 
-        <?php include '../includes/footer.php'; ?>
-        <script>
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // prevent actual form submission
-                alert('Message sent! Thank you for the response'); // show alert
-                this.reset(); // clear form fields
-            });
-        </script>
+            <?php if ($successMessage): ?>
+                <div class="success-message" style="color: green; font-weight: 500; margin-bottom: 20px;">
+                    <?php echo $successMessage; ?>
+                </div>
+            <?php endif; ?>
+
+            <form id="contact-form" method="POST">
+                <div class="form-field">
+                    <input type="text" id="name" name="name" placeholder="Name" value="<?php echo htmlspecialchars($name); ?>">
+                    <div id="nameError" class="error"><?php echo $nameError; ?></div>
+                </div>
+                
+                <div class="form-field">
+                    <input type="text" id="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
+                    <div id="emailError" class="error"><?php echo $emailError; ?></div>
+                </div>
+                
+                <div class="form-field">
+                    <textarea id="message" name="message" placeholder="Message"><?php echo htmlspecialchars($message); ?></textarea>
+                    <div id="messageError" class="error"><?php echo $messageError; ?></div>
+                </div>
+                <button id="contact-button" type="submit">Send</button>
+            </form>
+        </div>
+        </div>
+    <script src='validation.js'></script>
     </body>
 </html>
