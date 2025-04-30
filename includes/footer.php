@@ -5,14 +5,14 @@
                 <ul>
                     <li class="section-heading">ABOUT US</li>
                     <li><a href="/Web_Application/about-us/our_story.php">Our Brand</a></li>
-                    <li>FAQs</li>
+                    <li><a href="/Web_Application/about-us/question.php">FAQs</a></li>
                     <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>
                 </ul>
             </div>
             <div class="section">
                 <ul>
                     <li class="section-heading">HELP</li>
-                    <li>Terms & Conditions</li>
+                    <li><a href="/Web_Application/about-us/term_condition.php">Terms & Conditions</a></li>
                 </ul>
             </div>
             <div class="section">
