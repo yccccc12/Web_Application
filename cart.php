@@ -70,6 +70,7 @@ $product = new Product();
                             <button type="submit" name="action" value="decrease" class="quantity-btn">-</button>
                             <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" class="quantity-input" style="width:40px; text-align:center; margin: 0 5px;">
                             <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
+                            <button type="submit" name="action" value="delete" class="quantity-btn" style='margin:10px'><i class="ri-delete-bin-line"></i></button>
                         </form>
                     </td>
                     <td style="text-align:center;"><?php echo number_format($price, 2); ?></td>
