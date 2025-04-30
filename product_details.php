@@ -94,7 +94,7 @@ if (isset($_SESSION['cart'])) {
                 <div class="quantity-wrapper">
                     <div class="quantity-box">
                         <button type="button" class="quantity-btn decrease">-</button>
-                        <input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input">
+                        <input type="text" id="quantity" name="quantity" value="1" class="quantity-input">
                         <button type="button" class="quantity-btn increase">+</button>
                     </div>
                 </div>
@@ -157,10 +157,18 @@ if (isset($_SESSION['cart'])) {
 
         quantityInput.addEventListener('input', () => {
             let current = parseInt(quantityInput.value);
-            if (isNaN(current) || current < 1) {
+            if (!isNaN(current)) {
+            if (current < 1) {
                 quantityInput.value = 1; // Reset to minimum value
             } else if (current > maxStock) {
                 quantityInput.value = maxStock; // Reset to maximum stock
+            }
+            }
+        });
+
+        quantityInput.addEventListener('blur', () => {
+            if (quantityInput.value === '') {
+            quantityInput.value = 1; // Reset to minimum value if input is empty
             }
         });
 
@@ -185,7 +193,7 @@ if (isset($_SESSION['cart'])) {
 
             if(alreadyInCart === maxStock){
                 // When the cart has exactly the remaining stock
-                const message = `<i class="ri-error-warning-fill"></i> You have reached the maximum stock.`;
+                const message = '<i class="ri-error-warning-fill"></i> You have reached the maximum stock.';
 
                 const messageElement = document.getElementById('stock-message');
                 messageElement.innerHTML = message;  // Use innerHTML to render the icon

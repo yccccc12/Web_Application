@@ -68,7 +68,7 @@ $product = new Product();
                             <input type="hidden" name="size" value="<?php echo $item['size']; ?>">
                             <input type="hidden" id="max-stock-<?php echo $item['product_id']; ?>-<?php echo $item['size']; ?>" value="<?php echo $maxStock; ?>">
                             <button type="submit" name="action" value="decrease" class="quantity-btn">-</button>
-                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" class="quantity-input" style="width:40px; text-align:center; margin: 0 5px;">
+                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" class="quantity-input" style="width:40px; text-align:center; margin: 0 5px;" readonly>
                             <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
                             <button type="submit" name="action" value="delete" class="quantity-btn" style='margin:10px'><i class="ri-delete-bin-line"></i></button>
                         </form>
