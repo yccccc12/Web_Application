@@ -1,7 +1,8 @@
 <?php
     class Database {
+        // Database connection parameters
         private static $host = "localhost";
-        private static $dbname = "tub_db"; // database name
+        private static $dbname = "tub_db";
         private static $username = "root";
         private static $password = "";
         private static $conn = null;

@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <header>
     <nav class="nav-bar">
-        <!-- Hamburger Menu Icon (visible on mobile) -->
+        <!-- Hamburger Menu Icon (For mobile) -->
         <div class="hamburger-menu">
             <i class="ri-menu-line hamburger-icon" aria-label="Menu" onclick="toggleHamburgerMenu()"></i>
         </div>
@@ -21,11 +21,11 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="hamburger-overlay" id="hamburgerOverlay">
             <i class="ri-close-line close-icon" onclick="toggleHamburgerMenu()"></i>
             <ul class="hamburger-menu-list">
-                <li><a href="/Web_Application/products_listing.php?gender=men">Mens</a></li>
-                <li><a href="/Web_Application/products_listing.php?gender=women">Womens</a></li>
+                <li><a href="/Web_Application/product/products_listing.php?gender=men">Mens</a></li>
+                <li><a href="/Web_Application/product/products_listing.php?gender=women">Womens</a></li>
                 <li><a href="/Web_Application/about-us/our_story.php">Our Story</a></li>
                 <li><a href="/Web_Application/about-us/contact_us.php">Contact Us</a></li>
-                <li><a href="/Web_Application/cart.php">Cart</a></li>
+                <li><a href="/Web_Application/cart/cart.php">Cart</a></li>
                 <li>
                     <?php if (isset($_SESSION['user_email'])): ?>
                         <!-- Show Personal Info if logged in -->
@@ -39,13 +39,13 @@ if (session_status() === PHP_SESSION_NONE) {
             </ul>
         </div>
 
-        <!-- Main Nav Menu (visible on desktop) -->
+        <!-- Main Nav Menu (For desktop) -->
         <ul class="nav-menu">
             <li class="dropdown">
-                <a href="/Web_Application/products_listing.php?gender=men">Mens </a>
+                <a href="/Web_Application/product/products_listing.php?gender=men">Mens </a>
             </li>
             <li class="dropdown">
-                <a href="/Web_Application/products_listing.php?gender=women">Womens </a>
+                <a href="/Web_Application/product/products_listing.php?gender=women">Womens </a>
             </li>
             <li class="dropdown">
                 <a href="#">About </a>
@@ -56,6 +56,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </li>
         </ul>
 
+        <!-- Cart and Profile Icons -->
         <div class="nav-icons">
             <a href="/Web_Application"><i class="ri-home-2-line"></i></a>
             
@@ -70,14 +71,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
             <?php if (isset($_SESSION['user_email'])): ?>
                 <!-- Redirect to Cart if logged in -->
-                <a href="/Web_Application/cart.php"><i class="ri-shopping-bag-line"></i></a>
+                <a href="/Web_Application/cart/cart.php"><i class="ri-shopping-bag-line"></i></a>
             <?php else: ?>
                 <!-- Redirect to Login if not logged in -->
                 <a href="/Web_Application/user/login.php" onclick="alert('Please log in to access your cart.');"><i class="ri-shopping-bag-line"></i></a>
             <?php endif; ?>
         </div>
-
-        <!-- Search Bar -->
     </nav>
     <hr class="divider">
 </header>

@@ -6,7 +6,6 @@ class User {
 
     public function __construct() {
         $this->conn = Database::connect();
-        
     }
 
     public function getName() {
@@ -17,11 +16,11 @@ class User {
         return $this->email;
     }
 
+    // Register a new user
     public function register($name, $phone, $email, $password) {
         // Hash the password for security
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Prepare statement
         $stmt = $this->conn->prepare("INSERT INTO users (name, phone, email, password) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $name, $phone, $email, $hashedPassword);
 
@@ -31,19 +30,18 @@ class User {
         return $success;
     }
 
+    // Login method to authenticate user
     public function login($email, $password) {
-        // Prepare statement
         $stmt = $this->conn->prepare("SELECT userID, name, email, phone, birthday, gender, password FROM users WHERE BINARY email = ?"); // Fetch additional fields
         $stmt->bind_param("s", $email);
         
-        // Execute the statement and fetch the result
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($id, $name, $email, $phone, $birthday, $gender, $storedPassword);
         
         // Check if a result was returned (email exists)
         if ($stmt->num_rows > 0) {
-            $stmt->fetch(); // Fetch the user details
+            $stmt->fetch();
 
             // Verify the password
             if (password_verify($password, $storedPassword)) {
@@ -62,6 +60,7 @@ class User {
         return false; // No user found or incorrect password
     }
 
+    // Check if email already exists
     public function isEmailExists($email){
         $stmt = $this->conn->prepare("SELECT COUNT(*) FROM users WHERE BINARY email = ?");
         $stmt->bind_param("s",$email);
@@ -72,7 +71,7 @@ class User {
         return $count > 0; // Return true if email exists, false otherwise
     }
 
-    // New method to get user details by ID
+    // Get user details by ID
     public function getUserById($userID) {
         $stmt = $this->conn->prepare("SELECT userID, name, email, phone, birthday, gender FROM users WHERE userID = ?");
         $stmt->bind_param("i", $userID);
@@ -84,7 +83,7 @@ class User {
         return $user; // Returns an associative array of user details
     }
 
-    // New method to update user info
+    // Update user information
     public function updateUserInfo($userID, $name, $phone, $email, $birthday, $gender) {
         $stmt = $this->conn->prepare("UPDATE users SET name = ?, phone = ?, email = ?, birthday = ?, gender = ? WHERE userID = ?");
         $stmt->bind_param("sssssi", $name, $phone, $email, $birthday, $gender, $userID);
@@ -93,6 +92,30 @@ class User {
         return $success;
     }
 
+    // Save user review
+    public function saveUserReview($userID, $productID, $orderID, $rating, $review) {    
+        $stmt = $this->conn->prepare(
+            "INSERT INTO Ratings (productID, userID, orderID, rating, review) VALUES (?, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param("iiiis", $productID, $userID, $orderID, $rating, $review);
+        $success = $stmt->execute();
+        $stmt->close();
+    
+        return $success;
+    }
+
+    // Check if user has already reviewed a product in an order
+    public function hasReviewedProductInOrder($userID, $productID, $orderID) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM Ratings WHERE userID = ? AND productID = ? AND orderID = ?");
+        $stmt->bind_param("iii", $userID, $productID, $orderID);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $count > 0;
+    }
+    
     public function __destruct() {
         Database::close();
     }

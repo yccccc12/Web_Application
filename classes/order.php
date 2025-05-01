@@ -4,8 +4,8 @@ require_once __DIR__ . '/database.php';
 class Order {
     private $conn;
 
+    // Constructor to initialize the database connection
     public function __construct() {
-        // Use Database::connect() instead of Database::getInstance()
         $this->conn = Database::connect();
     }
 
@@ -26,7 +26,7 @@ class Order {
         }
     }
 
-    // Get order history
+    // Get order history by User ID
     public function getOrderHistory($userID) {
         $stmt = $this->conn->prepare("SELECT orderID, date, totalAmount, orderStatus FROM Orders WHERE userID = ? ORDER BY date DESC");
         $stmt->bind_param("i", $userID);
@@ -40,6 +40,7 @@ class Order {
         return $orders;
     }
 
+    // Reduce stock for each item in the cart
     public function reduceStock($cart) {
         foreach ($cart as $item) {
             $stmt = $this->conn->prepare("UPDATE ProductVariants SET stock = stock - ? WHERE productID = ? AND size = ?");
@@ -48,6 +49,7 @@ class Order {
         }
     }
 
+    // Get order details by Order ID
     public function getOrderHistoryById($orderID){ 
         $sql = "SELECT 
                     oi.orderID,
@@ -90,6 +92,7 @@ class Order {
             'orderItems' => []
         ];
     
+        // Fetch order items and their details
         while ($row = $result->fetch_assoc()) {
             $orderDetails['orderItems'][] = [
                 'orderItemID' => $row['orderItemID'],

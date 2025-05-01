@@ -8,6 +8,7 @@ class Product {
         $this->conn = Database::connect();
     }
 
+    // Fetch all products with images and variants
     public function getAllProducts() {
         $sql = "
             SELECT 
@@ -36,7 +37,7 @@ class Product {
         while ($row = $result->fetch_assoc()) {
             $productID = $row['productID'];
     
-            // Initialize product if not already added
+            // Check if the product already exists in the array, if not create it
             if (!isset($products[$productID])) {
                 $products[$productID] = [
                     'productID' => $row['productID'],
@@ -50,6 +51,7 @@ class Product {
                 ];
             }
     
+            // Add image if it exists and is not added
             if ($row['imageID']) {
                 $imageExists = false;
                 foreach ($products[$productID]['images'] as $image) {
@@ -67,7 +69,7 @@ class Product {
                 }
             }
             
-            // Add variant if it exists and is not already added
+            // Add variant if it exists and is not added
             if ($row['variantID']) {
                 $variantExists = false;
                 foreach ($products[$productID]['variants'] as $variant) {
@@ -90,6 +92,7 @@ class Product {
         return array_values($products);
     }
     
+    // Get a single product by ID with images and variants
     public function getAProduct($id) {
         $sql = "
             SELECT 
@@ -169,58 +172,7 @@ class Product {
         return $product;
     }
 
-    // Fetch a single product by ID
-    public function getProductById($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM products WHERE productID = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        return $result->fetch_assoc(); // Return the product as an array
-    }
-
-    // Insert a new product
-    public function addProduct($name, $price, $stock, $imagePath, $color, $size) {
-        $stmt = $this->conn->prepare("INSERT INTO products (name, price, stock, image_path, color, size) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sdisss", $name, $price, $stock, $imagePath, $color, $size);
-
-        $success = $stmt->execute();
-        $stmt->close();
-
-        return $success;
-    }
-
-    // Update an existing product
-    public function updateProduct($id, $name, $price, $stock, $imagePath, $color, $size) {
-        $stmt = $this->conn->prepare("UPDATE products SET name=?, price=?, stock=?, image_path=?, color=?, size=? WHERE id=?");
-        $stmt->bind_param("sdisssi", $name, $price, $stock, $imagePath, $color, $size, $id);
-
-        $success = $stmt->execute();
-        $stmt->close();
-
-        return $success;
-    }
-
-    // Delete a product
-    public function deleteProduct($id) {
-        $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");
-        $stmt->bind_param("i", $id);
-
-        $success = $stmt->execute();
-        $stmt->close();
-
-        return $success;
-    }
-
-    public function getProductVariant($productID, $size) {
-        $sql = "SELECT stock FROM ProductVariants WHERE productID = ? AND size = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("is", $productID, $size);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc();
-    }
-
+    // Get all product variants for a specific product
     public function getProductVariantsID($productID, $size){
         $stmt = $this->conn->prepare("SELECT variantID FROM ProductVariants WHERE productID = ? AND size = ?");
         $stmt->bind_param("is", $productID, $size);
@@ -229,20 +181,46 @@ class Product {
         $row = $result->fetch_assoc();
         return $row ? $row['variantID'] : null; // return just the value or null if not found
     }
-
-    public function __destruct() {
-        // Remove the call to Database::close()
-        // Let the database connection remain open for the script lifecycle
-    }
     
+    // Get maximum stock available for a given product and size
     public function getMaxStock($productId, $size) {
-        // Get maximum stock available for a given product and size
         $stmt = $this->conn->prepare("SELECT stock FROM ProductVariants WHERE productID = ? AND size = ?");
         $stmt->bind_param("is", $productId, $size);  // Use $productId instead of $productID
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         return $row ? $row['stock'] : 0;  // Return stock value, or 0 if not found
+    }
+
+    // Get all reviews for a specific product
+    public function getRecentReviews($productID) {    
+        $query = "
+            SELECT 
+                Ratings.rating,
+                Ratings.review,
+                Ratings.productID,
+                Products.name AS productName,
+                Users.name AS userName
+            FROM Ratings
+            JOIN Users ON Ratings.userID = Users.userID
+            JOIN Products ON Ratings.productID = Products.productID
+            WHERE Ratings.productID = ?
+            ORDER BY Ratings.ratingID DESC
+
+        ";
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $productID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        $reviews = [];
+        while ($row = $result->fetch_assoc()) {
+            $reviews[] = $row;
+        }
+    
+        $stmt->close();
+        return $reviews;
     }
 }
 ?>

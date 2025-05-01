@@ -1,5 +1,5 @@
 <?php
-require_once "classes/product.php";
+require_once "../classes/product.php";
 
 header("Content-Type: application/json");
 

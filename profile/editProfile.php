@@ -47,6 +47,8 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
             color: green;
         }
     </style>
+
+    <!-- JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("editProfileForm");
@@ -81,11 +83,13 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
 </head>
 <body>
     <?php include '../includes/header.php'; ?>
+
     <div class="container">
         <div class="sidebar">
             <a href="personalInfo.php">Personal Info</a>
             <a href="EditProfile.php" style="font-weight: bold;">| Edit Profile</a>
             <a href="orderHistory.php">Order History</a>
+            <a href="viewStatistic.php">View Statistic</a>
             <a href="logout.php">Log out</a>
         </div>
 
@@ -93,29 +97,35 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
             <div class="card">
                 <h2>Edit Profile</h2>
                 <br>
+                <!-- Edit Profile Form -->
                 <form id="editProfile-form" action="updateProfile.php" method="POST">
+                    <!-- Name -->
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" oninput="validateName()">
                         <div id="nameError" class="error"></div>
                     </div>
 
+                    <!-- Phone Number -->
                     <div class="form-group">
                         <label for="phone">Phone No</label>
                         <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($phone) ?>" oninput="validatePhone()">
                         <div id="phoneError" class="error"></div>
                     </div>
 
+                    <!-- Email Address -->
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" readonly>
                     </div>
 
+                    <!-- Birthday -->
                     <div class="form-group">
                         <label for="birthday">Birthday</label>
                         <input type="date" id="birthday" name="birthday" value="<?= htmlspecialchars($birthday ?? '') ?>">
                     </div>
 
+                    <!-- Gender -->
                     <div class="form-group">
                         <label>Gender</label>
                         <br>
@@ -139,7 +149,8 @@ $gender = isset($userData['gender']) && $userData['gender'] !== null ? strtolowe
     </div>
 
     <?php include '../includes/footer.php';?>
+    
     <!-- JavaScript -->
-    <script src="../user/validation.js"></script>
+    <script src="../js/validation.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include 'classes/product.php';
+include '../classes/product.php';
 
 // Start session to check login status
 session_start();
@@ -17,7 +17,7 @@ $productData = $product->getAProduct($productID);
 $variantID = $product->getProductVariantsID($productID, $size);
 
 if (!$productData) {
-    header("Location: products.php");
+    header("Location: products_listing.php");
     exit;
 }
 
@@ -31,6 +31,7 @@ if (isset($_SESSION['cart'])) {
     }
 }
 
+$reviews = $product->getRecentReviews($productID);
 ?>
 
 <!DOCTYPE html>
@@ -43,17 +44,91 @@ if (isset($_SESSION['cart'])) {
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
-    <link rel="stylesheet" href="style/product.css">
+    <link rel="stylesheet" href="../style/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+    .reviews-section {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .reviews-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .reviews-header h2 {
+      font-size: 2rem;
+      margin: 40px 0 10px;
+    }
+    .stars {
+      font-size: 1.5rem;
+    }
+
+    .reviews-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .review-card {
+      flex: 0 0 300px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      padding: 20px;
+      scroll-snap-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .review-title {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .review-author {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .arrow {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      user-select: none;
+      margin: 0 10px;
+    }
+
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+
+    .review-rating {
+      font-size: 1.2rem;
+    }
+    </style>
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <div class="product-details-container"> 
         <div class="product-details">
-            <img src="img/<?php echo htmlspecialchars($productData["images"][0]['image_url']); ?>" alt="<?php echo htmlspecialchars($productData['name']); ?>">
-            <img src="img/<?php echo htmlspecialchars($productData["images"][1]['image_url']); ?>" alt="<?php echo htmlspecialchars($productData['name']); ?>">
+            <img src="<?php echo htmlspecialchars($productData["images"][0]['image_url']); ?>" alt="<?php echo htmlspecialchars($productData['name']); ?>">
+            <img src="<?php echo htmlspecialchars($productData["images"][1]['image_url']); ?>" alt="<?php echo htmlspecialchars($productData['name']); ?>">
         </div>
 
         <div class="product-info">
@@ -104,7 +179,35 @@ if (isset($_SESSION['cart'])) {
             <button class="checkout-btn">Checkout</button>
         </div>
     </div>
-    <?php include 'includes/footer.php'; ?>
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <h2>Customer review</h2>
+            <p>from <?php echo htmlspecialchars(count($reviews))?> reviews</p>
+        </div>
+        <div class="carousel-container">
+            <div class="arrow" onclick="scrollCarousel(-1)">&#10094;</div>
+            <div class="reviews-carousel" id="carousel">
+                <?php foreach ($reviews as $review): ?>
+                    <div class="review-card">
+                    <div class="review-rating">
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <i class="ri-star<?= $i <= $review['rating'] ? '-fill' : '-line' ?>"></i>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="review-text"><?= htmlspecialchars($review['review']) ?></div>
+                    <div class="review-title"><?= htmlspecialchars($review['userName']) ?></div>
+                    </div>
+                <?php endforeach; ?>
+
+                <?php if (empty($reviews)): ?>
+                    <p>No reviews found.</p>
+                <?php endif; ?>
+            </div>
+            <div class="arrow" onclick="scrollCarousel(1)">&#10095;</div>
+        </div>
+    </div>
+    
+    <?php include '../includes/footer.php'; ?>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -219,7 +322,7 @@ if (isset($_SESSION['cart'])) {
 
             });
            
-            fetch('add_to_cart.php', {
+            fetch('../cart/add_to_cart.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -267,6 +370,12 @@ if (isset($_SESSION['cart'])) {
             window.location.href = url;
         });
     });
+
+    function scrollCarousel(direction) {
+    const carousel = document.getElementById('carousel');
+    const scrollAmount = 320; // Adjust this to match card width + margin
+    carousel.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+    }
     </script>
 </body>
 </html>

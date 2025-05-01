@@ -94,6 +94,20 @@ CREATE TABLE OrderItems (
     CONSTRAINT OrderItems_variantID_fk FOREIGN KEY (variantID) REFERENCES ProductVariants(variantID)
 );
 
+-- Review Table
+CREATE TABLE Ratings (
+    ratingID INT AUTO_INCREMENT,
+    orderID INT,
+    productID INT,
+    userID INT,
+    rating INT,
+    review TEXT,
+    CONSTRAINT Ratings_ratingID_pk PRIMARY KEY(ratingID),
+    CONSTRAINT Ratings_orderID_fk FOREIGN KEY (orderID) REFERENCES Orders(orderID),
+    CONSTRAINT Ratings_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID),
+    CONSTRAINT Ratings_userID_fk FOREIGN KEY (userID) REFERENCES Users(userID)
+);
+
 -- Insert sample product
 
 INSERT INTO Products (name, description, price, category, colour) 
@@ -105,7 +119,11 @@ VALUES
 ('Women Short-Sleeve Fashion Tee - Black', 'Comfortable and stylish long-sleeve sweatshirt.', 89.90, 'Women', 'Black'),
 ('Women Short-Sleeve Fashion Tee - Pink', 'Comfortable and stylish long-sleeve sweatshirt.', 89.90, 'Women', 'Pink'),
 ('Women Oversized Short-Sleeve Shirt - Black', 'Trendy oversized denim jacket.', 129.90, 'Women', 'Black'),
-('Women Oversized Short-Sleeve Shirt - Pink', 'Trendy oversized denim jacket.', 129.90, 'Women', 'Pink');
+('Women Oversized Short-Sleeve Shirt - Pink', 'Trendy oversized denim jacket.', 129.90, 'Women', 'Pink'),
+('Men Short-Sleeve Oversized T-Shirt - Khaki', 'Soft cotton oversized t-shirt for casual wear.', 129.90, 'Men', 'Khaki'),
+('Men Short-Sleeve Oversized T-Shirt - Black', 'Soft cotton oversized t-shirt for casual wear.', 129.90, 'Men', 'Black'),
+('Men Short-Sleeve Graphic Tee - Black', 'Stylish graphic t-shirt for casual wear.', 59.90, 'Men', 'Black'),
+('Men Short-Sleeve Graphic Tee - Khaki', 'Stylish graphic t-shirt for casual wear.', 59.90, 'Men', 'Khaki');
 
 INSERT INTO ProductVariants (productID, size, stock)
 VALUES
@@ -130,7 +148,16 @@ VALUES
 (7, 'M', 70),
 (7, 'L', 60),
 (8, 'S', 80),
-(8, 'M', 70);
+(8, 'M', 70),
+(9, 'L', 60),
+(9, 'XL', 50),
+(10, 'S', 80),
+(10, 'M', 70),
+(10, 'L', 60),
+(11, 'S', 80),
+(11, 'M', 70),
+(12, 'L', 60),
+(12, 'XL', 50);
 
 INSERT INTO ProductImages (productID, image_url, image_type)
 VALUES
@@ -149,4 +176,12 @@ VALUES
 (7, '../img/product_7_front.jpg', 'Front'),
 (7, '../img/product_7_back.jpg', 'Back'),
 (8, '../img/product_8_front.jpg', 'Front'),
-(8, '../img/product_8_back.jpg', 'Back');
+(8, '../img/product_8_back.jpg', 'Back'),
+(9, '../img/product_9_front.jpg', 'Front'),
+(9, '../img/product_9_back.jpg', 'Back'),
+(10, '../img/product_10_front.jpg', 'Front'),
+(10, '../img/product_10_back.jpg', 'Back'),
+(11, '../img/product_11_front.jpg', 'Front'),
+(11, '../img/product_11_back.jpg', 'Back'),
+(12, '../img/product_12_front.jpg', 'Front'),
+(12, '../img/product_12_back.jpg', 'Back');

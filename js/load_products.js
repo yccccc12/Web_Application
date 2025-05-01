@@ -14,7 +14,11 @@ fetchProducts().then(products => {
 });
 
 function fetchProducts() {
-    return fetch("get_products.php")
+    const endpoint = window.location.pathname.includes("products_listing.php") 
+        ? "get_products" 
+        : "product/get_products.php";
+
+    return fetch(endpoint)
         .then(response => response.json())
         .catch(error => {
             console.error("Fetch error:", error);
@@ -40,11 +44,11 @@ function loadProducts(products, category = "all") {
     filteredProducts.forEach(product => {
         let productHTML = `
             <div class="product" data-color="${product.colour}" data-size='${JSON.stringify(product.variants.map(variant => variant.size))}'>
-                <a href="product_details.php?id=${product.productID}">
-                    <img src="img/${product.images[0]['image_url']}" alt="${product.name}">
-                </a>
-                <h3>${product.name}</h3>
-                <p>RM${product.price}</p>
+            <a href="${window.location.pathname.includes('products_listing.php') ? 'product_details.php?id=' + product.productID : 'product/product_details.php?id=' + product.productID}">
+                <img src="/Web_Application/img/${product.images[0]['image_url'].replace('../img/', '')}" alt="${product.name}">
+            </a>
+            <h3>${product.name}</h3>
+            <p>RM${product.price}</p>
             </div>`;
         container.innerHTML += productHTML;
     });

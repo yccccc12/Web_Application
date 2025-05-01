@@ -13,13 +13,13 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
-    <link rel="stylesheet" href="style/product.css">
+    <link rel="stylesheet" href="../style/product.css">
 </head>
 <body>
 
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
 
     <section class="products-container">
         <!-- Filter Menu Icon (visible on mobile) -->
@@ -88,8 +88,8 @@ $gender = isset($_GET['gender']) ? ucfirst(strtolower($_GET['gender'])) : 'All';
         <div class="products-section"></div>
     </section>
 
-    <?php include 'includes/footer.php';?>
+    <?php include '../includes/footer.php';?>
 
-    <script src="js/load_products.js"></script>
+    <script src="../js/load_products.js"></script>
 </body>
 </html>

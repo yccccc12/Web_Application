@@ -11,7 +11,6 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = new User();
 
-        // Ensure form fields exist before accessing them
         $email = isset($_POST['email']) ? trim($_POST['email']) : "";
         $password = isset($_POST['password']) ? trim($_POST['password']) : "";
         $valid = true;
@@ -32,8 +31,10 @@
 
         // If valid, try to log the user in
         if ($valid) {
-            $loggedInUser = $user->login($email, $password); // Fetch user details from login function
-
+            // Fetch user details from login function
+            $loggedInUser = $user->login($email, $password);
+            
+            // If login is successful, store user details in session
             if ($loggedInUser) {
                 // Store user details in session
                 $_SESSION['user_id'] = $loggedInUser['id'];
@@ -73,7 +74,9 @@
     <section class="login-section">
         <h1 class="authentication-heading">Login</h1>
 
+        <!-- Login Form -->
         <form id="login-form" class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <!-- Email -->
             <div class="form-field">
                 <p>Email Address</p>
                 <input type="text" id="email" name="email" placeholder="Enter your email" oninput="validateEmail()" 
@@ -81,6 +84,7 @@
                 <div id="emailError" class="error"><?php echo $emailError; ?></div>
             </div>
 
+            <!-- Password -->
             <div class="form-field">
                 <p>Password</p>
                 <div class="password-input-container">
@@ -102,6 +106,6 @@
     <?php include '../includes/footer.php';?>
         
     <!-- JavaScript -->
-    <script src="../user/validation.js"></script>
+    <script src="../js/validation.js"></script>
 </body>
 </html>

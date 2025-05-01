@@ -6,6 +6,9 @@
     <title>Terms and Conditions</title>
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         .question-container {
         font-family: Arial, sans-serif;
@@ -56,10 +59,10 @@
     <p>We currently do not offer exchanges. If you wish to change a size or color, you may need to return the original item (if eligible) and place a new order.</p>
 
     <h2>10. My item is faulty or incorrect. What should I do?</h2>
-    <p>We're sorry for the inconvenience. Please contact us at support@tub.com.my within 7 days with your order number, and we’ll assist you with a replacement or refund.</p>
+    <p>We're sorry for the inconvenience. Please contact us at <a href="mailto:tub_apparel@gmail.com">tub_apparel@gmail.com</a> within 7 days with your order number, and we’ll assist you with a replacement or refund.</p>
 
     <h2>11. How do I contact customer service?</h2>
-    <p>You can reach us by email at <a href="mailto:support@tub.com.my">support@tub.com.my</a>. Our customer support team typically responds within 1–2 business days.</p>
+    <p>You can reach us by email at <a href="mailto:tub_apparel@gmail.com">tub_apparel@gmail.com</a>. Our customer support team typically responds within 1–2 business days.</p>
     </div>
   <?php include '../includes/footer.php';?>
 </body>

@@ -50,6 +50,7 @@
 <body>
     <?php include 'includes/header.php';?>
 
+    <!-- Landing Page -->
     <section class="landing-section">
         <h1>Style Without Limits</h1>
         <p>
@@ -57,8 +58,8 @@
             Explore the latest drops, discover timeless essentials, and redefine your wardrobe with us. Because fashion isn’t just what you wear – it’s how you own it.
         </p>
         <div class="landing-image-container slideshow">
-            <img name="landing-image" src="img/landing.jpg" alt="This is an image of models" class="slide" style="display: block;">
-            <img name="landing-image" src="img/landing_5.jpg" alt="This is an image of models" class="slide" style="display: none;">
+            <img name="landing-image" src="img/landing_1.jpg" alt="This is an image of models" class="slide" style="display: block;">
+            <img name="landing-image" src="img/landing_2.jpg" alt="This is an image of models" class="slide" style="display: none;">
             <img name="landing-image" src="img/landing_3.jpg" alt="This is an image of models" class="slide" style="display: none;">
 
             <button class="nav-button prev-button" id="prevSlideButton">&#10094;</button>
@@ -67,20 +68,20 @@
         <script src="js/slideshow.js"></script>
     </section>
 
+    <!-- New Arrivals Products -->
     <section class="new-arrivals" data-aos="fade-up" data-aos-duration="1500">
         <h2>New Arrivals</h2>
-        <section class="products-section">
-          
-        </section>
+        <section class="products-section"></section>
     </section>
 
+    <!-- Shop by Category -->
     <section class="shop-category-header" data-aos="fade-up" data-aos-duration="800">
         <h2>Shop by Category</h2>
     </section>
 
     <section class="shop-section">
         <div class="shop-item" data-aos="fade-right" data-aos-duration="1000">
-            <a href="/Web_Application/products_listing.php?gender=men" class="shop-link">
+            <a href="/Web_Application/product/products_listing.php?gender=men" class="shop-link">
                 <img src="img/shop-men.jpg" alt="Shop Men">
                 <div class="shop-overlay">
                     <span>Shop Men</span>
@@ -88,7 +89,7 @@
             </a>
         </div>
         <div class="shop-item" data-aos="fade-left" data-aos-duration="1000">
-            <a href="/Web_Application/products_listing.php?gender=women" class="shop-link">
+            <a href="/Web_Application/product/products_listing.php?gender=women" class="shop-link">
                 <img src="img/shop-women.jpg" alt="Shop Women">
                 <div class="shop-overlay">
                     <span>Shop Women</span>
@@ -97,6 +98,7 @@
         </div>
     </section>
 
+    <!-- Why Choose Us Section -->
     <section class="why-choose-section">
         <div class="reason-description">
             <h2>Why Choose Us?</h2>
@@ -117,7 +119,7 @@
             </p>
         </div>
         <div class="why-choose-image-container" data-aos="fade-down" data-aos-duration="300">
-            <img name="why-choose-image" src="img/landing3.jpg" alt="Fashion Banner">
+            <img name="why-choose-image" src="img/landing_4.jpg" alt="Fashion Banner">
         </div>
     </section>
 
@@ -127,6 +129,7 @@
         AOS.init({
             once: true, // Ensures the animation triggers only once
             easing: 'ease-in-out',
+            duration: 1000, // Animation duration in milliseconds
         });
     </script>
     <script src="js/load_products.js"></script>

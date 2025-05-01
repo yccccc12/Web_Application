@@ -14,11 +14,8 @@ $email = $_POST['email'];
 $birthday = $_POST['birthday'];
 $gender = $_POST['gender'];
 
-// $conn = Database::connect();
 $user = new User();
-
 $success = $user->updateUserInfo($user_id, $name, $phone, $email, $birthday, $gender);
-// Database::close();
 
 if ($success) {
     $_SESSION['user_name'] = $name;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'classes/product.php'; // Include your Product class
+include '../classes/product.php'; // Include your Product class
 
 // Retrieve cart from session
 $cart = $_SESSION['cart'] ?? [];
@@ -19,16 +19,16 @@ $product = new Product();
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
-    <link rel="stylesheet" href="style/product.css">
+    <link rel="stylesheet" href="../style/product.css">
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php include '../includes/header.php'; ?>
     <div class="checkout-container">
         <h1 style="font-size:30px;padding-left:40px; padding-top:20px;">Your Cart</h1>
         <?php if (empty($cart)): ?>
-            <p style="padding-left: 40px; padding-top: 20px;">Your cart is empty.</p>
+            <p style="padding-left: 40px; padding-top: 20px; margin-bottom: 400px;">Your cart is empty.</p>
         <?php else: ?>
             
         <table style="width:100%; margin:20px; border-collapse: collapse;">
@@ -53,7 +53,7 @@ $product = new Product();
                 <tr>
                     <td class="cart-item">
                         <div class="product-display">
-                            <img src="img/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($productName); ?>" class="product-img">
+                            <img src="<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($productName); ?>" class="product-img">
                             <div class="product-info" style="margin-top: 10px;">
                                 <p style="margin: 10px 0;font-weight:bold;"><?php echo htmlspecialchars($productName); ?></p>
                                 <p style="margin: 10px 0;">RM<?php echo number_format($price, 2); ?></p>
@@ -114,5 +114,6 @@ $product = new Product();
         
         <?php endif; ?>
     </div>
+    <?php include '../includes/footer.php'; ?>
 </body>
 </html>

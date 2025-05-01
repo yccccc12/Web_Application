@@ -50,7 +50,7 @@
          // If all validations pass, register the user
         if ($valid) {
             if ($user->register($name, $phone, $email, $password)) {
-                $_SESSION['user_email'] = $email; // Auto-login after sign-up
+                $_SESSION['user_email'] = $email;
                 echo "<script>
                         alert('Registered successfully! Redirecting to dashboard...');
                         window.location.href = '/Web_Application/user/login';
@@ -87,19 +87,23 @@
     <section class="signUp-section">
         <h1 class="authentication-heading">Create Account</h1>
 
+           <!-- Sign Up Form -->
         <form id="signUp-form" class="form-container" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <!-- Name -->
             <div class="form-field">
                 <p>Name</p>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" oninput="validateName()">
                 <div id="nameError" class="error"><?php echo $nameError; ?></div>
             </div>
 
+            <!-- Phone Number -->
             <div class="form-field">
                 <p>Phone Number</p>
                 <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" oninput="validatePhone()">
                 <div id="phoneError" class="error"><?php echo $phoneError; ?></div>
             </div>
 
+            <!-- Email Address -->
             <div class="form-field">
                 <p>Email Address</p>
                 <input type="text" id="email" name="email" placeholder="Enter your email" oninput="validateEmail()" 
@@ -107,6 +111,7 @@
                 <div id="emailError" class="error"><?php echo $emailError; ?></div>
             </div>
 
+            <!-- Password -->
             <div class="form-field">
                 <p>Password</p>
                 <div class="password-input-container">
@@ -125,6 +130,6 @@
     <?php include '../includes/footer.php';?>
     
     <!-- JavaScript -->
-    <script src="../user/validation.js"></script>
+    <script src="../js/validation.js"></script>
 </body>
 </html>

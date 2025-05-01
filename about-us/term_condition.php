@@ -6,6 +6,9 @@
     <title>Terms and Conditions</title>
     <link rel="stylesheet" href="../style/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         .terms-container {
         font-family: Arial, sans-serif;
@@ -23,8 +26,8 @@
 </head>
 <body>
     <?php include '../includes/header.php';?>
-    <h1>Terms and Conditions</h1>
     <div class="terms-container">
+    <h1>Terms and Conditions</h1>
     <p>Welcome to TUB. These Terms and Conditions ("Terms") govern your use of our website and services. By accessing or using this site, you agree to be bound by these Terms. If you do not agree, please do not use our website.</p>
 
     <h2>1. Use of the Website</h2>
@@ -68,7 +71,7 @@
     <p>These Terms are governed by the laws of Malaysia. Any disputes shall be resolved in the courts of Malaysia.</p>
 
     <h2>13. Contact Us</h2>
-    <p>If you have any questions about these Terms and Conditions, please contact us at support@tub.com.my.</p>
+    <p>If you have any questions about these Terms and Conditions, please contact us at <a href="mailto:tub_apparel@gmail.com">tub_apparel@gmail.com</a>.</p>
     </div>
     <?php include '../includes/footer.php';?>
 </body>

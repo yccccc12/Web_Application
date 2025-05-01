@@ -154,10 +154,36 @@ if (phoneInput) {
     phoneInput.addEventListener("input", validatePhone);
 }
 
+// ============ Message Validation =================
+let messageInput = document.getElementById("message");
+let messageError = document.getElementById("messageError");
+function validateMessage() {
+    let message = messageInput.value.trim();
+    messageError.innerHTML = ""; // Clear previous error
+
+    if (message === "") {
+        messageError.innerHTML = '<i class="ri-error-warning-fill"></i> Message is required.';
+        return;
+    }
+
+    if (message.length < 4) {
+        messageError.innerHTML = '<span class="invalid">❌ Message must be at least 4 characters long.</span>';
+        return;
+    }
+
+    messageError.innerHTML = '<span class="valid">✅ Valid message.</span>';
+}
+
+if (messageInput) {
+    messageInput.addEventListener("input", validateMessage);
+}
+
 // ============ Form submission validation =================
 const loginForm = document.querySelector("#login-form");  // Selects the login form
 const signUpForm = document.querySelector("#signUp-form"); // Selects the signup form
 const editProfileForm = document.querySelector('#editProfile-form'); // Selects the edit profile form
+const contactForm = document.querySelector('#contact-form'); // Selects the contact form
+const ratingForm = document.querySelector('#rating-form'); // Selects the rating form
 
 // ============ Log In Form submission validation =================
 if(loginForm){
@@ -195,6 +221,24 @@ if(editProfileForm){
 
         if (nameError.innerHTML.includes("❌") || phoneError.innerHTML.includes("❌") || nameInput.value.trim() === "" || phoneInput.value.trim() === "") {
             event.preventDefault(); // Stop form submission
+        }
+    });
+}
+
+// ============ Contact Form Submission Validation =================
+if(contactForm){
+    contactForm.addEventListener("submit", function (event) {
+        validateName();
+        validateEmail();
+        validateMessage();
+
+        if( nameError.innerHTML.includes("❌") || emailError.innerHTML.includes("❌") || messageError.innerHTML.includes("❌") ||
+            nameInput.value.trim() === "" || emailInput.value.trim() === "" || messageInput.value.trim() === "") {
+            event.preventDefault(); // Stop form submission
+        }
+        else {
+            alert('Message sent! Thank you for the response.');
+            this.reset(); // clear the form
         }
     });
 }
