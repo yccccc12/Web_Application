@@ -4,17 +4,13 @@ USE tub_db;
 -- User Table
 CREATE TABLE Users (
     userID INT AUTO_INCREMENT,
-    cartItemID INT,
-    orderID INT,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(13) NOT NULL,
     birthday DATE,  
     gender ENUM('Male', 'Female') NULL DEFAULT NULL,  
-    CONSTRAINT Users_userID_pk PRIMARY KEY(userID),
-    CONSTRAINT Users_orderID_fk FOREIGN KEY (orderID) REFERENCES Orders(orderID),
-    CONSTRAINT Users_cartItemID_fk FOREIGN KEY (cartItemID) REFERENCES CartItems(cartItemID)
+    CONSTRAINT Users_userID_pk PRIMARY KEY(userID)
 );
 
 -- Product Table
@@ -48,24 +44,9 @@ CREATE TABLE ProductVariants (
     CONSTRAINT ProductVariants_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID)
 );
 
--- Cart Item Table
-CREATE TABLE CartItems (
-    cartItemID INT AUTO_INCREMENT,
-    userID INT,
-    productID INT,
-    size VARCHAR(3),
-    quantity INT,
-    colour VARCHAR (20) NOT NULL,
-    addedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Optional
-    CONSTRAINT CartItems_cartItemID_pk PRIMARY KEY(cartItemID),
-    CONSTRAINT CartItems_userID_fk FOREIGN KEY (userID) REFERENCES Users(userID),
-    CONSTRAINT CartItems_productID_fk FOREIGN KEY (productID) REFERENCES Products(productID)
-);
-
 -- Order Table
 CREATE TABLE Orders (
     orderID INT AUTO_INCREMENT,
-    orderItemID INT,
     userID INT,
     orderStatus VARCHAR(50) DEFAULT 'Pending',
     totalAmount DECIMAL(13,2) NOT NULL,
@@ -77,8 +58,7 @@ CREATE TABLE Orders (
     city VARCHAR(255) NOT NULL,
 
     CONSTRAINT Orders_orderID_pk PRIMARY KEY(orderID),
-    CONSTRAINT Orders_userID_fk FOREIGN KEY (userID) REFERENCES Users(userID),
-    CONSTRAINT Orders_orderItemID_fk FOREIGN KEY (orderItemID) REFERENCES OrderItems(orderItemID)
+    CONSTRAINT Orders_userID_fk FOREIGN KEY (userID) REFERENCES Users(userID)
 );
 
 -- Ordered Item Table
