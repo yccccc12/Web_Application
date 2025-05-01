@@ -107,7 +107,7 @@ function validateName() {
     nameError.innerHTML = ""; // Clear previous error
     
     // Define patterns for each requirement
-    let namePattern = /^[A-Za-z\s]{2,}$/;
+    let namePattern = /^[A-Za-z\s]{1,}$/;
 
     if (name === "") {
         nameError.innerHTML = '<i class="ri-error-warning-fill"></i> Name is required.';
