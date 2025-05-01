@@ -89,7 +89,6 @@ CREATE TABLE Ratings (
 );
 
 -- Insert sample product
-
 INSERT INTO Products (name, description, price, category, colour) 
 VALUES
 ('Men Long-Sleeve Oversized Sweatshirt Hoodie - Black', 'A comfortable and stylish lightweight hoodie.', 149.90, 'Men', 'Black'),
@@ -103,8 +102,13 @@ VALUES
 ('Men Short-Sleeve Oversized T-Shirt - Khaki', 'Soft cotton oversized t-shirt for casual wear.', 129.90, 'Men', 'Khaki'),
 ('Men Short-Sleeve Oversized T-Shirt - Black', 'Soft cotton oversized t-shirt for casual wear.', 129.90, 'Men', 'Black'),
 ('Men Short-Sleeve Graphic Tee - Black', 'Stylish graphic t-shirt for casual wear.', 59.90, 'Men', 'Black'),
-('Men Short-Sleeve Graphic Tee - Khaki', 'Stylish graphic t-shirt for casual wear.', 59.90, 'Men', 'Khaki');
+('Men Short-Sleeve Graphic Tee - Khaki', 'Stylish graphic t-shirt for casual wear.', 59.90, 'Men', 'Khaki'),
+('Women Knit Crop Top - Yellow', 'Stylish knit crop top for casual wear.', 119.90, 'Women', 'Yellow'),
+('Women Knit Crop Top - Black', 'Stylish knit crop top for casual wear.', 119.90, 'Women', 'Black'),
+('Women Long-Sleeve Crop Shirt - Black', 'Stylish long-sleeve crop shirt for casual wear.', 129.90, 'Women', 'Black'),
+('Women Long-Sleeve Crop Shirt - Blue', 'Stylish long-sleeve crop shirt for casual wear.', 129.90, 'Women', 'Blue');
 
+-- Insert sample product variants and images
 INSERT INTO ProductVariants (productID, size, stock)
 VALUES
 (1, 'M', 40),
@@ -137,8 +141,20 @@ VALUES
 (11, 'S', 80),
 (11, 'M', 70),
 (12, 'L', 60),
-(12, 'XL', 50);
+(12, 'XL', 50),
+(13, 'S', 80),
+(13, 'M', 70),
+(13, 'L', 60),
+(14, 'M', 70),
+(14, 'L', 60),
+(15, 'S', 80),
+(15, 'M', 70),
+(15, 'L', 60),
+(16, 'S', 80),
+(16, 'M', 70),
+(16, 'L', 60);
 
+-- Insert sample product images
 INSERT INTO ProductImages (productID, image_url, image_type)
 VALUES
 (1, '../img/product_1_front.jpg', 'Front'),
@@ -164,4 +180,53 @@ VALUES
 (11, '../img/product_11_front.jpg', 'Front'),
 (11, '../img/product_11_back.jpg', 'Back'),
 (12, '../img/product_12_front.jpg', 'Front'),
-(12, '../img/product_12_back.jpg', 'Back');
+(12, '../img/product_12_back.jpg', 'Back'),
+(13, '../img/product_13_front.jpg', 'Front'),
+(13, '../img/product_13_back.jpg', 'Back'),
+(14, '../img/product_14_front.jpg', 'Front'),
+(14, '../img/product_14_back.jpg', 'Back'),
+(15, '../img/product_15_front.jpg', 'Front'),
+(15, '../img/product_15_back.jpg', 'Back'),
+(16, '../img/product_16_front.jpg', 'Front'),
+(16, '../img/product_16_back.jpg', 'Back');
+
+-- Insert sample user
+-- Password: Abcd1234#   * (Hashed using bcrypt)
+INSERT INTO Users (name, email, password, phone, birthday, gender)
+VALUES ('Test User', 'testuser@example.com', '$2y$10$FyFk9XUsFXuxy3WEEf5y/eT7Qe0eltCxW.pM2sFlB.P.uGP/EdCwC', '012-3456789', '1995-05-10', 'Male');
+
+-- Assume inserted userID = 1
+INSERT INTO Orders (userID, orderStatus, totalAmount, paymentMethod, date, unit, state, postcode, city)
+VALUES
+(1, 'Delivered', 749.50, 'Credit Card', '2024-01-10 09:15:00', 5, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 119.90, 'E-Wallet', '2024-03-18 13:45:00', 8, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 259.80, 'Online Banking', '2024-06-25 17:30:00', 2, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 89.90, 'Credit Card', '2024-09-02 11:00:00', 10, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 389.70, 'Credit Card', '2023-01-22 11:00:00', 3, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 89.90, 'Online Banking', '2023-04-17 15:20:00', 6, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 239.60, 'E-Wallet', '2023-07-08 13:05:00', 4, 'Selangor', 47301, 'Shah Alam'),
+(1, 'Delivered', 299.80, 'Credit Card', '2023-10-29 18:45:00', 9, 'Selangor', 47301, 'Shah Alam');
+
+-- Insert sample order items
+INSERT INTO OrderItems (orderID, productID, variantID, quantity)
+VALUES
+(1, 1, 1, 5),
+(2, 3, 7, 1),
+(3, 9, 23, 2),
+(4, 5, 13, 1),
+(5, 10, 25, 3),
+(6, 6, 16, 1),
+(7, 11, 28, 4),
+(8, 2, 5, 2);
+
+-- Insert sample ratings and reviews
+INSERT INTO Ratings (orderID, productID, userID, rating, review)
+VALUES
+(1, 1, 1, 5, 'Excellent quality hoodie.'),
+(2, 3, 1, 4, 'Good shirt, soft material.'),
+(3, 9, 1, 5, 'Perfect fit and color.'),
+(4, 5, 1, 3, 'Okay, not what I expected.'),
+(5, 10, 1, 5, 'Great fabric and fit.'),
+(6, 6, 1, 4, 'Nice color and material.'),
+(7, 11, 1, 3, 'Looks okay, average quality.'),
+(8, 2, 1, 5, 'Love the style and color!');

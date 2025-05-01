@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <th>Order ID</th>
                                 <th>Date</th>
                                 <th>Total Amount</th>
-                                <th>Status</th>
+                                <th>Payment Method</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
@@ -318,7 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <td><?php echo htmlspecialchars($order['orderID']); ?></td>
                                     <td><?php echo htmlspecialchars($order['date']); ?></td>
                                     <td>RM <?php echo number_format($order['totalAmount'], 2); ?></td>
-                                    <td><?php echo htmlspecialchars($order['orderStatus']); ?></td>
+                                    <td><?php echo htmlspecialchars($order['paymentMethod']); ?></td>
                                     <td>
                                         <a href="?order_id=<?php echo urlencode($order['orderID']); ?>">Order Details</a>
                                     </td>

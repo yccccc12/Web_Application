@@ -70,10 +70,13 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
             <br>
             <h2>Payment Method</h2>
             <label>
-                <input type="radio" name="payment_method" value="Bank" required> Bank Transfer
+                <input type="radio" name="payment_method" value="Online Banking" required> Bank Transfer
             </label>
             <label>
-                <input type="radio" name="payment_method" value="TnG" required> Touch 'n Go
+                <input type="radio" name="payment_method" value="E-Wallet" required> Touch 'n Go
+            </label>
+            <label>
+                <input type="radio" name="payment_method" value="Credit Card" required> Credit Card
             </label>
 
             <br>

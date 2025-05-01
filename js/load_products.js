@@ -1,5 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
-const gender = urlParams.get("gender") || "all";
+// Get the category from the URL, default to "all" if not present
+const gender = urlParams.get("gender") || "all"; 
 
 fetchProducts().then(products => {
     const productSection = document.querySelector(".products-section");
@@ -13,6 +14,7 @@ fetchProducts().then(products => {
     }
 });
 
+// Fetch products
 function fetchProducts() {
     const endpoint = window.location.pathname.includes("products_listing.php") 
         ? "get_products" 
@@ -26,12 +28,12 @@ function fetchProducts() {
         });
 }
 
-// Load products into container
+// Load products
 function loadProducts(products, category = "all") {
     let container = document.querySelector(".products-section");
     container.innerHTML = "";
 
-    // Filter products dynamically based on category
+    // Filter products dynamically based on category by checking the first letter of the category and the first letter of the product category
     let filteredProducts = category === "all" 
         ? products 
         : products.filter(product => product.category.toLowerCase()[0] === category.toLowerCase()[0]);
@@ -41,7 +43,11 @@ function loadProducts(products, category = "all") {
         filteredProducts = filteredProducts.slice(0, 8);
     }
 
+    // Load products into the container
     filteredProducts.forEach(product => {
+        /* If the current page is 'products_listing.php', it links to 'product_details.php' in the same directory. 
+           Otherwise, it links to 'product/product_details.php'.
+        */
         let productHTML = `
             <div class="product" data-color="${product.colour}" data-size='${JSON.stringify(product.variants.map(variant => variant.size))}'>
             <a href="${window.location.pathname.includes('products_listing.php') ? 'product_details.php?id=' + product.productID : 'product/product_details.php?id=' + product.productID}">
@@ -52,8 +58,6 @@ function loadProducts(products, category = "all") {
             </div>`;
         container.innerHTML += productHTML;
     });
-
-    let screenWidth = window.innerWidth;
     
     // To ensure it will executed on products-listing.php
     const productCount = document.getElementsByClassName("product-count");
@@ -65,7 +69,7 @@ function loadProducts(products, category = "all") {
 
 // Load filters into container
 function loadFilters(products, category = "all") {
-    // Array of HTML, index 0 for mobile, index 1 for desktop
+    // The two variables below are array of HTML, index 0 for mobile, index 1 for desktop
     let colorFilter = document.getElementsByClassName("color-filter");
     let sizeFilter = document.getElementsByClassName("size-filter");
 
@@ -103,6 +107,7 @@ function loadFilters(products, category = "all") {
 
     }
 
+// Event listeners for filters
 function applyFilter() {
     let screenWidth = window.innerWidth;
     let selectedColor;
@@ -132,6 +137,7 @@ function applyFilter() {
     let products = document.querySelectorAll(".product");
     let count = 0;
 
+    // Filter products based on selected color and size
     let sortedProducts = Array.from(products).map(product => {
         let productColor = product.getAttribute("data-color") || "All";
         let productSize = product.getAttribute("data-size") || "[]";
@@ -177,7 +183,7 @@ function applyFilter() {
     }
 }
 
-/* Only for mobile */
+// Only for mobile 
 function toggleFilterMenu() {
     const overlay = document.getElementById('filterOverlay');
     const overlayBg = document.getElementById('filterOverlayBg');
@@ -198,10 +204,8 @@ function toggleFilterMenu() {
 
 }
 
-/* Only for mobile */
+// Only for mobile
 function clearFilters() {
-    const screenWidth = window.innerWidth;
-
     // Reset color filter for index 0 since this function only for mobile device
     const colorFilter = document.getElementsByClassName("color-filter")[0];
     colorFilter.selectedIndex = 0;

@@ -28,7 +28,7 @@ class Order {
 
     // Get order history by User ID
     public function getOrderHistory($userID) {
-        $stmt = $this->conn->prepare("SELECT orderID, date, totalAmount, orderStatus FROM Orders WHERE userID = ? ORDER BY date DESC");
+        $stmt = $this->conn->prepare("SELECT orderID, date, totalAmount, paymentMethod FROM Orders WHERE userID = ? ORDER BY date DESC");
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -16,103 +16,76 @@ $order = new Order();
 $user = new User();
 
 $orderHistory = $order->getOrderHistory($userID);
+$yearlyStats = [];
+$monthlyAmountData = [];
+$monthlyOrderCounts = [];
+$availableYears = [];
 
-// Initialize gender counts
-$genderCount = ['Men' => 0, 'Women' => 0];
-
-// Initialize total amount spent
-$totalAmountSpent = 0;
-
-// Loop through each order in the user's order history
 foreach ($orderHistory as $orderItem) {
-    $totalAmountSpent += $orderItem['totalAmount']; 
+    $orderDate = new DateTime($orderItem['date']); // Convert to DateTime object
+    $year = $orderDate->format('Y'); // Year in YYYY format
+    $month = $orderDate->format('F'); // Full month name
+
+    // Add year to available years if not occured
+    if (!in_array($year, $availableYears)) {
+        $availableYears[] = $year;
+    }
+
+    // Initialize stats
+    if (!isset($yearlyStats[$year])) {
+        $yearlyStats[$year] = [
+            'totalAmount' => 0,
+            'orderCount' => 0,
+            'gender' => ['Men' => 0, 'Women' => 0],
+            'colors' => []
+        ];
+    }
+
+    if (!isset($monthlyAmountData[$year][$month])) {
+        $monthlyAmountData[$year][$month] = 0;
+        $monthlyOrderCounts[$year][$month] = 0;
+    }
+
+    // Update total/yearly/monthly stats
+    $yearlyStats[$year]['totalAmount'] += $orderItem['totalAmount'];
+    $yearlyStats[$year]['orderCount'] += 1;
+    $monthlyAmountData[$year][$month] += $orderItem['totalAmount'];
+    $monthlyOrderCounts[$year][$month] += 1;
+
+    // Get items
     $orderDetails = $order->getOrderHistoryById($orderItem['orderID']);
- 
     foreach ($orderDetails['orderItems'] as $item) {
-        // Try to get gender info from either 'gender' or 'men' field
-        $gender = $item['category'] ?? '';
+        $gender = $item['category'] ?? 'Women';
+        $color = $item['colour'] ?? 'Unknown';
 
-        // Count items based on gender
-        if ($gender == 'Men') {
-            $genderCount['Men'] += $item['quantity'];
-        } else{
-            $genderCount['Women'] += $item['quantity'];
+        if (!isset($yearlyStats[$year]['gender'][$gender])) {
+            $yearlyStats[$year]['gender'][$gender] = 0;
         }
-    }
-}
+        $yearlyStats[$year]['gender'][$gender] += $item['quantity'];
 
-// Process order history to extract months and total amounts
-$monthlyData = [];
-foreach ($orderHistory as $orderItem) {
-    $month = date('Y-m', strtotime($orderItem['date'])); // Format the date as "YYYY-MM"
-    $totalAmount = (float)$orderItem['totalAmount'];
-
-    // Aggregate totalAmount by month
-    if (isset($monthlyData[$month])) {
-        $monthlyData[$month] += $totalAmount;
-    } else {
-        $monthlyData[$month] = $totalAmount;
-    }
-}
-ksort($monthlyData);
-
-// Convert the associative array to a format suitable for JavaScript
-$monthlyLabels = json_encode(array_keys($monthlyData)); // Months
-$monthlyValues = json_encode(array_values($monthlyData)); // Total amounts
-
-// Calculate average spending per order
-$averageSpendingPerOrder = 0;
-if(count($orderHistory) != 0) {
-    $totalAmountSpent = array_sum(array_column($orderHistory, 'totalAmount'));
-    $averageSpendingPerOrder = $totalAmountSpent / count($orderHistory);
-}
-
-// Calculate total orders across months
-$totalOrdersPerMonth = [];
-foreach ($orderHistory as $orderItem) {
-    $month = date('Y-m', strtotime($orderItem['date'])); // Format the date as "YYYY-MM"
-
-    // Count orders by month
-    if (isset($totalOrdersPerMonth[$month])) {
-        $totalOrdersPerMonth[$month]++;
-    } else {
-        $totalOrdersPerMonth[$month] = 1;
-    }
-}
-ksort($totalOrdersPerMonth);
-
-// Convert the associative array to a format suitable for JavaScript
-$totalOrdersLabels = json_encode(array_keys($totalOrdersPerMonth)); // Months
-$totalOrdersValues = json_encode(array_values($totalOrdersPerMonth)); // Total orders
-
-// Initialize color counts
-$colorCount = [];
-
-// Loop through each order in the user's order history
-foreach ($orderHistory as $orderItem) {
-    $orderDetails = $order->getOrderHistoryById($orderItem['orderID']);
-
-    foreach ($orderDetails['orderItems'] as $item) {
-        $color = $item['colour'] ?? 'Unknown'; // Assume 'color' field exists in order items
-
-        // Count items based on color
-        if (isset($colorCount[$color])) {
-            $colorCount[$color] += $item['quantity'];
-        } else {
-            $colorCount[$color] = $item['quantity'];
+        if (!isset($yearlyStats[$year]['colors'][$color])) {
+            $yearlyStats[$year]['colors'][$color] = 0;
         }
+        $yearlyStats[$year]['colors'][$color] += $item['quantity'];
     }
 }
-if (empty($colorCount)) {
-    $topFavoriteColor = 'No color data available';
-    $topFavoriteColorCount = 0;
-} else {
-    // Sort colors by count in descending order
-    arsort($colorCount);
 
-    // Get the top favorite color
-    $topFavoriteColor = array_key_first($colorCount);
-    $topFavoriteColorCount = $colorCount[$topFavoriteColor];
+// Sort years descending
+rsort($availableYears);
+
+// Set default year (latest year) for initial display
+$defaultYear = $availableYears[0] ?? date('Y');
+$defaultStats = $yearlyStats[$defaultYear] ?? ['totalAmount' => 0, 'orderCount' => 0, 'gender' => [], 'colors' => []];
+$averageSpending = $defaultStats['orderCount'] ? $defaultStats['totalAmount'] / $defaultStats['orderCount'] : 0;
+
+// Top color
+$topColor = 'N/A';
+$topColorCount = 0;
+foreach ($defaultStats['colors'] as $color => $count) {
+    if ($count > $topColorCount) {
+        $topColor = $color;
+        $topColorCount = $count;
+    }
 }
 ?>
 
@@ -152,7 +125,7 @@ if (empty($colorCount)) {
         .card h2 {
             font-size: 1.2rem;
             font-weight: 500;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .card canvas {
@@ -202,35 +175,19 @@ if (empty($colorCount)) {
             font-size: 1rem;
             color: #777;
         }
-        @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(2, minmax(200px, 1fr));
-                gap: 15px;
-                margin: 20px;
-            }
 
-            .card {
-                height: auto; /* Adjust height for smaller screens */
-                padding: 15px;
-                height: 400px;
-            }
-
-            .stat-card {
-                grid-column: span 2;
-            }
+        #timeSeriesChart {
+            /* Adjust the height of the chart to fit the card */
+            height: 330px !important; 
         }
 
-        @media (max-width: 480px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin: 10px;
-            }
-
-            .card {
-                padding: 10px;
-                height: 400px;
-            }
+        #yearSelector{
+            font-size: 16px;
+            border: none;
+            background: none;
+            color: #5A5A5A;
+            cursor: pointer;
+            outline: none;
         }
     </style>
 </head>
@@ -244,174 +201,60 @@ if (empty($colorCount)) {
             <a href="#" style="font-weight: bold;">| View Statistic</a>
             <a href="logout.php">Log out</a>
         </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <p style="font-weight: bold; margin: 40px 0 5px 5px;">Filter:</p>
+            <select id="yearSelector" style="margin-left: 5px;">
+                <option disabled selected>Year</option>
+                <!-- Options will be added dynamically -->
+            </select>
+        </div>
         <div class="dashboard-grid">
             <!-- Total Amount Spent -->
             <div class="card stat-card">
-                <h2>Total Amount Spent across Month</h2>
-                <canvas id="timeSeriesChart"></canvas>
+            <h2>Total Amount Spent across Month</h2>
+            <canvas id="timeSeriesChart"></canvas>
             </div>
 
             <div class="card stat-card">
-                <div class="stat-item">
-                        <h2>Total Amount Spent</h2>
-                        <div class="stat-value">RM <?php echo number_format($totalAmountSpent, 2); ?></div>
-                        <div class="stat-label">Across All Orders</div>
-                </div>
-
-                <div class="stat-item">
-                    <h2>Average Spending Per Order</h2>
-                    <div class="stat-value">RM <?php echo number_format($averageSpendingPerOrder, 2); ?></div>
-                    <div class="stat-label">Across All Orders</div>
-                </div>
-                <div class="stat-item">
-                    <h2>Top Favorite Color</h2>
-                    <div class="stat-value"><?php echo htmlspecialchars($topFavoriteColor); ?></div>
-                    <div class="stat-label">Count: <?php echo $topFavoriteColorCount; ?></div>
-                </div>
+            <div class="stat-item">
+                <h2>Total Amount Spent</h2>
+                <div class="stat-value" id="totalAmount">RM <?= number_format($defaultStats['totalAmount'], 2); ?></div>
+                <div class="stat-label">Across All Orders</div>
             </div>
 
-            <!-- Gender Distribution Chart -->
-            <div class="card stat-card">
-                <h2>Top Categories Purchased [Gender]</h2>
-                <canvas id="genderPieChart"></canvas>
+            <div class="stat-item">
+                <h2>Average Spending Per Order</h2>
+                <div class="stat-value" id="averageSpending">RM <?= number_format($averageSpending, 2); ?></div>
+                <div class="stat-label">Across All Orders</div>
+            </div>
+
+            <div class="stat-item">
+                <h2>Top Favorite Color</h2>
+                <div class="stat-value" id="topColor"><?= htmlspecialchars($topColor); ?></div>
+                <div class="stat-label" id="topColorCount">Count: <?= $topColorCount; ?></div>
+            </div>
             </div>
 
             <div class="card stat-card">
-                <h2>Total Orders per Month</h2>
-                <canvas id="ordersPerMonthChart" width="400" height="200"></canvas>
+            <h2>Top Categories Purchased [Gender]</h2>
+            <canvas id="genderPieChart"></canvas>
+            </div>
+
+            <div class="card stat-card">
+            <h2>Total Orders per Month</h2>
+            <canvas id="ordersPerMonthChart" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
 
     <?php include '../includes/footer.php';?>
     <script>
-
-        // Gender Pie Chart
-        const genderLabels = <?php echo json_encode(array_keys($genderCount)); ?>;
-        const genderData = <?php echo json_encode(array_values($genderCount)); ?>;
-
-        const genderCtx = document.getElementById('genderPieChart').getContext('2d');
-        new Chart(genderCtx, {
-            type: 'pie',
-            data: {
-                labels: genderLabels,
-                datasets: [{
-                    data: genderData,
-                    backgroundColor: ['#36A2EB', '#FF6384'],
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Purchase Distribution by Gender'
-                    }
-                }
-            }
-        });
-
-         // Monthly Data from PHP
-        const monthlyLabels = <?php echo $monthlyLabels; ?>; // Months
-        const monthlyValues = <?php echo $monthlyValues; ?>; // Total amounts
-
-        // Monthly Line Chart
-        const monthlyChartCtx = document.getElementById('timeSeriesChart').getContext('2d');
-        new Chart(monthlyChartCtx, {
-            type: 'line',
-            data: {
-                labels: monthlyLabels,
-                datasets: [{
-                    label: 'Total Amount Spent (RM)',
-                    data: monthlyValues,
-                    borderColor: '#36A2EB',
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
-                    title: {
-                        display: true,
-                        text: 'Monthly Total Amount Spent'
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Total Amount (RM)'
-                        },
-                        beginAtZero: true,
-                    
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        const labels = <?php echo $totalOrdersLabels; ?>;
-        const values = <?php echo $totalOrdersValues; ?>;
-
-        // Set up the bar chart
-        const ctx = document.getElementById('ordersPerMonthChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar', // Type of chart - bar chart
-            data: {
-                labels: labels, // X-axis labels (months)
-                datasets: [{
-                    label: 'Total Orders per Month',
-                    data: values, // Data for each bar (total orders)
-                    backgroundColor: '#36A2EB', // Bar color
-                    borderColor: '#36A2EB', // Border color of the bars
-                    borderWidth: 1, // Border width
-                    barThickness: 60
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Total Orders per Month' // Title of the chart
-                    },
-                    legend: {
-                        display: false // Disable legend
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month' // Label for the X-axis
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Total Orders' // Label for the Y-axis
-                        },
-                        beginAtZero: true // Start Y-axis from 0
-                    }
-                }
-            }
-        });
+        const availableYears = <?= json_encode($availableYears); ?>;
+        const allMonthlyData = <?= json_encode($monthlyAmountData); ?>;
+        const allOrdersData = <?= json_encode($monthlyOrderCounts); ?>;
+        const yearlyStats = <?= json_encode($yearlyStats); ?>;
     </script>
+    <script src="../js/statistics_filter.js"></script>
 </body>
 </html>
 
