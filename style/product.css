@@ -521,7 +521,6 @@
 /* <<<<<<<<<<<<< Phone Viewport >>>>>>>>>>>>>*/
 @media (max-width: 480px) {
     .products-container {
-        max-width: 50%; 
         margin: 0 auto;
         padding: 10px; 
         box-sizing: border-box;
