@@ -17,7 +17,7 @@
 
 .form-container {
     width: auto; /* Adjust width as needed */
-    max-width: 445px;
+    max-width: 465px;
     margin: 35px auto 40px;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@
     text-align: center; /* Ensures text alignment */
     gap: 15px; /* Adds space between elements */
     height: auto;
+    padding: 0 20px;
 }
 
 .form-field {

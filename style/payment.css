@@ -1,0 +1,124 @@
+/* General container styling */
+.checkout-container {
+    background: white;
+    padding: 30px; /* Match padding with editProfile.php */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Match shadow with editProfile.php */
+    width: 100%;
+    max-width: 700px; /* Match width with editProfile.php */
+    margin: 50px auto; /* Center the container */
+    border-radius: 10px; /* Add rounded corners */
+    font-family: 'Inter', sans-serif; /* Match font with editProfile.php */
+}
+
+/* Heading styles */
+.checkout-container h1 {
+    font-size: 24px; /* Match heading size with editProfile.php */
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Label and input styling */
+.checkout-container label {
+    display: block;
+    font-weight: bold; /* Match label styling with editProfile.php */
+    margin: 10px 0 5px;
+    color: #555;
+}
+
+.checkout-container input[type="text"],
+.checkout-container input[type="number"],
+.checkout-container input[type="radio"] {
+    width: 100%;
+    padding: 8px; /* Match input padding with editProfile.php */
+    margin-top: 5px;
+    border: 1px solid #ddd; /* Match border styling with editProfile.php */
+    border-radius: 5px; /* Add rounded corners */
+    font-size: 14px; /* Match font size with editProfile.php */
+    box-sizing: border-box;
+}
+
+.checkout-container input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Button styling */
+.checkout-container .btn {
+    display: block;
+    width: 100%; /* Make the button full width */
+    padding: 12px; /* Match button padding with editProfile.php */
+    background-color: black;
+    color: white;
+    font-size: 16px; /* Match font size with editProfile.php */
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.checkout-container .btn:hover {
+    background-color: #333;
+    transform: scale(1.02);
+}
+
+.checkout-container .btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .checkout-container {
+        padding: 15px;
+    }
+
+    .checkout-container h1 {
+        font-size: 20px;
+    }
+
+    .checkout-container .btn {
+        font-size: 14px;
+    }
+}
+
+.total-price {
+    padding-left: 40px;
+    padding-top: 10px;
+    font-size: 20px; /* Increase font size */
+    font-weight: bold; /* Make it bold */
+    color: #333; /* Optional: Adjust color */
+}
+
+@media (max-width: 480px) {
+    .checkout-container {
+        padding: 10px;
+    }
+
+    .checkout-container h1 {
+        font-size: 18px;
+    }
+
+    .checkout-container label {
+        font-size: 14px;
+    }
+
+    .checkout-container input[type="text"],
+    .checkout-container input[type="number"],
+    .checkout-container input[type="radio"] {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .checkout-container .btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .total-price {
+        font-size: 16px;
+        padding-left: 20px;
+    }
+}
