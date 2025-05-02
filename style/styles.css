@@ -17,9 +17,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 50px;
-    width: auto; /* Limit width for larger screens */
-    /*max-width: 1200px */
-    margin: 0 auto; /* Center the navigation */
+    width: auto; 
+    margin: 0 auto;
     position: relative;
 }
 
@@ -120,7 +119,7 @@ body {
 .hamburger-overlay {
     position: fixed;
     top: 0;
-    left: -300px; /* Initially hidden off-screen */
+    left: -300px; 
     width: 300px;
     height: 100vh;
     background-color: #fff;
@@ -128,7 +127,7 @@ body {
     z-index: 1001;
     padding: 20px;
     box-sizing: border-box;
-    transition: left 0.3s ease; /* Smooth slide-in effect */
+    transition: left 0.3s ease;
     overflow: hidden;
 }
 
@@ -180,11 +179,11 @@ body {
 
 /* Show the menu when active */
 .hamburger-overlay.active {
-    left: 0; /* Slide into view */
+    left: 0; 
 }
 
 .hamburger-overlay-bg.active {
-    display: block; /* Show the overlay */
+    display: block;
     opacity: 1;
 }
 
@@ -381,7 +380,7 @@ body {
 
 .product img {
     width: 100%;
-    max-width: 340px; /* Restrict image width */
+    max-width: 340px; 
     height: auto;
     border-radius: 5px;
 }

@@ -96,8 +96,8 @@
 
 .order-history-container th,
 .order-history-container td {
-    text-align: left; /* Align both headers and data to the left */
-    padding: 10px 5px; /* Match padding with personalInfo table */
+    text-align: left;
+    padding: 10px 5px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -105,13 +105,13 @@
     font-weight: bold;
     background-color: #f4f4f4;
     color: #333;
-    width: 150px; /* Ensure consistent column width */
-    white-space: nowrap; /* Prevent text wrapping in headers */
+    width: 150px; 
+    white-space: nowrap;
 }
 
 .order-history-container td {
     color: #555;
-    word-wrap: break-word; /* Prevent text overflow */
+    word-wrap: break-word; 
 }
 
 .order-history-container p {
@@ -182,7 +182,7 @@ input[type="text"], input[type="email"], input[type="date"] {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    height: 400px; /* Set a fixed height for the cards */
+    height: 400px;
 }
 
 .card h2 {
@@ -240,7 +240,6 @@ input[type="text"], input[type="email"], input[type="date"] {
 }
 
 #timeSeriesChart {
-    /* Adjust the height of the chart to fit the card */
     height: 330px !important; 
 }
 
