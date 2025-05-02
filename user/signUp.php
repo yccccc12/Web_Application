@@ -92,14 +92,16 @@
             <!-- Name -->
             <div class="form-field">
                 <p>Name</p>
-                <input type="text" id="name" name="name" placeholder="Enter your full name" oninput="validateName()">
+                <input type="text" id="name" name="name" placeholder="Enter your full name" oninput="validateName()"
+                    value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
                 <div id="nameError" class="error"><?php echo $nameError; ?></div>
             </div>
 
             <!-- Phone Number -->
             <div class="form-field">
                 <p>Phone Number</p>
-                <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" oninput="validatePhone()">
+                <input type="tel" id="phone" name="phone" placeholder="XXX-XXXXXXX" pattern="\d{3}-\d{7}" oninput="validatePhone()"
+                    value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : ''; ?>">
                 <div id="phoneError" class="error"><?php echo $phoneError; ?></div>
             </div>
 
@@ -115,7 +117,8 @@
             <div class="form-field">
                 <p>Password</p>
                 <div class="password-input-container">
-                    <input type="password" id="password" name="password" placeholder="Enter your password"  oninput="validatePassword()">
+                    <input type="password" id="password" name="password" placeholder="Enter your password"  oninput="validatePassword()"
+                        value="<?php echo isset($_POST['password']) ? htmlspecialchars($_POST['password']) : ''; ?>">
                     <button type="button" id="togglePassword">
                         <i class="ri-eye-off-line"></i>
                     </button>
