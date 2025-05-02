@@ -72,14 +72,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../style/product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
     <style>
-        .order-details-table{
+        .order-details-table {
             margin-bottom: 10px;
             border-spacing: 0 20px;
+            width: 100%;
+            overflow-x: auto;
         }
 
         .back-btn {
             margin-top: 10px;
-            width: 15%;
+            width: 100%;
+            max-width: 100px;
             height: 45px;
             background-color: black;
             color: white;
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: white;
         }
 
-        .cancel-btn{
+        .cancel-btn {
             margin-left: 20px;
             background: none;
             border: none;
@@ -119,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 10px;
             border: 1px solid #ccc;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         .form-field textarea {
@@ -126,16 +130,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             height: 120px;
         }
 
-        h3{
-
+        h3 {
             font-weight: normal;
         }
 
-        h4{
+        h4 {
             margin-bottom: 5px;
         }
 
-        label{
+        label {
             margin-bottom: 5px;
             font-weight: normal;
         }
@@ -145,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 24px;
         }
 
-        .star-rating{
+        .star-rating {
             margin-bottom: 10px;
         }
 
@@ -154,6 +157,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 0.9em; 
             margin-top: 2px; 
             font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .order-details-table {
+            font-size: 14px;
+            }
+
+            .back-btn {
+            width: 100%;
+            font-size: 12px;
+            }
+
+            .cancel-btn {
+            font-size: 12px;
+            }
+
+            .form-field input,
+            .form-field textarea {
+            font-size: 12px;
+            }
+
+            .star-rating i {
+            font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .order-details-table {
+            font-size: 12px;
+            }
+
+            .back-btn {
+            width: 100%;
+            font-size: 10px;
+            }
+
+            .cancel-btn {
+            font-size: 10px;
+            }
+
+            .form-field input,
+            .form-field textarea {
+            font-size: 10px;
+            }
+
+            .star-rating i {
+            font-size: 18px;
+            }
         }
     </style>
 </head>

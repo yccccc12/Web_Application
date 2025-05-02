@@ -106,89 +106,6 @@ foreach ($defaultStats['colors'] as $color => $count) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(300px, 2fr));
-            gap: 20px;
-            margin: 40px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            height: 400px; /* Set a fixed height for the cards */
-        }
-
-        .card h2 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .card canvas {
-            margin: 0 auto;
-            display: block;
-            max-width: 100%;
-            height: 90%;
-        }
-
-        .stat-card {
-            grid-column: span 2;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: #777;
-            
-        }
-
-        .stat-item {
-            background: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .stat-item h2 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .stat-item .stat-value {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .stat-item .stat-label {
-            font-size: 1rem;
-            color: #777;
-        }
-
-        #timeSeriesChart {
-            /* Adjust the height of the chart to fit the card */
-            height: 330px !important; 
-        }
-
-        #yearSelector{
-            font-size: 16px;
-            border: none;
-            background: none;
-            color: #5A5A5A;
-            cursor: pointer;
-            outline: none;
-        }
     </style>
 </head>
 <body>
@@ -210,12 +127,12 @@ foreach ($defaultStats['colors'] as $color => $count) {
         </div>
         <div class="dashboard-grid">
             <!-- Total Amount Spent -->
-            <div class="card stat-card">
+            <div class="mycard stat-card">
             <h2>Total Amount Spent across Month</h2>
             <canvas id="timeSeriesChart"></canvas>
             </div>
 
-            <div class="card stat-card">
+            <div class="mycard stat-card">
             <div class="stat-item">
                 <h2>Total Amount Spent</h2>
                 <div class="stat-value" id="totalAmount">RM <?= number_format($defaultStats['totalAmount'], 2); ?></div>
@@ -235,12 +152,12 @@ foreach ($defaultStats['colors'] as $color => $count) {
             </div>
             </div>
 
-            <div class="card stat-card">
+            <div class="mycard stat-card">
             <h2>Top Categories Purchased [Gender]</h2>
             <canvas id="genderPieChart"></canvas>
             </div>
 
-            <div class="card stat-card">
+            <div class="mycard stat-card">
             <h2>Total Orders per Month</h2>
             <canvas id="ordersPerMonthChart" width="400" height="200"></canvas>
             </div>
