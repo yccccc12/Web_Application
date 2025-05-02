@@ -162,7 +162,7 @@ body {
 }
 
 .hamburger-menu-list li a:hover {
-    color: #333; /* Highlight color on hover */
+    color: #333;
 }
 
 /* Transparent Overlay */
@@ -171,10 +171,10 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* Full viewport height */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    z-index: 1000; /* Below the menu but above the main content */
-    display: none; /* Hidden by default */
+    height: 100vh; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+    display: none; 
     transition: opacity 0.3s ease;
 }
 
@@ -192,7 +192,7 @@ body {
 @media (max-width: 480px) {
     
     .nav-menu, .nav-icons i{
-        display: none; /* Hide navigation links */
+        display: none; 
     }
 
     .logo {
@@ -215,7 +215,7 @@ body {
 /* <<<<<<<<<<<<< Tablet Viewport >>>>>>>>>>>>>*/
 @media screen and (max-width: 768px) {
     .nav-menu, .nav-icons i {
-        display: none; /* Hide navigation links */
+        display: none; 
     }
 
     .logo {
@@ -223,13 +223,13 @@ body {
     }
 
     .hamburger-menu {
-        display: block; /* Show the hamburger menu container */
+        display: block; 
     }
 
     .hamburger-menu i {
-        display: block; /* Ensure the hamburger icon is visible */
-        font-size: 28px; /* Adjust size if needed */
-        color: #333; /* Set the icon color */
+        display: block; 
+        font-size: 28px; 
+        color: #333;
         cursor: pointer;
     }
 
@@ -247,7 +247,7 @@ body {
     opacity: 0;
     text-align: left;
     visibility: hidden;
-    transform: translateY(10px); /* Slightly move up */
+    transform: translateY(10px); 
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     position: absolute;
     background: white;
@@ -264,7 +264,7 @@ body {
 
 .dropdown-menu li a {
     color: #5A5A5A;
-    font-family: Inter, sans-serif; /* Add fallback font */
+    font-family: Inter, sans-serif; 
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
@@ -286,7 +286,7 @@ body {
 }
 
 .divider {
-    border: 1px solid #ccc; /* Light gray solid line */
+    border: 1px solid #ccc; 
 }
 
 
@@ -317,10 +317,10 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: auto; /* Keeps the height fixed */
-    overflow: hidden; /* Prevents unwanted scrolling inside */
-    position: relative; /* Relative positioning to stick to the element above */
-    z-index: 1; /* Ensures it stays above other content */
+    height: auto; 
+    overflow: hidden; 
+    position: relative; 
+    z-index: 1; 
 
 }
 
@@ -450,30 +450,47 @@ body {
 }
 
 /* Responsive Design */
-
-@media (max-width: 768px){
+@media (max-width: 768px) {
     .products-section {
-        grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-        gap: 20px;
-        row-gap: 58px;
-    }
-    .products-section h3, .products-section p {
-        font-size: 16px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 16px;
+        row-gap: 40px;
     }
 
-    .view-all-button {
-        margin-top: 30px;
-        margin-bottom: 40px;
-        font-size: medium;
+    .product img {
+        max-width: 100%; 
     }
-    .new-arrivals h2{
-        margin-top: 35px;
-        margin-bottom: 40px;
-        font-size: 24px;
+
+    /* Individual Product */
+    .product {
+        text-align: center;
+    }
+
+    .product img {
+        width: 100%;
+        max-width: 340px;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .product h3 {
+        font-family: Inter;
+        font-weight: 600;
+        font-size: 16px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .product p {
+        font-size: 15px;
+        font-weight: 500;
+        color: gray;
+        text-align: center;
     }
 }
+
+
 
 /* ========== Why Choose Section =============*/
 .why-choose-section {
@@ -518,10 +535,10 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: auto; /* Keeps the height fixed */
-    overflow: hidden; /* Prevents unwanted scrolling inside */
-    position: relative; /* Relative positioning to stick to the element above */
-    z-index: 1; /* Ensures it stays above other content */
+    height: auto; 
+    overflow: hidden; 
+    position: relative; 
+    z-index: 1; 
 }
 
 [name="why-choose-image"] {
@@ -548,16 +565,16 @@ body {
 
 @media (max-width: 970px) {
     .why-choose-section {
-        grid-template-columns: 1fr; /* Switch to a single column */
+        grid-template-columns: 1fr; 
     }
 
     .reason-description {
-        padding-right: 0; /* Remove padding on smaller screens */
-        text-align: center; /* Center text for better readability */
+        padding-right: 0; 
+        text-align: center; 
     }
 
     .why-choose-image-container {
-        order: -1; /* Move the image above the text */
+        order: -1; 
     }
 
 }
@@ -583,8 +600,8 @@ body {
 
 .section{
     display: flex;
-    justify-content: space-between; /* Spaces the sections evenly */
-    align-items: start; /* Aligns items at the top */
+    justify-content: space-between; 
+    align-items: start; 
     width: auto;
     margin: 0 auto;
     gap: 20px;
