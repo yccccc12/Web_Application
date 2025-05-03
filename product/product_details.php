@@ -118,6 +118,7 @@ $reviews = $product->getRecentReviews($productID);
 
     .review-rating {
       font-size: 1.2rem;
+      margin-bottom: 5px;
     }
     </style>
 </head>
