@@ -27,7 +27,7 @@
                         </a>
                         <a href="https://www.instagram.com/sub_officialmy/" target="_blank" rel="noopener noreferrer">
                             <i class="ri-instagram-line"></i>
-                        </a>
+                        </a>
                     </li>
                 </ul>
             </div>

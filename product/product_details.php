@@ -306,6 +306,7 @@ $reviews = $product->getRecentReviews($productID);
 
                 return;
             } else if (alreadyInCart + quantity > maxStock) {
+                // When the cart has more than the remaining stock
                 const remaining = maxStock - alreadyInCart;
                 const message = `<i class="ri-error-warning-fill"></i> You already have ${alreadyInCart} of size ${size} in your cart. You can only add ${remaining > 0 ? remaining : 0} more.`;
 
@@ -323,6 +324,7 @@ $reviews = $product->getRecentReviews($productID);
 
             });
            
+            // Send the data to add to cart.php
             fetch('../cart/add_to_cart.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
