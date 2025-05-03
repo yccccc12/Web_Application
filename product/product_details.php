@@ -85,6 +85,11 @@ $reviews = $product->getRecentReviews($productID);
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
+    .review-size{
+        font-size: 0.9rem;
+        color: #666;
+    }
+
     .review-title {
       font-weight: bold;
       margin: 10px 0;
@@ -94,12 +99,6 @@ $reviews = $product->getRecentReviews($productID);
       font-size: 0.95rem;
       margin: 10px 0;
       color: #333;
-    }
-
-    .review-author {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: #666;
     }
 
     .arrow {
@@ -194,6 +193,7 @@ $reviews = $product->getRecentReviews($productID);
                             <i class="ri-star<?= $i <= $review['rating'] ? '-fill' : '-line' ?>"></i>
                         <?php endfor; ?>
                     </div>
+                    <div class="review-size">Size: <?= htmlspecialchars($review['size']) ?></div>
                     <div class="review-text"><?= htmlspecialchars($review['review']) ?></div>
                     <div class="review-title"><?= htmlspecialchars($review['userName']) ?></div>
                     </div>

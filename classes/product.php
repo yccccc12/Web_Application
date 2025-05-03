@@ -199,6 +199,7 @@ class Product {
                 Ratings.rating,
                 Ratings.review,
                 Ratings.productID,
+                Ratings.size,
                 Products.name AS productName,
                 Users.name AS userName
             FROM Ratings

@@ -79,6 +79,7 @@ CREATE TABLE Ratings (
     ratingID INT AUTO_INCREMENT,
     orderID INT,
     productID INT,
+    size CHAR(2) NOT NULL,
     userID INT,
     rating INT,
     review TEXT,
@@ -220,13 +221,13 @@ VALUES
 (8, 2, 5, 2);
 
 -- Insert sample ratings and reviews
-INSERT INTO Ratings (orderID, productID, userID, rating, review)
+INSERT INTO Ratings (orderID, productID, size, userID, rating, review)
 VALUES
-(1, 1, 1, 5, 'Excellent quality hoodie.'),
-(2, 3, 1, 4, 'Good shirt, soft material.'),
-(3, 9, 1, 5, 'Perfect fit and color.'),
-(4, 5, 1, 3, 'Okay, not what I expected.'),
-(5, 10, 1, 5, 'Great fabric and fit.'),
-(6, 6, 1, 4, 'Nice color and material.'),
-(7, 11, 1, 3, 'Looks okay, average quality.'),
-(8, 2, 1, 5, 'Love the style and color!');
+(1, 1, 'M', 1, 5, 'Excellent quality hoodie.'),
+(2, 3, 'S' , 1, 4, 'Good shirt, soft material.'),
+(3, 9, 'L', 1, 5, 'Perfect fit and color.'),
+(4, 5, 'S', 1, 3, 'Okay, not what I expected.'),
+(5, 10, 'S', 1, 5, 'Great fabric and fit.'),
+(6, 6, 'M', 1, 4, 'Nice color and material.'),
+(7, 11, 'S', 1, 3, 'Looks okay, average quality.'),
+(8, 2, 'S', 1, 5, 'Love the style and color!');

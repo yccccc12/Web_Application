@@ -93,21 +93,21 @@ class User {
     }
 
     // Save user review
-    public function saveUserReview($userID, $productID, $orderID, $rating, $review) {    
+    public function saveUserReview($userID, $productID, $size, $orderID, $rating, $review) {    
         $stmt = $this->conn->prepare(
-            "INSERT INTO Ratings (productID, userID, orderID, rating, review) VALUES (?, ?, ?, ?, ?)"
+            "INSERT INTO Ratings (productID, userID, orderID, rating, review, size) VALUES (?, ?, ?, ?, ?, ?)"
         );
-        $stmt->bind_param("iiiis", $productID, $userID, $orderID, $rating, $review);
+        $stmt->bind_param("iiiiss", $productID, $userID, $orderID, $rating, $review, $size);
         $success = $stmt->execute();
         $stmt->close();
     
         return $success;
     }
 
-    // Check if user has already reviewed a product in an order
-    public function hasReviewedProductInOrder($userID, $productID, $orderID) {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM Ratings WHERE userID = ? AND productID = ? AND orderID = ?");
-        $stmt->bind_param("iii", $userID, $productID, $orderID);
+    // Check if user has already reviewed a product in an order with a specific size
+    public function hasReviewedProductInOrder($userID, $productID, $orderID, $size) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM Ratings WHERE userID = ? AND productID = ? AND orderID = ? AND size = ?");
+        $stmt->bind_param("iiis", $userID, $productID, $orderID, $size);
         $stmt->execute();
         $stmt->bind_result($count);
         $stmt->fetch();

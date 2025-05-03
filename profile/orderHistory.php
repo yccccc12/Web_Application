@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderID = intval($_POST['order_id']);
     $rating = intval($_POST['rating']) ?? 0;
     $comment = trim($_POST['comment']) ?? "";
-
+    $size = $_POST['size'] ?? "";
     $valid = true;
 
     // Validate rating
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // If comment valid, save the comment to the database
     if($valid){
-        $user->saveUserReview($userID, $productID, $orderID, $rating, $comment);
+        $user->saveUserReview($userID, $productID, $size, $orderID, $rating, $comment);
         
         $successMessage = "Thank you for your comment!";
         header("Location: /Web_Application/profile/orderHistory.php?order_id=$orderID");
@@ -258,6 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 $total += $subtotal;    
                                 $productID = $item['productID'];
                                 $orderID = $_GET['order_id'];
+                                $size = $item['size'];
                             ?>
                             <tr>
                             <!-- Display product details if not in review mode -->
@@ -274,10 +275,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p style="margin: 10px 0;">Colour: <?php echo htmlspecialchars($item['colour'] ?? 'N/A'); ?></p>
                                     
                                             <!-- Show the "Rate this product" link if the user hasn't reviewed it yet -->
-                                            <?php if (!$user->hasReviewedProductInOrder($userID, $productID, $orderID)) {
+                                            <?php if (!$user->hasReviewedProductInOrder($userID, $productID, $orderID, $size)) {
                                                 echo '<p style="margin: 10px 0; text-decoration: underline; color: black; cursor: pointer;" 
-                                                    onclick="window.location.href=\'?order_id=' . $orderDetails['orderID'] . '&product_id=' . $item['productID'] . '\'">
+                                                    
+                                                    onclick="window.location.href=\'?order_id=' . $orderDetails['orderID'] . '&product_id=' . $item['productID'] .  '&size=' . $item['size'] . '\'">
                                                     Rate this product
+
                                                     </p>';
                                             } else {
                                                 // If already reviewed, show a reviewed message
@@ -299,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <?php endif; ?>
 
                             <!-- Show the rating form only if product_id matches this product -->
-                            <?php if (isset($_GET['product_id']) && $_GET['product_id'] == $item['productID']): ?>
+                            <?php if (isset($_GET['product_id'], $_GET['size']) && $_GET['product_id'] == $item['productID'] && $_GET['size'] == $item['size']): ?>
                                 <td colspan="100%">
                                     <!-- Rating Form Container-->
                                     <div id="rating-form-<?php echo $item['productID']; ?>" style="display: block;">
@@ -315,6 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <form method="post" id="rating-form">
                                             <input type="hidden" name="order_id" value="<?php echo $orderID; ?>">
                                             <input type="hidden" name="product_id" value="<?php echo $item['productID']; ?>">
+                                            <input type="hidden" name="size" value="<?php echo $item['size']; ?>">
                                             <input type="hidden" name="rating" id="rating-value">
 
                                             <!-- Rating -->
