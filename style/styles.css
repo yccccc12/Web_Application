@@ -630,6 +630,10 @@ body {
     text-decoration: underline;
 }
 
+.footer-icons a:hover{
+    text-decoration: none;
+}
+
 .section-heading{
     color: black;
     text-decoration: underline;

@@ -19,9 +19,15 @@
                 <ul>
                     <li class="section-heading">FOLLOW US</li>
                     <li class="footer-icons">
-                        <i class="ri-facebook-circle-fill"></i>
-                        <i class="ri-youtube-fill"></i>
-                        <i class="ri-instagram-line"></i>
+                        <a href="https://www.facebook.com/SUBOFFICIALSTORE" target="_blank" rel="noopener noreferrer">
+                            <i class="ri-facebook-circle-fill"></i>
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=Duran" target="_blank" rel="noopener noreferrer">
+                            <i class="ri-youtube-fill"></i>
+                        </a>
+                        <a href="https://www.instagram.com/sub_officialmy/" target="_blank" rel="noopener noreferrer">
+                            <i class="ri-instagram-line"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
