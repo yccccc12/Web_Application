@@ -8,14 +8,6 @@ class User {
         $this->conn = Database::connect();
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getEmail() {
-        return $this->email;
-    }
-
     // Register a new user
     public function register($name, $phone, $email, $password) {
         // Hash the password for security
