@@ -77,6 +77,7 @@ $product = new Product();
                             <i class="ri-delete-bin-line"></i>
                         </button>
                     </form>
+                    <div id="stock-message-<?php echo $item['product_id']; ?>-<?php echo $item['size']; ?>" style="display:none; color: red;"></div>
                 </td>
                 <td style="text-align:center;"><?php echo number_format($price, 2); ?></td>
                 <td style="text-align:center;"><?php echo number_format($subtotal, 2); ?></td>
@@ -106,7 +107,10 @@ $product = new Product();
 
                     if (currentQty >= maxStock) {
                         event.preventDefault();
-                        alert("Maximum stock reached!");
+                        const stockMessage = document.getElementById("stock-message-" + maxStockInput.id.split('-')[2] + "-" + maxStockInput.id.split('-')[3]);
+                        stockMessage.innerHTML = '<i class="ri-error-warning-fill"></i> Maximum stock reached!';
+                        stockMessage.style.fontSize = "14px";
+                        stockMessage.style.display = "block";
                     }
                 });
             });

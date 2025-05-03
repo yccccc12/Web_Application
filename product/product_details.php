@@ -216,9 +216,10 @@ $reviews = $product->getRecentReviews($productID);
         const decreaseBtn = document.querySelector('.quantity-btn.decrease');
         const increaseBtn = document.querySelector('.quantity-btn.increase');            
         const stockDisplay = document.getElementById('stockDisplay');
+        const stockMessage = document.getElementById('stock-message');
         const addToCartBtn = document.querySelector('.add-to-cart-btn');
         const checkoutBtn = document.querySelector('.checkout-btn');
-        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>; // Pass login status to JavaScript
+        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
         const cartQuantity = <?php echo json_encode($cartQuantities, JSON_HEX_TAG); ?>;
         let maxStock = 1;
 
@@ -230,7 +231,7 @@ $reviews = $product->getRecentReviews($productID);
             quantityInput.value = 1;
             stockDisplay.textContent = `In stock: ${maxStock}`;
         } else {
-            stockDisplay.textContent = "No stock available.";
+            stockDisplay.textContent = "No size available.";
         }
 
         sizeButtons.forEach(btn => {
@@ -285,7 +286,9 @@ $reviews = $product->getRecentReviews($productID);
 
             const activeSizeBtn = document.querySelector('.size-btn.active');
             if (!activeSizeBtn) {
-                alert('Please select a size before adding to cart.');
+                const message = '<i class="ri-error-warning-fill"></i> No stock available.';
+                stockMessage.innerHTML = message;
+                stockMessage.style.display = 'block';
                 return;
             }
 
@@ -298,18 +301,16 @@ $reviews = $product->getRecentReviews($productID);
                 // When the cart has exactly the remaining stock
                 const message = '<i class="ri-error-warning-fill"></i> You have reached the maximum stock.';
 
-                const messageElement = document.getElementById('stock-message');
-                messageElement.innerHTML = message;  // Use innerHTML to render the icon
-                messageElement.style.display = 'block';
+                stockMessage.innerHTML = message;
+                stockMessage.style.display = 'block';
 
                 return;
             } else if (alreadyInCart + quantity > maxStock) {
                 const remaining = maxStock - alreadyInCart;
                 const message = `<i class="ri-error-warning-fill"></i> You already have ${alreadyInCart} of size ${size} in your cart. You can only add ${remaining > 0 ? remaining : 0} more.`;
 
-                const messageElement = document.getElementById('stock-message');
-                messageElement.innerHTML = message;  // Use innerHTML to render the icon
-                messageElement.style.display = 'block';
+                stockMessage.innerHTML = message;
+                stockMessage.style.display = 'block';
 
                 return;
             } 
@@ -358,7 +359,9 @@ $reviews = $product->getRecentReviews($productID);
 
             const activeSizeBtn = document.querySelector('.size-btn.active');
             if (!activeSizeBtn) {
-                alert('Please select a size before proceeding.');
+                const message = '<i class="ri-error-warning-fill"></i> No stock available.';
+                stockMessage.innerHTML = message;
+                stockMessage.style.display = 'block';
                 return;
             }
 
