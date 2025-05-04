@@ -57,6 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ],
     ]);
 
+    unset($_SESSION['cart']); // Clear the cart session variable
+
     // Redirect to the success page
     header("Location: /Web_Application/payment/success.php");
     exit;
