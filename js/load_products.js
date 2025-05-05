@@ -51,7 +51,11 @@ function loadProducts(products, category = "all") {
         let productHTML = `
             <div class="product" data-color="${product.colour}" data-size='${JSON.stringify(product.variants.map(variant => variant.size))}'>
             <a href="${window.location.pathname.includes('products_listing.php') ? 'product_details.php?id=' + product.productID : 'product/product_details.php?id=' + product.productID}">
-                <img src="/Web_Application/img/${product.images[0]['image_url'].replace('../img/', '')}" alt="${product.name}">
+            <img 
+                src="${window.location.pathname.includes('products_listing.php') 
+                        ? product.images[0]['image_url'] 
+                        : '/Web_Application/img/' + product.images[0]['image_url'].replace('../img/', '')}" 
+                alt="${product.name}">
             </a>
             <h3>${product.name}</h3>
             <p>RM${product.price}</p>
