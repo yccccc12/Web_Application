@@ -54,7 +54,7 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
 
             <h2>Shipping Address</h2>
             <label for="unit">Unit/House Number:</label>
-            <input type="text" id="unit" name="unit" placeholder="Enter your House Number" required>
+            <input type="number" id="unit" name="unit" placeholder="Enter your House Number" required>
 
             <label for="state">State:</label>
             <input type="text" id="state" name="state" placeholder="Enter your State" required>
@@ -64,7 +64,7 @@ if (isset($_GET['product_id'], $_GET['size'], $_GET['quantity'], $_GET['colour']
 
             <div class="form-group">
                 <label for="postcode">Postcode:</label>
-                <input type="text" id="postcode" name="postcode" placeholder="Enter your Postcode" required>
+                <input type="number" id="postcode" name="postcode" placeholder="Enter your Postcode" required>
             </div>
 
             <br>

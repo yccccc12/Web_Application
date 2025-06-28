@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form id="paymentForm" action="cart_processPayment.php" method="POST" style="padding-left: 40px; padding-right: 40px;">
             <h2>Shipping Address</h2>
             <label for="unit">Unit/House Number:</label>
-            <input type="text" id="unit" name="unit"placeholder="Enter your House Number"  required>
+            <input type="number" id="unit" name="unit"placeholder="Enter your House Number"  required>
 
             <label for="state">State:</label>
             <input type="text" id="state" name="state" placeholder="Enter your State"  required>
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-group">
                 <label for="postcode">Postcode</label>
-                <input type="text" id="postcode" name="postcode" placeholder="Enter your postcode" required>
+                <input type="number" id="postcode" name="postcode" placeholder="Enter your postcode" required>
             </div>
 
             <br>
